@@ -8,13 +8,20 @@ this repo target to share potential use case and prompt on granite-code models.
 
 ## tips
 
+### tips for WCA
+
+- simple instruction works fine, hence make it simple
+- the output is quite consistent
+
+### tips for watsonx.ai
+
 - Need to follow “Question:Answer:” prompt format
 For Code Generative topic, target to have more consistent output => set decoding method as greedy,
 - Sensitive to the main instruction. (e.g. Generate, Explain, Review), not quite good on complex instruction sentence.
 - Sensitive on the end of prompt. (easily generate very different with different end word) => Leave “Answer:” at the end for your first few attempt.
 - Prevent repeatition => set repetition penalty as 1.1, and explicit state “don’t repeating”
 
-## environment
+## environment for watsonx.ai
 
 - call watsonx.ai api thru python
 - decoding_method: greedy
@@ -31,7 +38,13 @@ For Code Generative topic, target to have more consistent output => set decoding
 
 ### 1. Generate Documentation
 
-- prompt
+- chat input in WCA
+
+```text
+generate javadoc document for the java provided. java: @filename
+```
+
+- prompt in watsonx.ai
 
 ```text
 Question:
@@ -110,7 +123,57 @@ public class Main {
 
 ### 2. Review and Scoring
 
-- prompt
+- chat input in WCA
+
+```text
+Review the code @filename
+```
+
+- sample output
+
+```
+Answer: Sure, I can review your code. Here's what I found:
+
+Line 3: The package declaration is incorrect. It should be package com.example; instead of package com.ibm.j9ddr.vm29.pointer.generated;.
+
+Line 6: The import statement is unnecessary. It should be removed.
+
+Line 14: The method calculate does not perform any operations on the array a. It should be renamed to something more appropriate, such as sumArray.
+
+Line 18: The method print does not perform any operations on the array a. It should be renamed to something more appropriate, such as printArray.
+
+Line 22: The method sort does not perform any operations on the array a. It should be renamed to something more appropriate, such as sortArray.
+
+Line 25: The variable median is unused. It should be removed.
+
+Overall, the code is well-written and follows best practices in Java. However, there are some areas where it could be improved.
+```
+
+- chat input in WCA
+
+```text
+review the code in completeness, logic, performance and quality. @filename
+```
+
+- sample output
+
+```text
+The code is complete as it contains all the necessary components to solve the problem. The code is well-written and follows good coding practices. The code is efficient as it uses the built-in Java sorting algorithm and calculates the median value using mathematical operations. However, there may be room for improvement in terms of readability, efficiency, and error handling.
+```
+
+- chat input in WCA
+
+```text
+give a score out of 10 for the quality of code. @filename
+```
+
+- sample output
+
+```text
+5
+```
+
+- prompt in watsonx.ai
 
 ```text
 Question:
@@ -148,7 +211,7 @@ Overall, the code is a good starting point, but there are some areas that could 
 
 ### 3. Improve base on review
 
-- prompt
+- prompt watsonx.ai
 
 ```text
 Question:
@@ -198,7 +261,13 @@ public class Main {
 
 ### 4. Fix code
 
-- prompt
+- chat with WCA
+
+```text
+fix the code provided. @filename
+```
+
+- prompt in watsonx.ai
 
 ```text
 Question:
@@ -255,7 +324,29 @@ public class Main {
 
 ### 5. Generate Diagram
 
-- prompt
+- chat in WCA
+
+```text
+generate mermaid diagram for the java code provided. @filename
+```
+
+- sample output
+
+```mermaid
+// Assisted by WCA@IBM
+// Latest GenAI contribution: ibm/granite-20b-code-instruct-v2
+classDiagram
+class Main{
+  <<class>>
+  -int[] a
+  +void main(String[] args)
+  +void calculate(int[] a)
+  +void print(int[] a)
+  +void sort(int[] a)
+}
+```
+
+- prompt in watsonx.ai
 
 ```text
 Question:
@@ -294,7 +385,80 @@ deactivate Program
 
 ### 6. Code Conversion
 
-- prompt
+- chat in WCA
+
+```text
+convert it to csharp, @filename
+```
+
+- sample output
+
+```csharp
+// Assisted by WCA@IBM
+// Latest GenAI contribution: ibm/granite-20b-code-instruct-v2
+//Main.cs
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace Main
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                var input = Console.ReadLine().Split(' ').Select(int.Parse).ToArray();
+                var n = input[0];
+                var a = new int[n];
+                for (int i = 0; i < n; i++)
+                {
+                    a[i] = Convert.ToInt32(Console.ReadLine());
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+        }
+
+        public void Calculate(int[] a)
+        {
+            int sum = 0;
+            for (int i = 0; i < a.Length; i++)
+            {
+                sum += a[i];
+            }
+            Console.WriteLine(sum);
+        }
+
+        public void Print(int[] a)
+        {
+            for (int i = 0; i < a.Length; i++)
+            {
+                Console.WriteLine(a[i]);
+            }
+        }
+
+        public void Sort(int[] a)
+        {
+            Array.Sort(a);
+            double median;
+            if (a.Length % 2 == 0)
+            {
+                median = (a[a.Length / 2 - 1] + a[a.Length / 2]) / 2.0;
+            }
+            else
+            {
+                median = a[a.Length / 2];
+            }
+        }
+    }
+}
+```
+
+- prompt in watsonx.ai
 
 ```text
 Question:
@@ -344,6 +508,7 @@ if __name__ == "__main__":
 ### 7. Style Improvement
 
 - apply FSL (Fewshot Learning)
+- prompt in watsonx.ai
 
 ```text
 Question:
@@ -376,7 +541,7 @@ Answer:
 
 ### 8. API Generation
 
-- prompt
+- prompt in watsonx.ai
 
 ```text
 Question:
@@ -391,7 +556,7 @@ Answer:
 
 ### 9. Test Case Generation
 
-- prompt
+- prompt in watsonx.ai
 
 ```text
 Question:
@@ -480,7 +645,7 @@ public void testBoundaryCases() {
 
 ### 10. Interface Generation
 
-- prompt
+- prompt in watsonx.ai
 
 ```text
 Question:
@@ -509,7 +674,7 @@ In this interface, we have defined three methods: `calculate`, `print`, and `sor
 
 ### 11. Build and Deployment Scipt Generation
 
-- prompt 
+- prompt in watsonx.ai
 
 ```text
 Question:
@@ -522,6 +687,8 @@ Answer:
 - sample output
 
 ### 12. Code Completion
+
+- prompt in watsonx.ai
 
 ```text
 Question:
@@ -539,6 +706,8 @@ next line:```{language}
 
 
 ### 13. Code Explanation
+
+- prompt in watsonx.ai
 
 ```text
 Question:
