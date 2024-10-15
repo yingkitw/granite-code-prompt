@@ -211,7 +211,7 @@ Overall, the code is a good starting point, but there are some areas that could 
 
 ### 3. Improve base on review
 
-- prompt watsonx.ai
+- prompt in watsonx.ai
 
 ```text
 Question:
@@ -261,7 +261,7 @@ public class Main {
 
 ### 4. Fix code
 
-- chat with WCA
+- chat in WCA
 
 ```text
 fix the code provided. @filename
@@ -333,8 +333,6 @@ generate mermaid diagram for the java code provided. @filename
 - sample output
 
 ```mermaid
-// Assisted by WCA@IBM
-// Latest GenAI contribution: ibm/granite-20b-code-instruct-v2
 classDiagram
 class Main{
   <<class>>
