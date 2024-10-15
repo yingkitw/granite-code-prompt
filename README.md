@@ -554,6 +554,49 @@ Answer:
 
 ### 9. Test Case Generation
 
+- chat in WCA
+
+```text
+generate Test Cases in junit for the java code provided. @filename
+```
+
+- sample output
+
+```java
+// Assisted by WCA@IBM
+// Latest GenAI contribution: ibm/granite-20b-code-instruct-v2
+package com.example;
+
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class MainTest {
+
+    @Test
+    void testCalculate() {
+        int[] a = {1, 2, 3};
+        Main main = new Main();
+        assertEquals(6, main.calculate(a));
+    }
+
+    @Test
+    void testPrint() {
+        int[] a = {1, 2, 3};
+        Main main = new Main();
+        main.print(a);
+    }
+
+    @Test
+    void testSort() {
+        int[] a = {1, 2, 3};
+        Main main = new Main();
+        main.sort(a);
+    }
+}
+
+```
+
 - prompt in watsonx.ai
 
 ```text
@@ -643,6 +686,30 @@ public void testBoundaryCases() {
 
 ### 10. Interface Generation
 
+- chat in WCA
+
+```text
+generate java interface version base on the java code provided. @filename
+```
+
+```java
+// Assisted by WCA@IBM
+// Latest GenAI contribution: ibm/granite-20b-code-instruct-v2
+//Main.java
+import java.util.*;
+
+import com.ibm.j9ddr.vm29.pointer.generated.processor_cpu_load_infoPointer;
+
+public interface Main {
+
+    public void calculate(int[] a);
+
+    public void print(int[] a);
+
+    public void sort(int[] a);
+}
+```
+
 - prompt in watsonx.ai
 
 ```text
@@ -671,6 +738,46 @@ In this interface, we have defined three methods: `calculate`, `print`, and `sor
 
 
 ### 11. Build and Deployment Scipt Generation
+
+- chat in WCA
+
+```text
+generate build and deployment (openshift and liberty) script for the java code provided. @filename
+```
+
+```bash
+Build Script:
+
+
+// Assisted by WCA@IBM
+// Latest GenAI contribution: ibm/granite-20b-code-instruct-v2
+#!/bin/bash
+
+# Build the Java application
+javac -cp .:./lib/* ./src/Main.java
+
+# Create a Liberty server package
+mkdir server
+cp ./src/server.xml ./server/server.xml
+cp ./target/Main.class ./server/apps/
+
+# Package the application as a Docker image
+docker build -t java-app .
+
+Deployment Script:
+
+
+// Assisted by WCA@IBM
+// Latest GenAI contribution: ibm/granite-20b-code-instruct-v2
+#!/bin/bash
+
+# Deploy the Docker image to OpenShift
+oc new-project java-app
+oc new-app java-app --name=java-app
+
+# Expose the application to the outside world
+oc expose svc/java-app
+```
 
 - prompt in watsonx.ai
 
@@ -704,6 +811,18 @@ next line:```{language}
 
 
 ### 13. Code Explanation
+
+- chat in WCA
+
+```text
+Please provide a detailed explanation for the following java code @filename
+```
+
+- sample output
+
+```markdown
+The above code defines a class named Main which contains a main method that takes an array of integers as input and performs various operations on it. The first operation is to read the size of the array from the standard input using the Scanner class, and then create an array of that size. The next operation is to read the elements of the array from the standard input using the same Scanner instance and store them in the array. The calculate method calculates the sum of all the elements in the array and prints it to the standard output. The print method simply prints each element of the array on a separate line. The sort method sorts the array using the Arrays.sort method, and then calculates the median of the array by checking whether the length of the array is even or odd, and computing the average of the two middle elements if it's even, or returning the middle element if it's odd.
+```
 
 - prompt in watsonx.ai
 
