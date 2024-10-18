@@ -143,56 +143,6 @@ give a score out of 10 for the quality of code. @filename
 5
 ```
 
-### 3. Improve base on review
-
-- prompt in watsonx.ai
-
-```text
-Question:
-improve the {language} provided base on the review provided.
--understand the review suggestion in detail.
--adopt the review suggestion if applicable.
-{language}: `{sample_code}`
-review suggestion: `{review}`
-Answer:
-improved version:
-```
-
-- sample output
-
-```java
-import java.util.*;
-
-public class Main {
-
-    public static void main(String[] args) {
-        try (Scanner in = new Scanner(System.in)) {
-            int n = in.nextInt();
-            int[] a = new int[n];
-            for(int i=0; i < n; i++){
-                a[i] = in.nextInt();
-            }
-            // Combine the calculate and print methods into a single method that prints the sum of the array elements.
-            int sum = 0;
-            for (int i = 0; i < a.length; i++) {
-                sum += a[i];
-            }
-            System.out.println("Sum: " + sum);
-
-            // Use an in-place sorting algorithm such as quicksort or mergesort to optimize the performance of the sort method.
-            Arrays.sort(a);
-            double median;
-            if (a.length % 2 == 0) {
-                median = (a[a.length / 2 - 1] + a[a.length / 2]) / 2.0;
-            } else {
-                median = a[a.length / 2];
-            }
-            System.out.println("Median: " + median);
-        }
-    }
-}
-```
-
 ### 4. Fix code
 
 - chat in WCA
@@ -340,54 +290,6 @@ namespace Main
 }
 ```
 
-### 7. Style Improvement
-
-- apply FSL (Fewshot Learning)
-- prompt in watsonx.ai
-
-```text
-Question:
-generate document for the code. 
-code: `void main(){{
-    System.out.print("hello");
-}}`
-Answer:
-Here is a documentation generated from your code:
-```{language}
-/**
- * IBM documentation style of Main, with parameter of args in String[].
- */
-public class MainABC {{
-
-    /**
-     * The entry point of the program.
-     * @param args the command line arguments
-     */
-    public static void mainDEF(String[] args) {{
-        System.out.println("Hello");
-    }}
-}}
-```
-Question:
-generate document for the code. 
-code: `{sample_code}`
-Answer:
-```
-
-### 8. API Generation
-
-- prompt in watsonx.ai
-
-```text
-Question:
-generate a API definition in swagger for the {language} code provided.
-{language}: `{sample_code}`
-Answer:
-```
-
-- sample output
-
-
 
 ### 9. Test Case Generation
 
@@ -504,25 +406,6 @@ oc new-app java-app --name=java-app
 oc expose svc/java-app
 ```
 
-### 12. Code Completion
-
-- prompt in watsonx.ai
-
-```text
-Question:
-please generate the next few line of {language} code after the code provided provided.
--please understand the name of the function if any.
--please understand the comment if any.
--please generate high quality {language} code.
--end the generation with double newline.
-System:
-code = `{partial_code}
-`
-Answer:
-next line:```{language}
-```
-
-
 ### 13. Code Explanation
 
 - chat in WCA
@@ -535,32 +418,6 @@ Please provide a detailed explanation for the following java code @filename
 
 ```markdown
 The above code defines a class named Main which contains a main method that takes an array of integers as input and performs various operations on it. The first operation is to read the size of the array from the standard input using the Scanner class, and then create an array of that size. The next operation is to read the elements of the array from the standard input using the same Scanner instance and store them in the array. The calculate method calculates the sum of all the elements in the array and prints it to the standard output. The print method simply prints each element of the array on a separate line. The sort method sorts the array using the Arrays.sort method, and then calculates the median of the array by checking whether the length of the array is even or odd, and computing the average of the two middle elements if it's even, or returning the middle element if it's odd.
-```
-
-
-### 14. Code Optimization
-
-- prompt #1 to generate suggestion
-
-```text
-Question:
-generate a prompt to enhance the {language} code provided.
--the java will target for high performance computing.
--consider use CUDA if applicable.
-{language}: `{sample_code}`
-Answer:
-```
-
-- prompt #2 to adopt the suggestion
-
-```text
-Question:
-enhance the {language} code provided base on the suggestion.
--target environment be with Nvidia GPU.
-suggestion: `{suggestion}`
-{language}: `{sample_code}`
-Answer:
-enhance version:
 ```
 
 ## sample java
