@@ -149,7 +149,7 @@ generate {documentframework} document for the {language} provided.
 <|assistant|>
 ```{language}"""
 
-answer = model.generate_text(prompt,model_id).replace("```","")
+answer = model.generate_text(prompt).replace("```","")
 print(answer)
 ```
 
@@ -235,7 +235,7 @@ you are {language} expert. you need to review the following {language} code.
 <|assistant|>
 score and review:"""
 
-suggestion = model.generate_text(prompt,model_id)
+suggestion = model.generate_text(prompt)
 print(suggestion)
 ```
 
@@ -279,7 +279,7 @@ review suggestion: `{suggestion}`
 improved {language}
 ```{language}"""
 
-answer = model.generate_text(prompt,model_id).replace("```","")
+answer = model.generate_text(prompt).replace("```","")
 print(answer)
 ```
 
@@ -405,7 +405,7 @@ fix the {language} provided.
 fixed version with inline comment at the point it fix.
 ```{language}"""
 
-answer = model.generate_text(prompt,model_id).replace("```","")
+answer = model.generate_text(prompt).replace("```","")
 print(answer)
 ```
 
@@ -472,7 +472,7 @@ generate diagram for the {language} code provided.
 <|assistant|>
 ```mermaid"""
 
-answer = model.generate_text(prompt,model_id).replace("```","")
+answer = model.generate_text(prompt).replace("```","")
 print(answer)
 ```
 
@@ -517,7 +517,7 @@ rewrite the {language} code provided to {target_language}.
 <|assistant|>
 ```{target_language}"""
 
-answer = model.generate_text(prompt,model_id).replace("```","")
+answer = model.generate_text(prompt).replace("```","")
 print(answer)
 ```
 
@@ -570,7 +570,7 @@ generate a API definition in swagger for the {language} code provided.
 ```yaml
 """
 
-answer = model.generate_text(prompt,model_id).replace("```","")
+answer = model.generate_text(prompt).replace("```","")
 print(answer)
 ```
 
@@ -651,7 +651,7 @@ generate Test Cases in {testframework} for the {language} code provided.
 <|assistant|>
 ```java"""
 
-answer = model.generate_text(prompt,model_id).replace("```","")
+answer = model.generate_text(prompt).replace("```","")
 print(answer)
 ```
 
