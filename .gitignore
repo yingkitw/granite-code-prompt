@@ -1,4 +1,3 @@
 .env
-.ipynb~
-.md~
+*~
 __pycache__
