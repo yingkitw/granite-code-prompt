@@ -424,7 +424,6 @@ The above code defines a class named Main which contains a main method that take
 
 ```java
 import java.util.*;
-import com.ibm.j9ddr.vm29.pointer.generated.processor_cpu_load_infoPointer;
 public class Main {
 public static void main(String[] args) {
 try (Scanner in = new Scanner(System.in)) {
@@ -463,7 +462,6 @@ median = a[a.length / 2];
 
 ```java
 import java.util.*;
-import com.ibm.j9ddr.vm29.pointer.generated.processor_cpu_load_infoPointer;
 public class Main {
 public static void main(String[] args) {
 try (Scanner in = new Scanner(System.in)) {

@@ -1,7 +1,5 @@
 import java.util.*;
 
-import com.ibm.j9ddr.vm29.pointer.generated.processor_cpu_load_infoPointer;
-
 public class Main {
 
     public static void main(String[] args) {
