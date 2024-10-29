@@ -5,11 +5,13 @@ Experiment Objectives
 The experiment focuses on several key areas, grouped into Code Understanding and Code Generation:
 
 Code Understanding
+
 - Code Explanation: Break down complex code snippets to make them easier to understand.
 - Code Documentation: Automatically generate detailed documentation to keep records up-to-date.
 - Code Review: Analyze code for potential improvements and ensure adherence to best practices.
 
 Code Generation
+
 - Code Improvement: Suggest optimizations to enhance efficiency and performance.
 - Code Conversion: Translate code between different programming languages.
 - Code Fixing: Identify and resolve bugs or errors in existing code.
@@ -97,7 +99,7 @@ params = {
     # "temperature":0.1,
     GenParams.TOP_K:50,
     GenParams.TOP_P:1,
-    GenParams.STOP_SEQUENCES:["[/INST]","<|user|>","<|endoftext|>","<|assistant|>"],
+    GenParams.STOP_SEQUENCES:["```","[/INST]","<|user|>","<|endoftext|>","<|assistant|>"],
 }
 
 model = ModelInference(model_id="ibm/granite-3-8b-instruct", credentials=creds, params=params, project_id=project_id)
@@ -126,7 +128,7 @@ print(answer)
 
 output for explanation
 
-```
+```markdown
 This Java code is a simple program that reads an array of integers from the user, calculates the sum of its elements, prints each element on a new line, sorts the array, and then finds and prints the median value. Here's a step-by-step explanation:
 1. The `main` method initializes a `Scanner` object to read input from the user. It then reads an integer `n`, which represents the size of the array, and creates an integer array `a` of size `n`.
 2. The `calculate` method takes the array as input and calculates the sum of its elements by iterating through the array and adding each element to a running total. It then prints the sum.
@@ -649,7 +651,7 @@ generate Test Cases in {testframework} for the {language} code provided.
 -focus on exception handling
 {language}: `{sample_code}`
 <|assistant|>
-```java"""
+```{language}"""
 
 answer = model.generate_text(prompt).replace("```","")
 print(answer)
