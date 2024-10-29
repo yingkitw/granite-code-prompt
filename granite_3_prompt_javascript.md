@@ -73,9 +73,9 @@ A few context variable
 
 ```python
 model_id = GRANITE_3_8B_INSTRUCT
-language = "cpp"
-documentframework = "doxygen"
-testframework = "xunit"
+language = "javascript"
+documentframework = "jsdoc"
+testframework = "mocha"
 ```
 
 Initialise with watsonx.ai, please prepare your API_KEY and PROJECT_ID
