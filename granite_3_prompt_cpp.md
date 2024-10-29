@@ -568,7 +568,7 @@ print(answer)
 
 Output for Test Case
 
-```java
+```cpp
 
 #include <iostream>
 #include <vector>
