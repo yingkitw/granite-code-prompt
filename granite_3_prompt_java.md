@@ -1,24 +1,5 @@
 # Prompting with IBM Granite 3 Model for Coding Use Cases
 
-I utilising the latest IBM Granite 3 8B Instruct Model for these coding tasks. This model is lightweight and supports a wide range of programming languages, making it ideal for diverse coding needs.
-Experiment Objectives
-The experiment focuses on several key areas, grouped into Code Understanding and Code Generation:
-
-Code Understanding
-
-- Code Explanation: Break down complex code snippets to make them easier to understand.
-- Code Documentation: Automatically generate detailed documentation to keep records up-to-date.
-- Code Review: Analyze code for potential improvements and ensure adherence to best practices.
-
-Code Generation
-
-- Code Improvement: Suggest optimizations to enhance efficiency and performance.
-- Code Conversion: Translate code between different programming languages.
-- Code Fixing: Identify and resolve bugs or errors in existing code.
-- API Generation: Automatically create APIs from given specifications.
-- Test Case Generation: Develop test cases to ensure code reliability and performance.
-- Diagram Generation: Visualize code structure and workflows through generated diagrams.
-
 The experiment will be conducted using sample Java code to demonstrate these capabilities.
 
 ```java
