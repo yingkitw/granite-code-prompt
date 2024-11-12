@@ -1,4 +1,4 @@
-# Granite Code Prompt Cookbook - WCA Chat
+# WCA Chat Command Cookbook - C#
 
 this repo target to share potential use case and prompt on granite-code models.
 
