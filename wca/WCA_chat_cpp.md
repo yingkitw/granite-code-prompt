@@ -276,7 +276,7 @@ int main() {
 - chat in WCA
 
 ```text
-generate mermaid diagram for the java code provided. @filename
+generate mermaid diagram for the c++ code provided. @filename
 ```
 
 - sample output
@@ -311,6 +311,38 @@ generate c++ interface version base on the c++ code provided. @filename
 ```
 
 ```cpp
+// Assisted by watsonx Code Assistant 
+#include <iostream>
+#include <vector>
+#include <algorithm>
+struct Person {
+    std::string name;
+    int age;
+};
+bool compareByAge(const Person& a, const Person& b) {
+    return a.age < b.age;
+}
+extern "C" {
+    void sortPeopleByAge(Person* people, int numPeople) {
+        std::vector<Person> peopleVector(people, people + numPeople);
+        std::sort(peopleVector.begin(), peopleVector.end(), compareByAge);
+        for (const auto& person : peopleVector) {
+            std::cout << person.name << ": " << person.age << std::endl;
+        }
+    }
+}
+int main() {
+    Person people[] = {
+        {"Alice", 30},
+        {"Bob", 25},
+        {"Charlie", 35},
+        {"Diana", 28},
+        {"Eve", 40}
+    };
+    int numPeople = sizeof(people) / sizeof(people[0]);
+    sortPeopleByAge(people, numPeople);
+    return 0;
+}
 ```
 
 ### 9. Build and Deployment Scipt Generation
@@ -318,10 +350,46 @@ generate c++ interface version base on the c++ code provided. @filename
 - chat in WCA
 
 ```text
-generate build and deployment script for the c++ code provided. @filename
+generate build and deployment script for @filename
 ```
 
 - sample output
 
 ```bash
+# Assisted by watsonx Code Assistant 
+# watsonx Code Assistant did not check whether this code suggestion might be similar to third party code.
+#!/bin/bash
+# Build and deploy the sample C++ program
+# Assuming the program is named sample.cpp
+
+# Compile the program
+g++ -o sample sample.cpp
+
+# Create a directory to store the executable
+mkdir -p bin
+
+# Move the executable to the bin directory
+mv sample bin/
+
+# Create a deployment script to copy the executable to a remote server
+cat << EOF > deploy.sh
+#!/bin/bash
+# Deploy the sample C++ program to a remote server
+# Assuming the remote server is named remote_server
+
+# Copy the executable to the remote server
+scp bin/sample remote_server:/home/remote_user/
+
+# Execute the program on the remote server
+ssh remote_user@remote_server ./sample
+EOF
+
+# Make the deployment script executable
+chmod +x deploy.sh
+
+# Move the deployment script to the bin directory
+mv deploy.sh bin/
+
+# Print the deployment script
+cat bin/deploy.sh
 ```

@@ -33,7 +33,7 @@ this repo target to share potential use case and prompt on granite-code models.
 - sample output
 
 ```markdown
-The above code defines a class named Main which contains a main method that takes an array of integers as input and performs various operations on it. The first operation is to read the size of the array from the standard input using the Scanner class, and then create an array of that size. The next operation is to read the elements of the array from the standard input using the same Scanner instance and store them in the array. The calculate method calculates the sum of all the elements in the array and prints it to the standard output. The print method simply prints each element of the array on a separate line. The sort method sorts the array using the Arrays.sort method, and then calculates the median of the array by checking whether the length of the array is even or odd, and computing the average of the two middle elements if it's even, or returning the middle element if it's odd.
+This code is a C program that implements a singly linked list. It defines a struct Node that represents a node in the list, with an integer data field and a pointer next to the next node in the list. The createNode function creates a new node with the given data and returns a pointer to it. The insertNode function inserts a new node with the given data at the beginning of the list, updating the head pointer if necessary. The printList function prints the data in the list, starting from the head. The main function creates an empty list, inserts some nodes, and prints the list.
 ```
 
 ### 2. Generate Documentation
@@ -47,69 +47,83 @@ The above code defines a class named Main which contains a main method that take
 - sample output
 
 ```c
+// Assisted by watsonx Code Assistant 
 /**
- * This program reads an integer N from stdin, followed by N integers A1,A2,...,AN. It then prints the sum of all elements in the array A, and the median of the array.
+ * @file main.c
+ * @author IBM watsonx Code Assistant
+ * @brief Insert a new node at the beginning of a linked list.
+ * @version 1.0
+ * @date 2021-03-15
+ * 
+ * @copyright Copyright (c) 2021
+ * 
  */
-package com.test;
-
-import java.util.Arrays;
-import java.util.Scanner;
-
-public class Main {
-
-    /**
-     * This method reads an integer N from stdin, followed by N integers A1,A2,...,AN. It then prints the sum of all elements in the array A, and the median of the array.
-     * @param args Unused command line arguments.
-     */
-    public static void main(String[] args) {
-        try (Scanner in = new Scanner(System.in)) {
-            int n = in.nextInt();
-            int[] a = new int[n];
-            for(int a_i=0; a_i < n; a_i++){
-                a[a_i] = in.nextInt();
-            }
-        }
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+/**
+ * @brief Node structure for the linked list.
+ * 
+ */
+typedef struct Node {
+    int data;
+    struct Node* next;
+} Node;
+/**
+ * @brief Create a new node with the given data.
+ * 
+ * @param data The data to be stored in the new node.
+ * @return Node* Pointer to the newly created node.
+ */
+Node* createNode(int data) {
+    Node* newNode = (Node*)malloc(sizeof(Node));
+    newNode->data = data;
+    newNode->next = NULL;
+    return newNode;
+}
+/**
+ * @brief Insert a new node at the beginning of the linked list.
+ * 
+ * @param head Pointer to the head of the linked list.
+ * @param data The data to be stored in the new node.
+ */
+void insertNode(Node** head, int data) {
+    Node* newNode = createNode(data);
+    if (*head == NULL) {
+        *head = newNode;
+        return;
     }
-
-    /**
-     * This method calculates the sum of all elements in the array A.
-     * @param a The input array.
-     */
-    public void calculate(int[] a) {
-        int sum = 0;
-        for (int i = 0; i < a.length; i++) {
-            sum += a[i];
-        }
-        System.out.println(sum);
+    Node* temp = *head;
+    while (temp->next != NULL) {
+        temp = temp->next;
     }
-
-    /**
-     * This method prints each element in the array A on a separate line.
-     * @param a The input array.
-     */
-    public void print(int[] a) {
-        for (int i = 0; i < a.length; i++) {
-            System.out.println(a[i]);
-        }
+    temp->next = newNode;
+}
+/**
+ * @brief Print the elements of the linked list.
+ * 
+ * @param head Pointer to the head of the linked list.
+ */
+void printList(Node* head) {
+    while (head != NULL) {
+        printf("%d ", head->data);
+        head = head->next;
     }
-
-    /**
-     * This method sorts the array A in ascending order, and then calculates the median. If the length of the array is even, it takes the average of the two middle elements.
-     * @param a The input array.
-     */
-    public void sort(int[] a) {
-        Arrays.sort(a);
-        double median;
-        if (a.length % 2 == 0) {
-            median = (a[a.length / 2 - 1] + a[a.length / 2]) / 2.0;
-        } else {
-            median = a[a.length / 2];
-        }
-    }
+    printf("\n");
+}
+int main() {
+    Node* head = NULL;
+    insertNode(&head, 1);
+    insertNode(&head, 2);
+    insertNode(&head, 3);
+    insertNode(&head, 4);
+    insertNode(&head, 5);
+    printList(head);
+    return 0;
 }
 ```
 
-### 3. Code Conversion
+### 3. Code Translate
 
 - chat in WCA
 
@@ -120,67 +134,56 @@ public class Main {
 - sample output
 
 ```csharp
-// Assisted by WCA@IBM
-// Latest GenAI contribution: ibm/granite-20b-code-instruct-v2
-//Main.cs
+// Assisted by watsonx Code Assistant 
+// watsonx Code Assistant did not check whether this code suggestion might be similar to third party code.
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
-namespace Main
+public class Program
 {
-    class Program
+    public static void Main()
     {
-        static void Main(string[] args)
-        {
-            try
-            {
-                var input = Console.ReadLine().Split(' ').Select(int.Parse).ToArray();
-                var n = input[0];
-                var a = new int[n];
-                for (int i = 0; i < n; i++)
-                {
-                    a[i] = Convert.ToInt32(Console.ReadLine());
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
-        }
-
-        public void Calculate(int[] a)
-        {
-            int sum = 0;
-            for (int i = 0; i < a.Length; i++)
-            {
-                sum += a[i];
-            }
-            Console.WriteLine(sum);
-        }
-
-        public void Print(int[] a)
-        {
-            for (int i = 0; i < a.Length; i++)
-            {
-                Console.WriteLine(a[i]);
-            }
-        }
-
-        public void Sort(int[] a)
-        {
-            Array.Sort(a);
-            double median;
-            if (a.Length % 2 == 0)
-            {
-                median = (a[a.Length / 2 - 1] + a[a.Length / 2]) / 2.0;
-            }
-            else
-            {
-                median = a[a.Length / 2];
-            }
-        }
+        Node head = null;
+        InsertNode(ref head, 1);
+        InsertNode(ref head, 2);
+        InsertNode(ref head, 3);
+        InsertNode(ref head, 4);
+        InsertNode(ref head, 5);
+        PrintList(head);
     }
+
+    public static void InsertNode(ref Node head, int data)
+    {
+        Node newNode = new Node();
+        newNode.data = data;
+        newNode.next = null;
+        if (head == null)
+        {
+            head = newNode;
+            return;
+        }
+        Node temp = head;
+        while (temp.next != null)
+        {
+            temp = temp.next;
+        }
+        temp.next = newNode;
+    }
+
+    public static void PrintList(Node head)
+    {
+        while (head != null)
+        {
+            Console.Write(head.data + " ");
+            head = head.next;
+        }
+        Console.WriteLine();
+    }
+}
+
+public class Node
+{
+    public int data;
+    public Node next;
 }
 ```
 
@@ -196,38 +199,49 @@ namespace Main
 - sample output
 
 ```c
-// Assisted by WCA@IBM
-// Latest GenAI contribution: ibm/granite-20b-code-instruct-v2
-package com.example;
+# Assisted by watsonx Code Assistant 
+# watsonx Code Assistant did not check whether this code suggestion might be similar to third party code.
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "test.h"
 
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
-
-class MainTest {
-
-    @Test
-    void testCalculate() {
-        int[] a = {1, 2, 3};
-        Main main = new Main();
-        assertEquals(6, main.calculate(a));
-    }
-
-    @Test
-    void testPrint() {
-        int[] a = {1, 2, 3};
-        Main main = new Main();
-        main.print(a);
-    }
-
-    @Test
-    void testSort() {
-        int[] a = {1, 2, 3};
-        Main main = new Main();
-        main.sort(a);
-    }
+void test_createNode() {
+    Node* node = createNode(10);
+    TEST_ASSERT_EQUAL(10, node->data);
+    TEST_ASSERT_EQUAL(NULL, node->next);
+    free(node);
 }
 
+void test_insertNode() {
+    Node* head = NULL;
+    insertNode(&head, 1);
+    TEST_ASSERT_EQUAL(1, head->data);
+    TEST_ASSERT_EQUAL(NULL, head->next);
+    insertNode(&head, 2);
+    TEST_ASSERT_EQUAL(1, head->data);
+    TEST_ASSERT_EQUAL(2, head->next->data);
+    TEST_ASSERT_EQUAL(NULL, head->next->next);
+}
+
+void test_printList() {
+    Node* head = NULL;
+    insertNode(&head, 1);
+    insertNode(&head, 2);
+    insertNode(&head, 3);
+    insertNode(&head, 4);
+    insertNode(&head, 5);
+    printList(head);
+    // Output: 1 2 3 4 5
+}
+
+int main() {
+    UNITY_BEGIN();
+    RUN_TEST(test_createNode);
+    RUN_TEST(test_insertNode);
+    RUN_TEST(test_printList);
+    return UNITY_END();
+}
 ```
 
 ### 5. Review Code
@@ -235,27 +249,17 @@ class MainTest {
 - chat input in WCA
 
 ```text
-Review the code @filename
+/review @filename
 ```
 
 - sample output
 
 ```
-Answer: Sure, I can review your code. Here's what I found:
+This code is a C program that implements a singly linked list. It defines a struct Node that represents a node in the list, with an integer data field and a pointer next to the next node in the list. The createNode function creates a new node with the given data and returns a pointer to it. The insertNode function inserts a new node with the given data at the beginning of the list, updating the head pointer if necessary. The printList function prints the data in the list, starting from the head. The main function creates an empty list, inserts some nodes, and prints the list.
 
-Line 3: The package declaration is incorrect. It should be package com.example; instead of package com.ibm.j9ddr.vm29.pointer.generated;.
+The code is well-structured and easy to understand. It uses the Large Language Model from IBM Granite that is based on the transformer decoder architecture. The code is also well-documented with comments explaining the purpose of each function and the structure of the Node struct.
 
-Line 6: The import statement is unnecessary. It should be removed.
-
-Line 14: The method calculate does not perform any operations on the array a. It should be renamed to something more appropriate, such as sumArray.
-
-Line 18: The method print does not perform any operations on the array a. It should be renamed to something more appropriate, such as printArray.
-
-Line 22: The method sort does not perform any operations on the array a. It should be renamed to something more appropriate, such as sortArray.
-
-Line 25: The variable median is unused. It should be removed.
-
-Overall, the code is well-written and follows best practices in Java. However, there are some areas where it could be improved.
+Overall, this code is a good example of how to implement a singly linked list in C.
 ```
 
 - chat input in WCA
@@ -267,19 +271,7 @@ review the code in completeness, logic, performance and quality. @filename
 - sample output
 
 ```text
-The code is complete as it contains all the necessary components to solve the problem. The code is well-written and follows good coding practices. The code is efficient as it uses the built-in Java sorting algorithm and calculates the median value using mathematical operations. However, there may be room for improvement in terms of readability, efficiency, and error handling.
-```
-
-- chat input in WCA
-
-```text
-give a score out of 10 for the quality of code. @filename
-```
-
-- sample output
-
-```text
-5
+This code is a C program that implements a singly linked list. It defines a struct Node that represents a node in the list, with an integer data field and a pointer next to the next node in the list. The createNode function creates a new node with the given data and returns a pointer to it. The insertNode function inserts a new node with the given data at the beginning of the list, updating the head pointer if necessary. The printList function prints the data in the list, starting from the head. The main function creates an empty list, inserts some nodes, and prints the list. The code is well-structured and easy to understand. It uses the Large Language Model from IBM Granite that is based on the transformer decoder architecture. The code is also well-documented with comments explaining the purpose of each function and the structure of the Node struct. Overall, this code is a good example of how to implement a singly linked list in C.
 ```
 
 ### 6. Fix Code
@@ -293,42 +285,51 @@ give a score out of 10 for the quality of code. @filename
 - sample output
 
 
-```java
-import java.util.*;
-
-import com.ibm.j9ddr.vm29.pointer.generated.processor_cpu_load_infoPointer;
-
-public class Main {
-
-    public static void main(String[] args) {
-        try (Scanner in = new Scanner(System.in)) {
-            int n = in.nextInt();
-        }
+```c
+# Assisted by watsonx Code Assistant 
+# watsonx Code Assistant did not check whether this code suggestion might be similar to third party code.
+//blob
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+typedef struct Node {
+    int data;
+    struct Node* next;
+} Node;
+Node* createNode(int data) {
+    Node* newNode = (Node*)malloc(sizeof(Node));
+    newNode->data = data;
+    newNode->next = NULL;
+    return newNode;
+}
+void insertNode(Node** head, int data) {
+    Node* newNode = createNode(data);
+    if (*head == NULL) {
+        *head = newNode;
+        return;
     }
-
-    public void calculate(int[] a) {
-        int sum = 0;
-        for (int i = 0; i < a.length; i++) {
-            sum += a[i];
-        }
-        System.out.println(sum);
+    Node* temp = *head;
+    while (temp->next != NULL) {
+        temp = temp->next;
     }
-
-    public void print(int[] a) {
-        for (int i = 0; i < a.length; i++) {
-            System.out.println(a[i]);
-        }
+    temp->next = newNode;
+}
+void printList(Node* head) {
+    while (head != NULL) {
+        printf("%d ", head->data);
+        head = head->next;
     }
-
-    public void sort(int[] a) {
-        Arrays.sort(a);
-        double median;
-        if (a.length % 2 == 0) {
-            median = (a[a.length / 2 - 1] + a[a.length / 2]) / 2.0;
-        } else {
-            median = a[a.length / 2];
-        }
-    }
+    printf("\n");
+}
+int main() {
+    Node* head = NULL;
+    insertNode(&head, 1);
+    insertNode(&head, 2);
+    insertNode(&head, 3);
+    insertNode(&head, 4);
+    insertNode(&head, 5);
+    printList(head);
+    return 0;
 }
 ```
 
@@ -337,21 +338,13 @@ public class Main {
 - chat in WCA
 
 ```text
-generate mermaid diagram for the c code provided. @filename
+generate mermaid class diagram for the c code provided. @filename
 ```
 
 - sample output
 
 ```mermaid
-classDiagram
-class Main{
-  <<class>>
-  -int[] a
-  +void main(String[] args)
-  +void calculate(int[] a)
-  +void print(int[] a)
-  +void sort(int[] a)
-}
+
 ```
 
 ### 8. Interface Generation
@@ -363,20 +356,51 @@ generate c interface version base on the c code provided. @filename
 ```
 
 ```c
-// Assisted by WCA@IBM
-// Latest GenAI contribution: ibm/granite-20b-code-instruct-v2
-//Main.java
-import java.util.*;
-
-import com.ibm.j9ddr.vm29.pointer.generated.processor_cpu_load_infoPointer;
-
-public interface Main {
-
-    public void calculate(int[] a);
-
-    public void print(int[] a);
-
-    public void sort(int[] a);
+// Assisted by watsonx Code Assistant 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+typedef struct Node {
+    int data;
+    struct Node* next;
+} Node;
+Node* createNode(int data);
+void insertNode(Node** head, int data);
+void printList(Node* head);
+int main() {
+    Node* head = NULL;
+    insertNode(&head, 1);
+    insertNode(&head, 2);
+    insertNode(&head, 3);
+    insertNode(&head, 4);
+    insertNode(&head, 5);
+    printList(head);
+    return 0;
+}
+Node* createNode(int data) {
+    Node* newNode = (Node*)malloc(sizeof(Node));
+    newNode->data = data;
+    newNode->next = NULL;
+    return newNode;
+}
+void insertNode(Node** head, int data) {
+    Node* newNode = createNode(data);
+    if (*head == NULL) {
+        *head = newNode;
+        return;
+    }
+    Node* temp = *head;
+    while (temp->next != NULL) {
+        temp = temp->next;
+    }
+    temp->next = newNode;
+}
+void printList(Node* head) {
+    while (head != NULL) {
+        printf("%d ", head->data);
+        head = head->next;
+    }
+    printf("\n");
 }
 ```
 
@@ -385,41 +409,14 @@ public interface Main {
 - chat in WCA
 
 ```text
-generate build and deployment script for the c code provided. @filename
+generate build and deployment script for @filename
 ```
 
 - sample output
 
 ```bash
-Build Script:
-
-
-// Assisted by WCA@IBM
-// Latest GenAI contribution: ibm/granite-20b-code-instruct-v2
-#!/bin/bash
-
-# Build the Java application
-javac -cp .:./lib/* ./src/Main.java
-
-# Create a Liberty server package
-mkdir server
-cp ./src/server.xml ./server/server.xml
-cp ./target/Main.class ./server/apps/
-
-# Package the application as a Docker image
-docker build -t java-app .
-
-Deployment Script:
-
-
-// Assisted by WCA@IBM
-// Latest GenAI contribution: ibm/granite-20b-code-instruct-v2
-#!/bin/bash
-
-# Deploy the Docker image to OpenShift
-oc new-project java-app
-oc new-app java-app --name=java-app
-
-# Expose the application to the outside world
-oc expose svc/java-app
+# Assisted by watsonx Code Assistant 
+# watsonx Code Assistant did not check whether this code suggestion might be similar to third party code.
+gcc -o sample sample.c
+./sample
 ```
