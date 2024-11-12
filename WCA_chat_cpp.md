@@ -206,7 +206,7 @@ TEST(SortByAge, Descending) {
 }
 ```
 
-### 2. Review and Scoring
+### 5. Review Code
 
 - chat input in WCA
 
@@ -226,7 +226,7 @@ In the main function, a vector of Person objects is created and initialized with
 Overall, the code is a simple example of how to use C++ to define a struct, create a vector of objects, sort the vector based on a custom comparison function, and print the sorted results.
 ```
 
-### 4. Fix code
+### 6. Fix Code
 
 - chat in WCA
 
@@ -266,7 +266,7 @@ int main() {
 }
 ```
 
-### 5. Generate Diagram
+### 7. Generate Diagram
 
 - chat in WCA
 
@@ -297,7 +297,7 @@ class compareByAge{
 
 
 
-### 10. Interface Generation
+### 8. Interface Generation
 
 - chat in WCA
 
@@ -308,7 +308,7 @@ generate c++ interface version base on the c++ code provided. @filename
 ```cpp
 ```
 
-### 11. Build and Deployment Scipt Generation
+### 9. Build and Deployment Scipt Generation
 
 - chat in WCA
 
@@ -323,60 +323,6 @@ generate build and deployment script for the c++ code provided. @filename
 
 ## sample c++
 
-```cpp
-#include <iostream>
-#include <vector>
-#include <algorithm>
+[good example](sample/cpp/sample.cpp)
 
-struct Person {
-    std::string name;
-    int age;
-};
-
-bool compareByAge(const Person& a, const Person& b) {
-    return a.age < b.age;
-}
-
-int main() {
-    std::vector<Person> people = {
-        {"Alice", 30},
-        {"Bob", 25},
-        {"Charlie", 35},
-        {"Diana", 28},
-        {"Eve", 40}
-    };
-
-    std::sort(people.begin(), people.end(), compareByAge);
-
-    for (const auto& person : people) {
-        std::cout << person.name << ": " << person.age << std::endl;
-    }
-
-    return 0;
-}
-```
-
-## Sample Bad C++
-
-```cpp
-#include <iostream>
-#include <vector>
-
-struct Person {
-    std::string name;
-    int age;
-};
-
-bool compareByAge(const Person& a, const Person& b) {
-    return a.age < b.age;
-}
-
-int main() {
-    std::sort(people.begin(), , compareByAge);
-
-    for (const auto& person : p": " << person.age << std::endl;
-    }
-
-    return 0;
-}
-```
+[bad example](sample/cpp/bad.cpp)

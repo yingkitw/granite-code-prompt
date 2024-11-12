@@ -15,23 +15,25 @@ this repo target to share potential use case and prompt on granite-code models.
 
 ## use cases
 
-### 1. Generate Documentation
+### 1. Code Explanation
 
-### 2. Review and Scoring
+### 2. Generate Documentation
 
-### 4. Fix code
+### 3. Code Conversion
 
-### 5. Generate Diagram
+### 4. Test Case Generation
 
-### 6. Code Conversion
+### 5. Review and Scoring
 
-### 9. Test Case Generation
+### 6. Fix code
 
-### 10. Interface Generation
+### 7. Generate Diagram
 
-### 11. Build and Deployment Scipt Generation
+### 8. Interface Generation
 
-### 13. Code Explanation
+### 9. Build and Deployment Scipt Generation
+
+
 
 ## language example
 
