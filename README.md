@@ -25,10 +25,10 @@ I utilising the latest IBM Granite 3 8B Instruct Model for these coding tasks. T
 
 ## Sample Prompt and Result for different programming languages
 
-- get the  [IBM Granite 3 sample prompt for Java.](./granite_3_prompt_java.md)
-- get the  [IBM Granite 3 sample prompt for C.](./granite_3_prompt_c.md)
-- get the  [IBM Granite 3 sample prompt for C++.](./granite_3_prompt_cpp.md)
-- get the  [IBM Granite 3 sample prompt for Python.](./granite_3_prompt_python.md)
-- get the  [IBM Granite 3 sample prompt for GoLang.](./granite_3_prompt_golang.md)
-- get the  [IBM Granite 3 sample prompt for JavaScript.](./granite_3_prompt_javascript.md)
-- get the  [IBM Granite 3 sample prompt for TypeScript.](./granite_3_prompt_typescript.md)
+- get the  [IBM Granite 3 sample prompt for Java.](./granite_3_prompt/granite_3_prompt_java.md)
+- get the  [IBM Granite 3 sample prompt for C.](./granite_3_prompt/granite_3_prompt_c.md)
+- get the  [IBM Granite 3 sample prompt for C++.](./granite_3_prompt/granite_3_prompt_cpp.md)
+- get the  [IBM Granite 3 sample prompt for Python.](./granite_3_prompt/granite_3_prompt_python.md)
+- get the  [IBM Granite 3 sample prompt for GoLang.](./granite_3_prompt/granite_3_prompt_golang.md)
+- get the  [IBM Granite 3 sample prompt for JavaScript.](./granite_3_prompt/granite_3_prompt_javascript.md)
+- get the  [IBM Granite 3 sample prompt for TypeScript.](./granite_3_prompt/granite_3_prompt_typescript.md)

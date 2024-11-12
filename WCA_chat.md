@@ -37,12 +37,12 @@ this repo target to share potential use case and prompt on granite-code models.
 
 ## language example
 
-### 1. [WCA chat with java](WCA_chat_java.md)
+### 1. [WCA chat with java](wca/WCA_chat_java.md)
 
-### 2. [WCA chat with python](WCA_chat_python.md)
+### 2. [WCA chat with python](wca/WCA_chat_python.md)
 
-### 3. [WCA chat with c++](WCA_chat_cpp.md)
+### 3. [WCA chat with c++](wca/WCA_chat_cpp.md)
 
-### 4. [WCA chat with c#](WCA_chat_csharp.md)
+### 4. [WCA chat with c#](wca/WCA_chat_csharp.md)
 
-### 5. [WCA chat with COBOL](WCA_chat_cobol.md)
+### 5. [WCA chat with COBOL](wca/WCA_chat_cobol.md)

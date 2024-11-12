@@ -6,8 +6,6 @@ this repo target to share potential use case and prompt on granite-code models.
 
 - get an API KEY for watsonx Code Assistant
 
-- you can leverage the [sample code provided](/samples/java/)
-
 ## tips
 
 ### tips for WCA
@@ -22,7 +20,7 @@ this repo target to share potential use case and prompt on granite-code models.
 - chat in WCA
 
 ```text
-/explain @filename
+Please provide a detailed explanation for the following java code @filename
 ```
 
 - sample output
@@ -36,15 +34,12 @@ The above code defines a class named Main which contains a main method that take
 - chat input in WCA
 
 ```text
-/document @filename
+generate c document for the c provided. java: @filename
 ```
 
 - sample output
 
-```java
-Here is the Javadoc documentation for the given Java code:
-
-```java
+```c
 /**
  * This program reads an integer N from stdin, followed by N integers A1,A2,...,AN. It then prints the sum of all elements in the array A, and the median of the array.
  */
@@ -107,12 +102,12 @@ public class Main {
 }
 ```
 
-### 3. Code Translate
+### 3. Code Conversion
 
 - chat in WCA
 
 ```text
-/translate to csharp @filename
+convert it to csharp, @filename
 ```
 
 - sample output
@@ -188,12 +183,12 @@ namespace Main
 - chat in WCA
 
 ```text
-/unit-test @filename
+generate Test Cases in junit for the c code provided. @filename
 ```
 
 - sample output
 
-```java
+```c
 // Assisted by WCA@IBM
 // Latest GenAI contribution: ibm/granite-20b-code-instruct-v2
 package com.example;
@@ -228,7 +223,7 @@ class MainTest {
 
 ```
 
-### 2. Review Code
+### 5. Review Code
 
 - chat input in WCA
 
@@ -335,7 +330,7 @@ public class Main {
 - chat in WCA
 
 ```text
-generate mermaid diagram for the java code provided. @filename
+generate mermaid diagram for the c code provided. @filename
 ```
 
 - sample output
@@ -357,10 +352,10 @@ class Main{
 - chat in WCA
 
 ```text
-generate java interface version base on the java code provided. @filename
+generate c interface version base on the c code provided. @filename
 ```
 
-```java
+```c
 // Assisted by WCA@IBM
 // Latest GenAI contribution: ibm/granite-20b-code-instruct-v2
 //Main.java
@@ -383,7 +378,7 @@ public interface Main {
 - chat in WCA
 
 ```text
-generate build and deployment (openshift and liberty) script for the java code provided. @filename
+generate build and deployment script for the c code provided. @filename
 ```
 
 - sample output
@@ -422,8 +417,8 @@ oc new-app java-app --name=java-app
 oc expose svc/java-app
 ```
 
-## sample java
+## sample c
 
-[good example](sample/java/sample.java)
+[good example](c/sample.c)
 
-[bad example](sample/java/bad.java)
+[bad example](c/bad.c)

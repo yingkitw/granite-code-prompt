@@ -325,6 +325,6 @@ generate build and deployment script for the python code provided. @filename
 
 ## sample python
 
-[good example](sample/python/sample.py)
+[good example](python/sample.py)
 
-[bad example](sample/python/bad.py)
+[bad example](python/bad.py)

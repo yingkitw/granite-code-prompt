@@ -318,6 +318,6 @@ generate build and deployment script for the c++ code provided. @filename
 
 ## sample c#
 
-[good example](sample/csharp/sample.cs)
+[good example](csharp/sample.cs)
 
-[bad example](sample/csharp/bad.cs)
+[bad example](csharp/bad.cs)

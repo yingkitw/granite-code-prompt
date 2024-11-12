@@ -289,6 +289,6 @@ generate build and deployment script for the cobol code provided. @filename
 
 ## sample cobol
 
-[good example](sample/cobol/sample.cbl)
+[good example](cobol/sample.cbl)
 
-[bad example](sample/cobol/bad.cbl)
+[bad example](cobol/bad.cbl)

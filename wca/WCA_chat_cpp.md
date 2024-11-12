@@ -323,6 +323,6 @@ generate build and deployment script for the c++ code provided. @filename
 
 ## sample c++
 
-[good example](sample/cpp/sample.cpp)
+[good example](cpp/sample.cpp)
 
-[bad example](sample/cpp/bad.cpp)
+[bad example](cpp/bad.cpp)
