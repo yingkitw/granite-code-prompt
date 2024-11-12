@@ -17,7 +17,21 @@ this repo target to share potential use case and prompt on granite-code models.
 
 ## use cases
 
-### 1. Generate Documentation
+### 1. Code Explanation
+
+- chat in WCA
+
+```text
+/explain @filename
+```
+
+- sample output
+
+```markdown
+This code is a C++ program that sorts a vector of Person objects by their age. The Person struct has two members: name and age. The compareByAge function is a custom comparison function that is used by the std::sort algorithm to sort the vector. The main function creates a vector of Person objects, sorts them using the std::sort algorithm, and then prints the sorted list of names and ages.
+```
+
+### 2. Generate Documentation
 
 - chat input in WCA
 
@@ -77,6 +91,118 @@ int main() {
         std::cout << person.name << ": " << person.age << std::endl;
     }
     return 0;
+}
+```
+
+### 3. Code Translate
+
+- chat in WCA
+
+```text
+/translate to csharp @filename
+```
+
+- sample output
+
+```csharp
+// Assisted by watsonx Code Assistant 
+// watsonx Code Assistant did not check whether this code suggestion might be similar to third party code.
+using System;
+using System.Collections.Generic;
+
+struct Person {
+    public string Name;
+    public int Age;
+}
+
+class Program {
+    static void Main() {
+        List<Person> people = new List<Person> {
+            new Person { Name = "Alice", Age = 30 },
+            new Person { Name = "Bob", Age = 25 },
+            new Person { Name = "Charlie", Age = 35 },
+            new Person { Name = "Diana", Age = 28 },
+            new Person { Name = "Eve", Age = 40 }
+        };
+        people.Sort((a, b) => a.Age.CompareTo(b.Age));
+        foreach (var person in people) {
+            Console.WriteLine($"{person.Name}: {person.Age}");
+        }
+    }
+}
+```
+
+
+### 4. Test Case Generation
+
+- chat in WCA
+
+```text
+/unit-test @filename
+```
+
+- sample output
+
+```cpp
+// Assisted by watsonx Code Assistant 
+#include <gtest/gtest.h>
+#include <vector>
+#include <algorithm>
+#include "Person.h"
+
+struct Person {
+    std::string name;
+    int age;
+};
+
+bool compareByAge(const Person& a, const Person& b) {
+    return a.age < b.age;
+}
+
+TEST(CompareByAge, Ascending) {
+    Person p1{"Alice", 30};
+    Person p2{"Bob", 25};
+    EXPECT_TRUE(compareByAge(p1, p2));
+}
+
+TEST(CompareByAge, Descending) {
+    Person p1{"Alice", 30};
+    Person p2{"Bob", 25};
+    EXPECT_FALSE(compareByAge(p2, p1));
+}
+
+TEST(SortByAge, Ascending) {
+    std::vector<Person> people = {
+        {"Alice", 30},
+        {"Bob", 25},
+        {"Charlie", 35},
+        {"Diana", 28},
+        {"Eve", 40}
+    };
+    std::sort(people.begin(), people.end(), compareByAge);
+    EXPECT_EQ(people[0].name, "Bob");
+    EXPECT_EQ(people[1].name, "Diana");
+    EXPECT_EQ(people[2].name, "Alice");
+    EXPECT_EQ(people[3].name, "Charlie");
+    EXPECT_EQ(people[4].name, "Eve");
+}
+
+TEST(SortByAge, Descending) {
+    std::vector<Person> people = {
+        {"Alice", 30},
+        {"Bob", 25},
+        {"Charlie", 35},
+        {"Diana", 28},
+        {"Eve", 40}
+    };
+    std::sort(people.begin(), people.end(), [&](const Person& a, const Person& b) {
+        return a.age > b.age;
+    });
+    EXPECT_EQ(people[0].name, "Eve");
+    EXPECT_EQ(people[1].name, "Charlie");
+    EXPECT_EQ(people[2].name, "Alice");
+    EXPECT_EQ(people[3].name, "Diana");
+    EXPECT_EQ(people[4].name, "Bob");
 }
 ```
 
@@ -151,162 +277,35 @@ generate mermaid diagram for the java code provided. @filename
 - sample output
 
 ```mermaid
+# Assisted by watsonx Code Assistant 
+# watsonx Code Assistant did not check whether this code suggestion might be similar to third party code.
 classDiagram
-class Main{
-  <<class>>
-  -int[] a
-  +void main(String[] args)
-  +void calculate(int[] a)
-  +void print(int[] a)
-  +void sort(int[] a)
+direction TB
+class Person{
+    +string name
+    +int age
 }
-```
-
-### 6. Code Conversion
-
-- chat in WCA
-
-```text
-convert it to csharp, @filename
-```
-
-- sample output
-
-```csharp
-// Assisted by WCA@IBM
-// Latest GenAI contribution: ibm/granite-20b-code-instruct-v2
-//Main.cs
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Main
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            try
-            {
-                var input = Console.ReadLine().Split(' ').Select(int.Parse).ToArray();
-                var n = input[0];
-                var a = new int[n];
-                for (int i = 0; i < n; i++)
-                {
-                    a[i] = Convert.ToInt32(Console.ReadLine());
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
-        }
-
-        public void Calculate(int[] a)
-        {
-            int sum = 0;
-            for (int i = 0; i < a.Length; i++)
-            {
-                sum += a[i];
-            }
-            Console.WriteLine(sum);
-        }
-
-        public void Print(int[] a)
-        {
-            for (int i = 0; i < a.Length; i++)
-            {
-                Console.WriteLine(a[i]);
-            }
-        }
-
-        public void Sort(int[] a)
-        {
-            Array.Sort(a);
-            double median;
-            if (a.Length % 2 == 0)
-            {
-                median = (a[a.Length / 2 - 1] + a[a.Length / 2]) / 2.0;
-            }
-            else
-            {
-                median = a[a.Length / 2];
-            }
-        }
-    }
+class main{
+    +vector<Person> people
+    +sort(people.begin(),people.end(),compareByAge)
+    +for(const auto& person:people)
+}
+class compareByAge{
+    +bool operator()(const Person& a,const Person& b)
 }
 ```
 
 
-### 9. Test Case Generation
-
-- chat in WCA
-
-```text
-generate Test Cases in junit for the java code provided. @filename
-```
-
-- sample output
-
-```java
-// Assisted by WCA@IBM
-// Latest GenAI contribution: ibm/granite-20b-code-instruct-v2
-package com.example;
-
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
-
-class MainTest {
-
-    @Test
-    void testCalculate() {
-        int[] a = {1, 2, 3};
-        Main main = new Main();
-        assertEquals(6, main.calculate(a));
-    }
-
-    @Test
-    void testPrint() {
-        int[] a = {1, 2, 3};
-        Main main = new Main();
-        main.print(a);
-    }
-
-    @Test
-    void testSort() {
-        int[] a = {1, 2, 3};
-        Main main = new Main();
-        main.sort(a);
-    }
-}
-
-```
 
 ### 10. Interface Generation
 
 - chat in WCA
 
 ```text
-generate java interface version base on the java code provided. @filename
+generate c++ interface version base on the c++ code provided. @filename
 ```
 
-```java
-// Assisted by WCA@IBM
-// Latest GenAI contribution: ibm/granite-20b-code-instruct-v2
-//Main.java
-import java.util.*;
-
-import com.ibm.j9ddr.vm29.pointer.generated.processor_cpu_load_infoPointer;
-
-public interface Main {
-
-    public void calculate(int[] a);
-
-    public void print(int[] a);
-
-    public void sort(int[] a);
-}
+```cpp
 ```
 
 ### 11. Build and Deployment Scipt Generation
@@ -314,124 +313,70 @@ public interface Main {
 - chat in WCA
 
 ```text
-generate build and deployment (openshift and liberty) script for the java code provided. @filename
+generate build and deployment script for the c++ code provided. @filename
 ```
 
 - sample output
 
 ```bash
-Build Script:
-
-
-// Assisted by WCA@IBM
-// Latest GenAI contribution: ibm/granite-20b-code-instruct-v2
-#!/bin/bash
-
-# Build the Java application
-javac -cp .:./lib/* ./src/Main.java
-
-# Create a Liberty server package
-mkdir server
-cp ./src/server.xml ./server/server.xml
-cp ./target/Main.class ./server/apps/
-
-# Package the application as a Docker image
-docker build -t java-app .
-
-Deployment Script:
-
-
-// Assisted by WCA@IBM
-// Latest GenAI contribution: ibm/granite-20b-code-instruct-v2
-#!/bin/bash
-
-# Deploy the Docker image to OpenShift
-oc new-project java-app
-oc new-app java-app --name=java-app
-
-# Expose the application to the outside world
-oc expose svc/java-app
 ```
 
-### 13. Code Explanation
+## sample c++
 
-- chat in WCA
+```cpp
+#include <iostream>
+#include <vector>
+#include <algorithm>
 
-```text
-Please provide a detailed explanation for the following java code @filename
-```
+struct Person {
+    std::string name;
+    int age;
+};
 
-- sample output
+bool compareByAge(const Person& a, const Person& b) {
+    return a.age < b.age;
+}
 
-```markdown
-The above code defines a class named Main which contains a main method that takes an array of integers as input and performs various operations on it. The first operation is to read the size of the array from the standard input using the Scanner class, and then create an array of that size. The next operation is to read the elements of the array from the standard input using the same Scanner instance and store them in the array. The calculate method calculates the sum of all the elements in the array and prints it to the standard output. The print method simply prints each element of the array on a separate line. The sort method sorts the array using the Arrays.sort method, and then calculates the median of the array by checking whether the length of the array is even or odd, and computing the average of the two middle elements if it's even, or returning the middle element if it's odd.
-```
+int main() {
+    std::vector<Person> people = {
+        {"Alice", 30},
+        {"Bob", 25},
+        {"Charlie", 35},
+        {"Diana", 28},
+        {"Eve", 40}
+    };
 
-## sample java
+    std::sort(people.begin(), people.end(), compareByAge);
 
-```java
-import java.util.*;
-public class Main {
-public static void main(String[] args) {
-try (Scanner in = new Scanner(System.in)) {
-int n = in.nextInt();
-int[] a = new int[n];
-for(int a_i=0; a_i < n; a_i++){
-a[a_i] = in.nextInt();
-}
-}
-}
-public void calculate(int[] a) {
-int sum = 0;
-for (int i = 0; i < a.length; i++) {
-sum += a[i];
-}
-System.out.println(sum);
-}
-public void print(int[] a) {
-for (int i = 0; i < a.length; i++) {
-System.out.println(a[i]);
-}
-}
-public void sort(int[] a) {
-Arrays.sort(a);
-double median;
-if (a.length % 2 == 0) {
-median = (a[a.length / 2 - 1] + a[a.length / 2]) / 2.0;
-} else {
-median = a[a.length / 2];
-}
-}
+    for (const auto& person : people) {
+        std::cout << person.name << ": " << person.age << std::endl;
+    }
+
+    return 0;
 }
 ```
 
-## Sample Bad Java
+## Sample Bad C++
 
-```java
-import java.util.*;
-public class Main {
-public static void main(String[] args) {
-try (Scanner in = new Scanner(System.in)) {
-int n = in.nextInt();
+```cpp
+#include <iostream>
+#include <vector>
+
+struct Person {
+    std::string name;
+    int age;
+};
+
+bool compareByAge(const Person& a, const Person& b) {
+    return a.age < b.age;
 }
-public void calculate(int[] a) {
-int sum = 0;
-for (int i = 0; 
-}
-System.out.println(sum);
-}
-public void print(int[] a) {
-for (int i = 0; System.out.println(a[i]);
-}
-}
-public void sort(int[] a) {
-Arrays.sort(a);
-double me
-if (a.length % 2 == 0) {
-th / 2 - 1] + a[a.length / 2]) / 2.0;
-} else {
-median = a[a.len
-}
-}
+
+int main() {
+    std::sort(people.begin(), , compareByAge);
+
+    for (const auto& person : p": " << person.age << std::endl;
+    }
+
+    return 0;
 }
 ```
