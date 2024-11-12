@@ -14,6 +14,11 @@ this repo target to share potential use case and prompt on granite-code models.
 - simple instruction works fine, hence make it simple
 - the output is quite consistent
 
+## sample cobol
+
+[good example](../sample/cobol/sample.cbl)
+
+[bad example](../sample/cobol/bad.cbl)
 
 ## use cases
 
@@ -287,8 +292,3 @@ generate build and deployment script for the cobol code provided. @filename
 ```bash
 ```
 
-## sample cobol
-
-[good example](cobol/sample.cbl)
-
-[bad example](cobol/bad.cbl)

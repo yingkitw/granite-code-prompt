@@ -12,8 +12,15 @@ this repo target to share potential use case and prompt on granite-code models.
 
 ### tips for WCA
 
+- new a chat session, it help to get clear context and better outcome.
 - simple instruction works fine, hence make it simple
 - the output is quite consistent
+
+## sample java
+
+[good example](../sample/java/sample.java)
+
+[bad example](../sample/java/bad.java)
 
 ## use cases
 
@@ -252,7 +259,7 @@ The code does not initialize the elements of the array a to zero. You can add co
 - chat in WCA
 
 ```text
-fix the code provided. @filename
+/fix @filename
 ```
 
 - sample output
@@ -402,9 +409,3 @@ curl $URL/sample/calculate
 curl $URL/sample/print
 curl $URL/sample/sort
 ```
-
-## sample java
-
-[good example](java/sample.java)
-
-[bad example](java/bad.java)

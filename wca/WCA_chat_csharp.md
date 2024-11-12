@@ -14,6 +14,11 @@ this repo target to share potential use case and prompt on granite-code models.
 - simple instruction works fine, hence make it simple
 - the output is quite consistent
 
+## sample c#
+
+[good example](../sample/csharp/sample.cs)
+
+[bad example](../sample/csharp/bad.cs)
 
 ## use cases
 
@@ -315,9 +320,3 @@ generate build and deployment script for the c++ code provided. @filename
 
 ```bash
 ```
-
-## sample c#
-
-[good example](csharp/sample.cs)
-
-[bad example](csharp/bad.cs)

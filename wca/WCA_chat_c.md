@@ -10,8 +10,15 @@ this repo target to share potential use case and prompt on granite-code models.
 
 ### tips for WCA
 
+- new a chat session, it help to get clear context and better outcome.
 - simple instruction works fine, hence make it simple
 - the output is quite consistent
+
+## sample c
+
+[good example](../sample/c/sample.c)
+
+[bad example](../sample/c/bad.c)
 
 ## use cases
 
@@ -20,7 +27,7 @@ this repo target to share potential use case and prompt on granite-code models.
 - chat in WCA
 
 ```text
-Please provide a detailed explanation for the following java code @filename
+/explain @filename
 ```
 
 - sample output
@@ -34,7 +41,7 @@ The above code defines a class named Main which contains a main method that take
 - chat input in WCA
 
 ```text
-generate c document for the c provided. java: @filename
+/document @filename
 ```
 
 - sample output
@@ -107,7 +114,7 @@ public class Main {
 - chat in WCA
 
 ```text
-convert it to csharp, @filename
+/translate to csharp @filename
 ```
 
 - sample output
@@ -183,7 +190,7 @@ namespace Main
 - chat in WCA
 
 ```text
-generate Test Cases in junit for the c code provided. @filename
+/unit-test @filename
 ```
 
 - sample output
@@ -280,7 +287,7 @@ give a score out of 10 for the quality of code. @filename
 - chat in WCA
 
 ```text
-fix the code provided. @filename
+/fix @filename
 ```
 
 - sample output
@@ -416,9 +423,3 @@ oc new-app java-app --name=java-app
 # Expose the application to the outside world
 oc expose svc/java-app
 ```
-
-## sample c
-
-[good example](c/sample.c)
-
-[bad example](c/bad.c)

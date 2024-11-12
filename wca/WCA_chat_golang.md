@@ -15,6 +15,12 @@ this repo target to share potential use case and prompt on granite-code models.
 - simple instruction works fine, hence make it simple
 - the output is quite consistent
 
+## sample go
+
+[good example](../sample/go/sample.go)
+
+[bad example](../sample/go/bad.go)
+
 ## use cases
 
 ### 1. Generate Documentation
@@ -427,9 +433,3 @@ Please provide a detailed explanation for the following java code @filename
 ```markdown
 The above code defines a class named Main which contains a main method that takes an array of integers as input and performs various operations on it. The first operation is to read the size of the array from the standard input using the Scanner class, and then create an array of that size. The next operation is to read the elements of the array from the standard input using the same Scanner instance and store them in the array. The calculate method calculates the sum of all the elements in the array and prints it to the standard output. The print method simply prints each element of the array on a separate line. The sort method sorts the array using the Arrays.sort method, and then calculates the median of the array by checking whether the length of the array is even or odd, and computing the average of the two middle elements if it's even, or returning the middle element if it's odd.
 ```
-
-## sample go
-
-[good example](go/sample.go)
-
-[bad example](go/bad.go)

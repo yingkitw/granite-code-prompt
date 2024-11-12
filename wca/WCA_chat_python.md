@@ -14,6 +14,11 @@ this repo target to share potential use case and prompt on granite-code models.
 - simple instruction works fine, hence make it simple
 - the output is quite consistent
 
+## sample python
+
+[good example](../sample/python/sample.py)
+
+[bad example](../sample/python/bad.py)
 
 ## use cases
 
@@ -250,7 +255,7 @@ Overall, the sample.py file demonstrates the use of the ComplexObject class and 
 - chat in WCA
 
 ```text
-fix @filename
+/fix @filename
 ```
 
 - sample output
@@ -322,9 +327,3 @@ generate build and deployment script for the python code provided. @filename
 
 ```bash
 ```
-
-## sample python
-
-[good example](python/sample.py)
-
-[bad example](python/bad.py)

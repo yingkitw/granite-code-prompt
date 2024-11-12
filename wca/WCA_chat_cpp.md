@@ -14,6 +14,11 @@ this repo target to share potential use case and prompt on granite-code models.
 - simple instruction works fine, hence make it simple
 - the output is quite consistent
 
+## sample c++
+
+[good example](../sample/cpp/sample.cpp)
+
+[bad example](../sample/cpp/bad.cpp)
 
 ## use cases
 
@@ -320,9 +325,3 @@ generate build and deployment script for the c++ code provided. @filename
 
 ```bash
 ```
-
-## sample c++
-
-[good example](cpp/sample.cpp)
-
-[bad example](cpp/bad.cpp)

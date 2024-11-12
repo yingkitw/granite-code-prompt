@@ -2,38 +2,11 @@
 
 The experiment will be conducted using sample C++ code to demonstrate these capabilities.
 
-```cpp
-#include <iostream>
-#include <vector>
-#include <algorithm>
+## sample c++
 
-struct Person {
-    std::string name;
-    int age;
-};
+[good example](../sample/cpp/sample.cpp)
 
-bool compareByAge(const Person& a, const Person& b) {
-    return a.age < b.age;
-}
-
-int main() {
-    std::vector<Person> people = {
-        {"Alice", 30},
-        {"Bob", 25},
-        {"Charlie", 35},
-        {"Diana", 28},
-        {"Eve", 40}
-    };
-
-    std::sort(people.begin(), people.end(), compareByAge);
-
-    for (const auto& person : people) {
-        std::cout << person.name << ": " << person.age << std::endl;
-    }
-
-    return 0;
-}
-```
+[bad example](../sample/cpp/bad.cpp)
 
 A few context variable
 
