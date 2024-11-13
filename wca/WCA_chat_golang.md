@@ -135,7 +135,69 @@ func main() {
 - sample output
 
 ```csharp
+// Assisted by watsonx Code Assistant 
+// watsonx Code Assistant did not check whether this code suggestion might be similar to third party code.
+using System;
+using System.Threading;
 
+namespace WorkerPoolExample
+{
+    class Worker
+    {
+        private int id;
+        private Queue<int> tasks;
+        private ManualResetEvent done;
+        private ManualResetEventSlim wg;
+
+        public Worker(int id, Queue<int> tasks, ManualResetEvent done)
+        {
+            this.id = id;
+            this.tasks = tasks;
+            this.done = done;
+            this.wg = new ManualResetEventSlim();
+        }
+
+        public void Start()
+        {
+            while (true)
+            {
+                if (tasks.Count == 0)
+                {
+                    done.Set();
+                    return;
+                }
+                int task = tasks.Dequeue();
+                wg.Wait();
+                wg.Reset();
+                Console.WriteLine($"Worker {id} processing task {task}");
+                Thread.Sleep(1000);
+                Console.WriteLine($"Worker {id} finished task {task}");
+                wg.Set();
+            }
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Queue<int> tasks = new Queue<int>();
+            for (int i = 1; i <= 10; i++)
+            {
+                tasks.Enqueue(i);
+            }
+            ManualResetEvent done = new ManualResetEvent(false);
+            Worker[] workers = new Worker[5];
+            for (int i = 0; i < 5; i++)
+            {
+                workers[i] = new Worker(i + 1, tasks, done);
+                workers[i].Start();
+            }
+            done.WaitOne();
+            Console.WriteLine("All tasks completed");
+        }
+    }
+}
 ```
 
 
