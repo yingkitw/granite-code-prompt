@@ -6,7 +6,7 @@ this repo target to share potential use case and prompt on granite-code models.
 
 - get an API KEY for watsonx Code Assistant
 
-- you can leverage the [sample code provided](/samples/golang/)
+- you can leverage the [sample code provided](../sample/golang/)
 
 ## tips
 
