@@ -24,7 +24,34 @@ this repo target to share potential use case and prompt on granite-code models.
 
 ## use cases
 
-### 1. Code Explanation
+### 1. Code Generation
+
+- create a empty file of `filename`.cpp
+
+- chat in WCA
+
+```text
+generate a c++ program of bubblesort
+```
+
+- copy and paste the outcome to the file you just create.
+
+- try to chat to update the code you just generate until you found it good.
+
+- build and run
+
+```bash
+g++ `filename`.cpp -o `filename`
+chmod 777 `filename`
+```
+
+- check if compilable or running well.
+
+### 1. Code Completion
+
+- edit some code, and experience the code completion and accept it with `tab` key.
+
+### 3. Code Explanation
 
 - chat in WCA
 
@@ -38,7 +65,7 @@ this repo target to share potential use case and prompt on granite-code models.
 This code is a C++ program that sorts a vector of Person objects by their age. The Person struct has two members: name and age. The compareByAge function is a custom comparison function that is used by the std::sort algorithm to sort the vector. The main function creates a vector of Person objects, sorts them using the std::sort algorithm, and then prints the sorted list of names and ages.
 ```
 
-### 2. Generate Documentation
+### 4. Generate Documentation
 
 - chat input in WCA
 
@@ -101,7 +128,7 @@ int main() {
 }
 ```
 
-### 3. Code Translate
+### 5. Code Translate
 
 - chat in WCA
 
@@ -140,7 +167,7 @@ class Program {
 ```
 
 
-### 4. Test Case Generation
+### 6. Test Case Generation
 
 - chat in WCA
 
@@ -213,7 +240,7 @@ TEST(SortByAge, Descending) {
 }
 ```
 
-### 5. Review Code
+### 7. Review Code
 
 - chat input in WCA
 
@@ -233,7 +260,7 @@ In the main function, a vector of Person objects is created and initialized with
 Overall, the code is a simple example of how to use C++ to define a struct, create a vector of objects, sort the vector based on a custom comparison function, and print the sorted results.
 ```
 
-### 6. Fix Code
+### 8. Fix Code
 
 - chat in WCA
 
@@ -273,7 +300,7 @@ int main() {
 }
 ```
 
-### 7. Generate Diagram
+### 9. Generate Diagram
 
 - chat in WCA
 
@@ -304,7 +331,7 @@ class compareByAge{
 
 
 
-### 8. Interface Generation
+### 10. Interface Generation
 
 - chat in WCA
 
@@ -347,7 +374,7 @@ int main() {
 }
 ```
 
-### 9. Build and Deployment Scipt Generation
+### 11. Build and Deployment Scipt Generation
 
 - chat in WCA
 
