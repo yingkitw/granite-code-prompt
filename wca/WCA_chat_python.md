@@ -24,7 +24,34 @@ this repo target to share potential use case and prompt on granite-code models.
 
 ## use cases
 
-### 1. Code Explanation
+### 1. Code Generation
+
+- create a empty file of `filename`.py
+
+- chat in WCA
+
+```text
+generate a python program of bubblesort
+```
+
+- copy and paste the outcome to the file you just create.
+
+- try to chat to update the code you just generate until you found it good.
+
+- run the code
+
+```bash
+python `filename`.py
+```
+
+- check if running well.
+
+### 1. Code Completion
+
+- edit some code, and experience the code completion and accept it with `tab` key.
+
+
+### 3. Code Explanation
 
 - chat in WCA
 
@@ -44,7 +71,7 @@ The perform_complex_operation function takes two ComplexObject instances as argu
 The main function generates two ComplexObject instances, obj1 and obj2, with random values between 1 and 100. It then prints the values of obj1 and obj2. Finally, it calls the perform_complex_operation function with obj1 and obj2 as arguments and prints the result.
 ```
 
-### 2. Generate Documentation
+### 4. Generate Documentation
 
 - chat input in WCA
 
@@ -113,7 +140,7 @@ if __name__ == "__main__":
     main()
 ```
 
-### 3. Code Translate
+### 5. Code Translate
 
 - chat in WCA
 
@@ -182,8 +209,7 @@ namespace ComplexObjectExample
 }
 ```
 
-
-### 4. Test Case Generation
+### 6. Test Case Generation
 
 - chat in WCA
 
@@ -230,7 +256,7 @@ if __name__ == "__main__":
 
 ```
 
-### 5. Review Code
+### 7. Review Code
 
 - chat input in WCA
 
@@ -252,7 +278,7 @@ The file contains a main function that generates two random ComplexObject instan
 Overall, the sample.py file demonstrates the use of the ComplexObject class and the generate_complex_object and perform_complex_operation functions to create and manipulate objects with a name and value attribute.
 ```
 
-### 6. Fix Code
+### 8. Fix Code
 
 - chat in WCA
 
@@ -290,7 +316,7 @@ if __name__ == "__main__":
     main()
 ```
 
-### 7. Generate Diagram
+### 9. Generate Diagram
 
 - chat in WCA
 
@@ -304,9 +330,7 @@ generate mermaid diagram for the python code provided. @filename
 
 ```
 
-
-
-### 8. Interface Generation
+### 10. Interface Generation
 
 - chat in WCA
 
@@ -317,7 +341,7 @@ generate python interface version base on the python code provided. @filename
 ```python
 ```
 
-### 9. Build and Deployment Scipt Generation
+### 11. Build and Deployment Scipt Generation
 
 - chat in WCA
 
