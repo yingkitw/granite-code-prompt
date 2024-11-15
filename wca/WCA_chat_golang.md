@@ -29,19 +29,21 @@ this repo target to share potential use case and prompt on granite-code models.
 - chat in WCA
 
 ```text
-Please provide a detailed explanation for the following java code @filename
+/explain @sample.go
 ```
 
 - sample output
 
 ```markdown
-This code is a Go program that creates a worker pool to process tasks concurrently. The program defines a Worker struct that represents a worker in the pool. The Worker has an ID, a channel to receive tasks, a channel to signal completion, and a sync.WaitGroup to wait for all tasks to be completed.
+This code is a Go program that creates a worker pool to process tasks concurrently. The program defines a Worker struct with an ID, a channel for tasks, a channel for completion signals, and a sync.WaitGroup to wait for all tasks to be completed.
 
-The NewWorker function creates a new worker with the given ID, tasks channel, and done channel. The Start method of the Worker starts a goroutine for each task received from the tasks channel. The goroutine simulates task processing time by sleeping for 1 second and then prints a message indicating the worker's ID and the completed task.
+The NewWorker function creates a new worker with the given ID, tasks channel, and completion signal channel.
 
-The Stop method of the Worker closes the done channel and waits for all tasks to be completed using the sync.WaitGroup.
+The Start method of the Worker struct starts a goroutine for each task received from the tasks channel. The goroutine simulates task processing time by sleeping for 1 second and then prints a message indicating the worker's ID and the task it is processing.
 
-In the main function, the program creates a tasks channel, a done channel, and 5 workers with unique IDs. Each worker is started as a goroutine and sends tasks to the tasks channel. After sending all tasks, the tasks channel is closed, and the done channel is used to wait for all workers to finish. Finally, a message is printed to indicate that all tasks have been completed.
+The Stop method of the Worker struct closes the completion signal channel and waits for all tasks to be completed using the sync.WaitGroup.
+
+In the main function, a tasks channel and a done channel are created. Five workers are created with unique IDs and assigned the tasks channel and done channel. The tasks channel is populated with 10 tasks, and then closed. The main function waits for all workers to finish by receiving from the done channel. Finally, a message is printed indicating that all tasks have been completed.
 ```
 
 ### 2. Generate Documentation
@@ -49,7 +51,7 @@ In the main function, the program creates a tasks channel, a done channel, and 5
 - chat input in WCA
 
 ```text
-/document @filename
+/document @sample.go
 ```
 
 - sample output
@@ -57,22 +59,7 @@ In the main function, the program creates a tasks channel, a done channel, and 5
 ```go
 # Assisted by watsonx Code Assistant 
 //blob
-package main
-
-import (
-	"fmt"
-	"sync"
-	"time"
-)
-
-// Worker represents a worker in the worker pool.
-type Worker struct {
-	ID    int
-	tasks chan int
-	done  chan struct{}
-	wg    sync.WaitGroup
-}
-
+// Assisted by watsonx Code Assistant 
 // NewWorker creates a new worker with the given ID, tasks channel, and done channel.
 func NewWorker(id int, tasks chan int, done chan struct{}) *Worker {
 	return &Worker{
@@ -102,25 +89,6 @@ func (w *Worker) Stop() {
 	close(w.done)
 	w.wg.Wait()
 }
-
-func main() {
-	tasks := make(chan int, 10)
-	done := make(chan struct{})
-	for i := 1; i <= 5; i++ {
-		worker := NewWorker(i, tasks, done)
-		go worker.Start()
-	}
-	// Send tasks to workers
-	for i := 1; i <= 10; i++ {
-		tasks <- i
-	}
-	// Close tasks channel and wait for all workers to finish
-	close(tasks)
-	for i := 1; i <= 5; i++ {
-		<-done
-	}
-	fmt.Println("All tasks completed")
-}
 ```
 
 
@@ -129,7 +97,7 @@ func main() {
 - chat in WCA
 
 ```text
-/translate to csharp, @filename
+/translate to csharp, @sample.go
 ```
 
 - sample output
@@ -206,7 +174,7 @@ namespace WorkerPoolExample
 - chat in WCA
 
 ```text
-/unit-test @filename
+/unit-test @sample.go
 ```
 
 - sample output
@@ -273,13 +241,23 @@ func TestWorkerStop(t *testing.T) {
 - chat input in WCA
 
 ```text
-/review @filename
+review @sample.go
 ```
 
 - sample output
 
 ```text
+Sure, I can review the sample.go code. Here are some observations:
 
+The code defines a Worker struct with an ID, tasks channel, done channel, and a WaitGroup.
+The NewWorker function creates a new Worker instance and returns it.
+The Start method of the Worker struct starts a goroutine for each task received from the tasks channel.
+The Stop method of the Worker struct closes the done channel and waits for all goroutines to finish using the WaitGroup.
+In the main function, tasks and done channels are created, and 5 workers are created with their respective tasks and done channels.
+Tasks are sent to the workers through the tasks channel, and after all tasks are sent, the tasks channel is closed.
+The main function waits for all workers to finish by receiving from the done channel.
+Finally, the main function prints "All tasks completed" once all tasks are completed.
+Overall, the code seems to be a simple implementation of a worker pool pattern using a channel-based approach. It demonstrates how to create and manage multiple workers to process tasks concurrently.
 ```
 
 
@@ -288,14 +266,75 @@ func TestWorkerStop(t *testing.T) {
 - chat in WCA
 
 ```text
-/fix @filename
+fix @bad.go
 ```
 
 - sample output
 
 
 ```go
+// Assisted by watsonx Code Assistant 
+//bad.go
+package main
 
+import (
+	"fmt"
+	"sync"
+)
+
+type Worker struct {
+	ID     int
+	tasks  chan int
+	done   chan struct{}
+	wg     sync.WaitGroup
+}
+
+func NewWorker(id int, tasks chan int, done chan struct{}) *Worker {
+	return &Worker{
+		ID:     id,
+		tasks:  tasks,
+		wg:     sync.WaitGroup{},
+	}
+}
+
+func (w *Worker) Start() {
+	for task := range w.tasks {
+		w.wg.Add(1)
+		go func(task int) {
+			defer w.wg.Done()
+			time.Sleep(1 * time.Second)
+			fmt.Printf("Worker %d finished task %d\n", w.ID, task)
+		}(task)
+	}
+}
+
+func (w *Worker) Stop() {
+	close(w.done)
+	w.wg.Wait()
+}
+
+func main() {
+	tasks := make(chan int, 10)
+	done := make(chan struct{})
+
+	for i := 1; i <= 5; i++ {
+		worker := NewWorker(i, tasks, done)
+		worker.Start()
+	}
+
+	// Send tasks to workers
+	for i := 1; i <= 10; i++ {
+		tasks <- i
+	}
+
+	// Close tasks channel and wait for all workers to finish
+	close(tasks)
+	for i := 1; i <= 5; i++ {
+		<-done
+	}
+
+	fmt.Println("All tasks completed")
+}
 ```
 
 ### 7. Generate Diagram
@@ -303,13 +342,40 @@ func TestWorkerStop(t *testing.T) {
 - chat in WCA
 
 ```text
-generate mermaid diagram for the go code provided. @filename
+generate mermaid diagram @sample.go
 ```
 
 - sample output
 
 ```mermaid
+// Assisted by watsonx Code Assistant 
+// watsonx Code Assistant did not check whether this code suggestion might be similar to third party code.
+sequenceDiagram
+autonumber
+title Sample Go Program
 
+Note over Client: Submits 10 tasks to workers
+Client->>+Worker: Submit task 1
+Client->>+Worker: Submit task 2
+Client->>+Worker: Submit task 3
+Client->>+Worker: Submit task 4
+Client->>+Worker: Submit task 5
+Client->>+Worker: Submit task 6
+Client->>+Worker: Submit task 7
+Client->>+Worker: Submit task 8
+Client->>+Worker: Submit task 9
+Client->>+Worker: Submit task 10
+Worker->>Client: Finished task 1
+Worker->>Client: Finished task 2
+Worker->>Client: Finished task 3
+Worker->>Client: Finished task 4
+Worker->>Client: Finished task 5
+Worker->>Client: Finished task 6
+Worker->>Client: Finished task 7
+Worker->>Client: Finished task 8
+Worker->>Client: Finished task 9
+Worker->>Client: Finished task 10
+Note over Client: All tasks completed
 ```
 
 ### 10. Interface Generation
@@ -317,7 +383,7 @@ generate mermaid diagram for the go code provided. @filename
 - chat in WCA
 
 ```text
-generate go interface version base on the go code provided. @filename
+generate go interface @sample.go
 ```
 
 ```go
@@ -329,11 +395,21 @@ generate go interface version base on the go code provided. @filename
 - chat in WCA
 
 ```text
-generate build and deployment script for @filename
+generate build and deployment script for @sample.go
 ```
 
 - sample output
 
 ```bash
+// Assisted by watsonx Code Assistant 
+#!/bin/bash
 
+# Build the sample.go program
+go build sample.go
+
+# Run the sample.go program
+./sample
+
+# Clean up the build artifacts
+rm sample
 ```

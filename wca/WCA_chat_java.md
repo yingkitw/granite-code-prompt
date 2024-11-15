@@ -24,7 +24,34 @@ this repo target to share potential use case and prompt on granite-code models.
 
 ## use cases
 
-### 1. Code Explanation
+### 1. Code Generation
+
+- create a empty file of `filename`.py
+
+- chat in WCA
+
+```text
+generate a java program of bubblesort
+```
+
+- copy and paste the outcome to the file you just create.
+
+- try to chat to update the code you just generate until you found it good.
+
+- run the code
+
+```bash
+python `filename`.java
+```
+
+- check if running well.
+
+### 2. Code Completion
+
+- edit some code, and experience the code completion and accept it with `tab` key.
+
+
+### 3. Code Explanation
 
 - chat in WCA
 

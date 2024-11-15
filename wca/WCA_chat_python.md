@@ -46,7 +46,7 @@ python `filename`.py
 
 - check if running well.
 
-### 1. Code Completion
+### 2. Code Completion
 
 - edit some code, and experience the code completion and accept it with `tab` key.
 
@@ -56,7 +56,7 @@ python `filename`.py
 - chat in WCA
 
 ```text
-/explain @filename
+/explain @sample.py
 ```
 
 - sample output
@@ -76,7 +76,7 @@ The main function generates two ComplexObject instances, obj1 and obj2, with ran
 - chat input in WCA
 
 ```text
-/document @filename
+/document @sample.py
 ```
 
 - sample output
@@ -145,7 +145,7 @@ if __name__ == "__main__":
 - chat in WCA
 
 ```text
-/translate to csharp @filename
+/translate to csharp @sample.py
 ```
 
 - sample output
@@ -214,7 +214,7 @@ namespace ComplexObjectExample
 - chat in WCA
 
 ```text
-/unit-test @filename
+/unit-test @sample.py
 ```
 
 - sample output
@@ -261,7 +261,7 @@ if __name__ == "__main__":
 - chat input in WCA
 
 ```text
-review @filename
+review @sample.py
 ```
 
 - sample output
@@ -283,7 +283,7 @@ Overall, the sample.py file demonstrates the use of the ComplexObject class and 
 - chat in WCA
 
 ```text
-/fix @filename
+/fix @bad.py
 ```
 
 - sample output
@@ -321,13 +321,28 @@ if __name__ == "__main__":
 - chat in WCA
 
 ```text
-generate mermaid diagram for the python code provided. @filename
+generate mermaid diagram @sample.py
 ```
 
 - sample output
 
 ```mermaid
-
+// Assisted by watsonx Code Assistant 
+// watsonx Code Assistant did not check whether this code suggestion might be similar to third party code.
+classDiagram
+Class01 <|-- AveryLongClass : Cool
+Class03 *-- Class04
+Class05 o-- Class06
+Class07 .. Class08
+Class09 --> C2 : Where am I?
+Class09 --* C3
+Class09 --|> Class07
+Class07 : equals()
+Class07 : Object[] elementData
+Class01 : size()
+Class01 : int chimp
+Class01 : int gorilla
+Class08 <--> C2: Cool label
 ```
 
 ### 10. Interface Generation
@@ -335,10 +350,42 @@ generate mermaid diagram for the python code provided. @filename
 - chat in WCA
 
 ```text
-generate python interface version base on the python code provided. @filename
+generate interface @sample.py
 ```
 
 ```python
+ # Assisted by watsonx Code Assistant 
+ 
+class IComplexObject:
+    def __init__(self, name, value):
+        self.name = name
+        self.value = value
+
+    def __str__(self):
+        return f"Object: {self.name}, Value: {self.value}"
+
+def generate_complex_object(name, value):
+    return IComplexObject(name, value)
+
+def perform_complex_operation(obj1, obj2):
+    if obj1.value > obj2.value:
+        return obj1
+    else:
+        return obj2
+
+def main():
+    obj1 = generate_complex_object("Object1", random.randint(1, 100))
+    obj2 = generate_complex_object("Object2", random.randint(1, 100))
+
+    print(f"Object1: {obj1}")
+    print(f"Object2: {obj2}")
+
+    result = perform_complex_operation(obj1, obj2)
+    print(f"Result: {result}")
+
+if __name__ == "__main__":
+    main()
+
 ```
 
 ### 11. Build and Deployment Scipt Generation
@@ -346,10 +393,25 @@ generate python interface version base on the python code provided. @filename
 - chat in WCA
 
 ```text
-generate build and deployment script for the python code provided. @filename
+generate build and deployment script for @sample.py
 ```
 
 - sample output
 
 ```bash
+ # Assisted by watsonx Code Assistant 
+ 
+#!/bin/bash
+
+# Build the sample.py program
+python3 setup.py sdist bdist_wheel
+
+# Install the sample.py program
+pip3 install dist/sample-1.0.0-py3-none-any.whl
+
+# Run the sample.py program
+sample
+
+# Clean up the build artifacts
+rm -rf build dist sample.egg-info
 ```

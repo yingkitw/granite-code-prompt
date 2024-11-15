@@ -26,7 +26,7 @@ this repo target to share potential use case and prompt on granite-code models.
 
 ### 1. Code Generation
 
-- create a empty file of `filename`.cpp
+- create a empty file of test.cpp
 
 - chat in WCA
 
@@ -41,8 +41,8 @@ generate a c++ program of bubblesort
 - build and run
 
 ```bash
-g++ `filename`.cpp -o `filename`
-chmod 777 `filename`
+g++ test.cpp -o test
+chmod 777 test
 ```
 
 - check if compilable or running well.
@@ -56,7 +56,7 @@ chmod 777 `filename`
 - chat in WCA
 
 ```text
-/explain @filename
+/explain @sample.cpp
 ```
 
 - sample output
@@ -70,7 +70,7 @@ This code is a C++ program that sorts a vector of Person objects by their age. T
 - chat input in WCA
 
 ```text
-/document @filename
+/document @sample.cpp
 ```
 
 - sample output
@@ -133,7 +133,7 @@ int main() {
 - chat in WCA
 
 ```text
-/translate to csharp @filename
+/translate to csharp @sample.cpp
 ```
 
 - sample output
@@ -172,7 +172,7 @@ class Program {
 - chat in WCA
 
 ```text
-/unit-test @filename
+/unit-test @sample.cpp
 ```
 
 - sample output
@@ -245,7 +245,7 @@ TEST(SortByAge, Descending) {
 - chat input in WCA
 
 ```text
-review @filename
+review @sample.cpp
 ```
 
 - sample output
@@ -265,7 +265,7 @@ Overall, the code is a simple example of how to use C++ to define a struct, crea
 - chat in WCA
 
 ```text
-fix @filename
+fix @bad.cpp
 ```
 
 - sample output
@@ -305,7 +305,7 @@ int main() {
 - chat in WCA
 
 ```text
-generate mermaid diagram for the c++ code provided. @filename
+generate mermaid diagram for the c++ code provided. @sample.cpp
 ```
 
 - sample output
@@ -336,7 +336,7 @@ class compareByAge{
 - chat in WCA
 
 ```text
-generate c++ interface version base on the c++ code provided. @filename
+generate c++ interface version base on the c++ code provided. @sample.cpp
 ```
 
 ```cpp
@@ -379,7 +379,7 @@ int main() {
 - chat in WCA
 
 ```text
-generate build and deployment script for @filename
+generate build and deployment script for @sample.cpp
 ```
 
 - sample output

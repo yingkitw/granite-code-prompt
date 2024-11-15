@@ -29,7 +29,7 @@ this repo target to share potential use case and prompt on granite-code models.
 - chat in WCA
 
 ```text
-/explain @filename
+/explain @sample.cs
 ```
 
 - sample output
@@ -51,7 +51,7 @@ Finally, the code finds the average salary of employees who earn more than $60,0
 - chat input in WCA
 
 ```text
-/document @filename
+/document @sample.cs
 ```
 
 - sample output
@@ -107,7 +107,7 @@ namespace EmployeeManagement
 - chat in WCA
 
 ```text
-/translate to python @filename
+/translate to python @sample.cs
 ```
 
 - sample output
@@ -148,7 +148,7 @@ print(f"Average salary of high earners: {average_high_earner_salary}")
 - chat in WCA
 
 ```text
-/unit-test @filename
+/unit-test @sample.cs
 ```
 
 - sample output
@@ -220,7 +220,7 @@ namespace EmployeeTests
 - chat input in WCA
 
 ```text
-review @filename
+review @sample.cs
 ```
 
 - sample output
@@ -242,7 +242,7 @@ Overall, the code is a simple example of how to use LINQ to query and manipulate
 - chat in WCA
 
 ```text
-fix @filename
+fix @bad.cs
 ```
 
 - sample output
@@ -289,12 +289,33 @@ public class Program
 - chat in WCA
 
 ```text
-generate mermaid diagram for the c# code provided. @filename
+generate mermaid diagram @sample.cs
 ```
 
 - sample output
 
 ```mermaid
+  // Assisted by watsonx Code Assistant 
+// watsonx Code Assistant did not check whether this code suggestion might be similar to third party code.
+  
+
+ 
+
+classDiagram
+Class01 <|-- AveryLongClass : Cool
+Class03 *-- Class04
+Class05 o-- Class06
+Class07 .. Class08
+Class09 --> C2 : Where am I?
+Class09 --* C3
+Class09 --|> Class07
+Class07 : equals()
+Class07 : Object[] elementData
+Class01 : size()
+Class01 : int chimp
+Class01 : int gorilla
+Class08 <--> C2: Cool label
+
 ```
 
 
@@ -304,10 +325,41 @@ generate mermaid diagram for the c# code provided. @filename
 - chat in WCA
 
 ```text
-generate c# interface version base on the c# code provided. @filename
+generate interface @sample.cs
 ```
 
 ```csharp
+  // Assisted by watsonx Code Assistant 
+// watsonx Code Assistant did not check whether this code suggestion might be similar to third party code.
+  
+ 
+using System;
+
+namespace SampleNamespace
+{
+    public interface ISampleInterface
+    {
+        void DoSomething();
+    }
+
+    public class SampleClass : ISampleInterface
+    {
+        public void DoSomething()
+        {
+            Console.WriteLine("Doing something...");
+        }
+    }
+
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            ISampleInterface sample = new SampleClass();
+            sample.DoSomething();
+        }
+    }
+}
+
 ```
 
 ### 9. Build and Deployment Scipt Generation
@@ -315,10 +367,23 @@ generate c# interface version base on the c# code provided. @filename
 - chat in WCA
 
 ```text
-generate build and deployment script for the c++ code provided. @filename
+generate build and deployment script @sample.cs
 ```
 
 - sample output
 
 ```bash
+ // Assisted by watsonx Code Assistant 
+// watsonx Code Assistant did not check whether this code suggestion might be similar to third party code.
+ 
+#!/bin/bash
+
+# Build the sample.cs program
+dotnet build sample.cs
+
+# Run the sample.cs program
+dotnet run sample.cs
+
+# Clean up the build artifacts
+rm -rf bin obj
 ```

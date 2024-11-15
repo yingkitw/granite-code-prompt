@@ -29,7 +29,7 @@ this repo target to share potential use case and prompt on granite-code models.
 - chat in WCA
 
 ```text
-/explain @filename
+/explain @sample.c
 ```
 
 - sample output
@@ -43,7 +43,7 @@ This code is a C program that implements a singly linked list. It defines a stru
 - chat input in WCA
 
 ```text
-/document @filename
+/document @sample.c
 ```
 
 - sample output
@@ -130,7 +130,7 @@ int main() {
 - chat in WCA
 
 ```text
-/translate to csharp @filename
+/translate to csharp @sample.c
 ```
 
 - sample output
@@ -195,7 +195,7 @@ public class Node
 - chat in WCA
 
 ```text
-/unit-test @filename
+/unit-test @sample.c
 ```
 
 - sample output
@@ -251,7 +251,7 @@ int main() {
 - chat input in WCA
 
 ```text
-/review @filename
+/review @sample.c
 ```
 
 - sample output
@@ -267,7 +267,7 @@ Overall, this code is a good example of how to implement a singly linked list in
 - chat input in WCA
 
 ```text
-review the code in completeness, logic, performance and quality. @filename
+review the code in completeness, logic, performance and quality. @sample.c
 ```
 
 - sample output
@@ -281,7 +281,7 @@ This code is a C program that implements a singly linked list. It defines a stru
 - chat in WCA
 
 ```text
-/fix @filename
+/fix @bad.c
 ```
 
 - sample output
@@ -340,7 +340,7 @@ int main() {
 - chat in WCA
 
 ```text
-generate mermaid class diagram for the c code provided. @filename
+generate mermaid class diagram for the c code provided. @sample.c
 ```
 
 - sample output
@@ -354,7 +354,7 @@ generate mermaid class diagram for the c code provided. @filename
 - chat in WCA
 
 ```text
-generate c interface version base on the c code provided. @filename
+generate c interface version base on the c code provided. @sample.c
 ```
 
 ```c
@@ -411,7 +411,7 @@ void printList(Node* head) {
 - chat in WCA
 
 ```text
-generate build and deployment script for @filename
+generate build and deployment script for @sample.c
 ```
 
 - sample output

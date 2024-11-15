@@ -29,7 +29,7 @@ this repo target to share potential use case and prompt on granite-code models.
 - chat in WCA
 
 ```text
-/explain @filename
+/explain @sample.cbl
 ```
 
 - sample output
@@ -43,15 +43,13 @@ This code is a sample program written in COBOL that reads data from an input fil
 - chat input in WCA
 
 ```text
-/document @filename
+document @sample.cbl
 ```
 
 - sample output
 
 ```text
 This code is a sample program that processes a file containing customer orders and calculates the total sales. The program reads the input file line by line, identifies the record type, and performs the appropriate action based on the record type. If the record type is 'C', it increments the line item count and adds the total amount to the line item total. If the record type is 'R', it writes the line item count and line item total to the output file and resets the line item count and line item total. Finally, it calculates the total sales and displays it.
-
-The code uses the Large Language Model from IBM Granite, which is based on the transformer decoder architecture. It also uses the IBM watsonx Code Assistant, an AI coding assistant from IBM with deep knowledge and expertise in programming languages.
 ```
 
 ### 3. Code Translate
@@ -59,7 +57,7 @@ The code uses the Large Language Model from IBM Granite, which is based on the t
 - chat in WCA
 
 ```text
-/translate to python @filename
+/translate to python @sample.cbl
 ```
 
 - sample output
@@ -104,7 +102,7 @@ if __name__ == "__main__":
 - chat in WCA
 
 ```text
-/unit-test @filename
+/unit-test @sample.cbl
 ```
 
 - sample output
@@ -176,7 +174,7 @@ IDENTIFICATION DIVISION.
 - chat input in WCA
 
 ```text
-review @filename
+review @sample.cbl
 ```
 
 - sample output
@@ -190,7 +188,7 @@ review @filename
 - chat in WCA
 
 ```text
-fix @filename
+fix @bad.cbl
 ```
 
 - sample output
@@ -260,7 +258,7 @@ IDENTIFICATION DIVISION.
 - chat in WCA
 
 ```text
-generate mermaid diagram for the cobol code provided. @filename
+generate mermaid diagram @sample.cbl
 ```
 
 - sample output
@@ -275,7 +273,7 @@ generate mermaid diagram for the cobol code provided. @filename
 - chat in WCA
 
 ```text
-generate cobol interface version base on the cobol code provided. @filename
+generate interface @sample.cbl
 ```
 
 ```cobol
@@ -286,11 +284,10 @@ generate cobol interface version base on the cobol code provided. @filename
 - chat in WCA
 
 ```text
-generate build and deployment script for the cobol code provided. @filename
+generate build and deployment script @sample.cbl
 ```
 
 - sample output
 
 ```bash
 ```
-
