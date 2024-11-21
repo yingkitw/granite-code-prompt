@@ -24,7 +24,94 @@ this repo target to share potential use case and prompt on granite-code models.
 
 ## use cases
 
-### 1. Code Explanation
+### 1. Code Generation
+
+- chat in WCA
+```
+generate cobol to connect to db2 and do a query, please output in markdown
+```
+
+```cobol
+* Assisted by watsonx Code Assistant 
+* watsonx Code Assistant did not check whether this code suggestion might be similar to third party code.
+IDENTIFICATION DIVISION.
+PROGRAM-ID. DB2CONNECT.
+
+DATA DIVISION.
+WORKING-STORAGE SECTION.
+01 SQLCA PIC S9(08) COMP.
+01 SQLCODE PIC S9(04) COMP.
+01 SQLSTATE PIC X(5).
+01 DBCNAM PIC X(10) VALUE 'DB2'.
+01 DBCPWD PIC X(10) VALUE 'PASSWORD'.
+01 DBCTCP PIC S9(04) COMP VALUE 50000.
+01 DBCHOST PIC X(20) VALUE 'HOSTNAME'.
+01 DBCPORT PIC S9(04) COMP VALUE 50000.
+01 DBCTABL PIC X(20) VALUE 'TABLENAME'.
+01 DBCQRY  PIC X(100) VALUE 'SELECT * FROM TABLENAME'.
+01 DBCQRYLEN PIC S9(04) COMP VALUE 0.
+01 DBCQRYOUT PIC X(1000).
+01 DBCQRYOUTLEN PIC S9(04) COMP VALUE 0.
+
+PROCEDURE DIVISION.
+MAIN-PARAGRAPH.
+    PERFORM INITIALIZE-SQLCA.
+    PERFORM CONNECT-TO-DB2.
+    PERFORM EXECUTE-QUERY.
+    PERFORM CLOSE-CONNECTION.
+    STOP RUN.
+
+INITIALIZE-SQLCA.
+    MOVE 0 TO SQLCA.
+    MOVE 0 TO SQLCODE.
+    MOVE SPACES TO SQLSTATE.
+
+CONNECT-TO-DB2.
+    PERFORM DB2CONNECT USING
+        DBCNAM
+        DBCPWD
+        DBCTCP
+        DBCHOST
+        DBCPORT
+        SQLCA.
+    IF SQLCODE NOT= 0
+        DISPLAY 'Error connecting to DB2'
+        STOP RUN.
+
+EXECUTE-QUERY.
+    MOVE LENGTH OF DBCQRY TO DBCQRYLEN.
+    PERFORM DB2PREPARE USING
+        DBCQRY
+        DBCQRYLEN
+        SQLCA.
+    IF SQLCODE NOT= 0
+        DISPLAY 'Error preparing query'
+        STOP RUN.
+    PERFORM DB2EXECUTE USING
+        SQLCA.
+    IF SQLCODE NOT= 0
+        DISPLAY 'Error executing query'
+        STOP RUN.
+    PERFORM DB2FETCH USING
+        DBCQRYOUT
+        DBCQRYOUTLEN
+        SQLCA.
+    IF SQLCODE NOT= 0
+        DISPLAY 'Error fetching results'
+        STOP RUN.
+    DISPLAY DBCQRYOUT.
+
+CLOSE-CONNECTION.
+    PERFORM DB2DISCONNECT USING
+        SQLCA.
+    IF SQLCODE NOT= 0
+        DISPLAY 'Error disconnecting from DB2'
+        STOP RUN.
+
+STOP RUN.
+```
+
+### 2. Code Explanation
 
 - chat in WCA
 
@@ -35,21 +122,15 @@ this repo target to share potential use case and prompt on granite-code models.
 - sample output
 
 ```markdown
-This code is a sample program written in COBOL that reads data from an input file, processes the data, and writes the results to an output file. The program uses a file control section to define the input and output files, and a data division to define the data structures used in the program. The procedure division contains the main program logic, which reads records from the input file, processes them based on the record type, and writes the results to the output file. The program also includes variables to keep track of total sales, line item count, and line item total.
-```
+This is a COBOL program that processes sales records and calculates the total sales for each record type. The program reads input from a file named "input.txt" and writes output to a file named "output.txt". The input file contains records with the following fields:
 
-### 2. Generate Documentation
+RecordType: a 10-character field indicating the type of record (e.g., "C" for customer record, "R" for record separator)
+CustomerName: a 30-character field containing the name of the customer
+OrderDate: a 8-character field containing the date of the order
+TotalAmount: a 7-digit numeric field containing the total amount of the order
+The program processes each record in the input file, and for each customer record, it increments the line item count and adds the total amount to the line item total. When it encounters a record separator record, it writes the line item count and line item total to the output file and resets the counters.
 
-- chat input in WCA
-
-```text
-document @sample.cbl
-```
-
-- sample output
-
-```text
-This code is a sample program that processes a file containing customer orders and calculates the total sales. The program reads the input file line by line, identifies the record type, and performs the appropriate action based on the record type. If the record type is 'C', it increments the line item count and adds the total amount to the line item total. If the record type is 'R', it writes the line item count and line item total to the output file and resets the line item count and line item total. Finally, it calculates the total sales and displays it.
+After processing all the records, the program displays the total sales, line item count, and line item total, and then closes the input and output files.
 ```
 
 ### 3. Code Translate
@@ -96,164 +177,7 @@ if __name__ == "__main__":
     main()
 ```
 
-
-### 4. Test Case Generation
-
-- chat in WCA
-
-```text
-/unit-test @sample.cbl
-```
-
-- sample output
-
-```cobol
-# Assisted by watsonx Code Assistant 
-# watsonx Code Assistant did not check whether this code suggestion might be similar to third party code.
-//blob
-IDENTIFICATION DIVISION.
-      PROGRAM-ID. SampleProgramTests.
-      ENVIRONMENT DIVISION.
-      INPUT-OUTPUT SECTION.
-      DATA DIVISION.
-      WORKING-STORAGE SECTION.
-      01  InputFile PIC X(10) VALUE "input.txt".
-      01  OutputFile PIC X(10) VALUE "output.txt".
-      01  ExpectedTotalSales PIC 9(10)V99 VALUE 1000000.
-      01  ExpectedLineItemCount PIC 9(10)V99 VALUE 2.
-      01  ExpectedLineItemTotal PIC 9(10)V99 VALUE 500000.
-      PROCEDURE DIVISION.
-      Main.
-          PERFORM TestProcessRecord
-          PERFORM TestEndOfFile
-      EndOfFile.
-          STOP RUN
-      TestProcessRecord.
-          PERFORM TestProcessRecord_C
-          PERFORM TestProcessRecord_R
-      TestProcessRecord_C.
-          MOVE 'C' TO LineItemType
-          MOVE 500000 TO TotalAmount
-          PERFORM ProcessRecord
-          DISPLAY "Total sales: " TotalSales
-          DISPLAY "Line item count: " LineItemCount
-          DISPLAY "Line item total: " LineItemTotal
-          IF TotalSales <> ExpectedTotalSales OR LineItemCount <> ExpectedLineItemCount OR LineItemTotal <> ExpectedLineItemTotal THEN
-              DISPLAY "TestProcessRecord_C failed."
-          ELSE
-              DISPLAY "TestProcessRecord_C passed."
-          END IF
-      TestProcessRecord_R.
-          MOVE 'R' TO LineItemType
-          MOVE 500000 TO TotalAmount
-          PERFORM ProcessRecord
-          DISPLAY "Total sales: " TotalSales
-          DISPLAY "Line item count: " LineItemCount
-          DISPLAY "Line item total: " LineItemTotal
-          IF TotalSales <> ExpectedTotalSales OR LineItemCount <> ExpectedLineItemCount OR LineItemTotal <> ExpectedLineItemTotal THEN
-              DISPLAY "TestProcessRecord_R failed."
-          ELSE
-              DISPLAY "TestProcessRecord_R passed."
-          END IF
-      TestEndOfFile.
-          MOVE 'R' TO LineItemType
-          MOVE 500000 TO TotalAmount
-          PERFORM ProcessRecord
-          DISPLAY "Total sales: " TotalSales
-          DISPLAY "Line item count: " LineItemCount
-          DISPLAY "Line item total: " LineItemTotal
-          IF TotalSales <> ExpectedTotalSales OR LineItemCount <> ExpectedLineItemCount OR LineItemTotal <> ExpectedLineItemTotal THEN
-              DISPLAY "TestEndOfFile failed."
-          ELSE
-              DISPLAY "TestEndOfFile passed."
-          END IF
-```
-
-### 5. Review Code
-
-- chat input in WCA
-
-```text
-review @sample.cbl
-```
-
-- sample output
-
-```text
-
-```
-
-### 6. Fix Code
-
-- chat in WCA
-
-```text
-fix @bad.cbl
-```
-
-- sample output
-
-
-```cobol
-# Assisted by watsonx Code Assistant 
-# watsonx Code Assistant did not check whether this code suggestion might be similar to third party code.
-//blob
-IDENTIFICATION DIVISION.
-      PROGRAM-ID. SampleProgram.
-      ENVIRONMENT DIVISION.
-      INPUT-OUTPUT SECTION.
-      FILE-CONTROL.
-          SELECT InputFile ASSIGN TO "input.txt"
-              ORGANIZATION IS LINE SEQUENTIAL.
-          SELECT OutputFile ASSIGN TO "output.txt"
-              ORGANIZATION IS LINE SEQUENTIAL.
-      DATA DIVISION.
-      FILE SECTION.
-      FD InputFile.
-      01  RecordType PIC X(10).
-      01  CustomerName PIC X(30).
-      01  OrderDate PIC X(8).
-      01  TotalAmount PIC 9(7)V99.
-      9(10) VALUE 1.
-      01  LineItemCount PIC 9(10) VALUE 0.
-      01  LineItemTotal PIC 9(7)V99 VALUE ZERO.
-      PROCEDURE DIVISION.
-      Main.
-          OPEN INPUT InputFile
-          OPEN OUTPUT OutputFile
-          PERFORM UNTIL End-OF-FILE ON InputFile
-              READ InputFile
-                  AT END MOVE 'Y' TO EndOfFileFlag
-                  NOT AT END PERFORM ProcessRecord
-              IF EndOfFileFlag = 'Y' THEN
-                  DISPLAY "Processing complete."
-                  CLOSE InputFile
-                  CLOSE OutputFile
-                  STOP RUN
-              END IF
-          END-PERFORM.
-          GO TO Main
-      ProcessRecord.
-          MOVE RecordType TO LineItemType
-          IF LineItemType = 'C' THEN
-              ADD 1 TO LineItemCount
-              ADD TotalAmount TO LineItemTotal
-          ELSE IF LineItemType = 'R' THEN
-              WRITE OutputFile FROM LineItemCount
-              WRITE OutputFile FROM LineItemTotal
-              CLEAR LineItemCount
-              CLEAR LineItemTotal
-          END IF.
-          ADD TotalAmount TO TotalSales
-      EndOfFile.
-          DISPLAY "Total sales: " TotalSales
-          DISPLAY "Line item count: " LineItemCount
-          DISPLAY "Line item total: " LineItemTotal
-          CLOSE InputFile
-          CLOSE OutputFile
-```
-
-### 7. Generate Diagram
+### 4. Generate Diagram
 
 - chat in WCA
 
@@ -264,30 +188,36 @@ generate mermaid diagram @sample.cbl
 - sample output
 
 ```mermaid
-```
-
-
-
-### 8. Interface Generation
-
-- chat in WCA
-
-```text
-generate interface @sample.cbl
-```
-
-```cobol
-```
-
-### 9. Build and Deployment Scipt Generation
-
-- chat in WCA
-
-```text
-generate build and deployment script @sample.cbl
-```
-
-- sample output
-
-```bash
+flowchart LR
+    subgraph InputFile
+        direction TB
+        RecordType --> RecordType
+        CustomerName --> CustomerName
+        OrderDate --> OrderDate
+        TotalAmount --> TotalAmount
+    end
+    subgraph OutputFile
+        direction TB
+        LineItemCount --> LineItemCount
+        LineItemTotal --> LineItemTotal
+    end
+    subgraph Main
+        direction TB
+        Main --> ProcessRecord
+        Main --> EndOfFile
+        Main --> Main
+    end
+    subgraph ProcessRecord
+        direction TB
+        ProcessRecord --> LineItemType
+        ProcessRecord --> LineItemCount
+        ProcessRecord --> LineItemTotal
+        ProcessRecord --> TotalAmount
+    end
+    subgraph EndOfFile
+        direction TB
+        EndOfFile --> TotalSales
+        EndOfFile --> LineItemCount
+        EndOfFile --> LineItemTotal
+    end
 ```
