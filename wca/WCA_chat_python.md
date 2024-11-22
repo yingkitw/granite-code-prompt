@@ -4,9 +4,11 @@ this repo target to share potential use case and prompt on granite-code models.
 
 ## prerequisite
 
-- get an API KEY for watsonx Code Assistant
+install IBM watsonx Code Assistant extension in your vscode
 
-- you can leverage the [sample code provided](../sample/python/)
+![alt text](../images/wca_extension.png)
+
+- get an API KEY for watsonx Code Assistant
 
 ## tips
 
@@ -28,23 +30,77 @@ this repo target to share potential use case and prompt on granite-code models.
 
 - create a empty file of `filename`.py
 
-- chat in WCA
+#### 1.1 Simple Generation
 
 ```text
-generate a python program of bubblesort
+generate a python program as web service base on fastapi
 ```
 
-- copy and paste the outcome to the file you just create.
+```python
+# Assisted by watsonx Code Assistant 
+from fastapi import FastAPI
 
-- try to chat to update the code you just generate until you found it good.
+app = FastAPI()
 
-- run the code
+@app.get("/")
+def read_root():
+    return {"Hello": "World"}
 
-```bash
-python `filename`.py
+@app.get("/items/{item_id}")
+def read_item(item_id: int, q: str = None):
+    return {"item_id": item_id, "q": q}
 ```
 
-- check if running well.
+#### 1.2 Add Function
+
+```text
+add a api about calculation sum
+```
+
+```python
+# Assisted by watsonx Code Assistant 
+from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.get("/")
+def read_root():
+    return {"Hello": "World"}
+
+@app.get("/items/{item_id}")
+def read_item(item_id: int, q: str = None):
+    return {"item_id": item_id, "q": q}
+
+@app.get("/sum/{a}/{b}")
+def sum(a: int, b: int):
+    return {"result": a + b}
+```
+
+#### 1.3 Revise Function
+
+```text
+change the read_item to read_more_item
+```
+
+```python
+ # Assisted by watsonx Code Assistant 
+ 
+from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.get("/")
+def read_root():
+    return {"Hello": "World"}
+
+@app.get("/more_items/{item_id}")
+def read_more_item(item_id: int, q: str = None):
+    return {"item_id": item_id, "q": q}
+
+@app.get("/sum/{a}/{b}")
+def sum(a: int, b: int):
+    return {"result": a + b}
+```
 
 ### 2. Code Completion
 
@@ -53,7 +109,7 @@ python `filename`.py
 
 ### 3. Code Explanation
 
-- chat in WCA
+#### 3.1 Explain the whole program
 
 ```text
 /explain @sample.py
@@ -69,6 +125,26 @@ The generate_complex_object function takes two arguments name and value and retu
 The perform_complex_operation function takes two ComplexObject instances as arguments and returns the object with the greater value.
 
 The main function generates two ComplexObject instances, obj1 and obj2, with random values between 1 and 100. It then prints the values of obj1 and obj2. Finally, it calls the perform_complex_operation function with obj1 and obj2 as arguments and prints the result.
+```
+
+#### 3.2 Explain specific login
+
+```text
+explain the call flow of @sample.py
+```
+
+- sample output
+
+```markdown
+The call flow of sample.py is as follows:
+
+The script starts by importing the random module.
+It defines a class called ComplexObject with an init method that initializes the name and value attributes.
+It also defines a str method that returns a string representation of the object.
+The script defines a function called generate_complex_object that takes two arguments (name and value) and returns a new ComplexObject instance.
+It also defines a function called perform_complex_operation that takes two ComplexObject instances as arguments and returns the object with the highest value.
+The script defines a main function that generates two random ComplexObject instances, prints their values, and calls perform_complex_operation to get the result.
+Finally, the script checks if the script is being run directly (not imported as a module) and calls the main function.
 ```
 
 ### 4. Generate Documentation
@@ -142,7 +218,7 @@ if __name__ == "__main__":
 
 ### 5. Code Translate
 
-- chat in WCA
+#### 5.1 convert python to c#
 
 ```text
 /translate to csharp @sample.py
@@ -209,9 +285,47 @@ namespace ComplexObjectExample
 }
 ```
 
+#### 5.2 convert python to c#
+
+```text
+/translate to python @source.cs
+```
+
+- sample output
+
+```python
+# Assisted by watsonx Code Assistant 
+class ComplexObject:
+    def __init__(self, name, value):
+        self.Name = name
+        self.Value = value
+
+    def __str__(self):
+        return f"Object: {self.Name}, Value: {self.Value}"
+
+def GenerateComplexObject(name, value):
+    return ComplexObject(name, value)
+
+def PerformComplexOperation(obj1, obj2):
+    if obj1.Value > obj2.Value:
+        return obj1
+    else:
+        return obj2
+
+obj1 = GenerateComplexObject("Object1", random.randint(1, 100))
+obj2 = GenerateComplexObject("Object2", random.randint(1, 100))
+
+print(f"Object1: {obj1}")
+print(f"Object2: {obj2}")
+
+result = PerformComplexOperation(obj1, obj2)
+
+print(f"Result: {result}")
+```
+
 ### 6. Test Case Generation
 
-- chat in WCA
+#### 6.1 Unit Test Generation
 
 ```text
 /unit-test @sample.py
@@ -258,7 +372,7 @@ if __name__ == "__main__":
 
 ### 7. Review Code
 
-- chat input in WCA
+#### 7.1 General Review
 
 ```text
 review @sample.py
@@ -276,6 +390,65 @@ The file also defines two functions: generate_complex_object and perform_complex
 The file contains a main function that generates two random ComplexObject instances, prints their string representations, and calls the perform_complex_operation function to determine which object has the greater value.
 
 Overall, the sample.py file demonstrates the use of the ComplexObject class and the generate_complex_object and perform_complex_operation functions to create and manipulate objects with a name and value attribute.
+```
+
+#### 7.2 Ask for suggestion on specific area
+
+```text
+suggest how to improve performance for @sample.py
+```
+
+- sample output
+
+```text
+To improve the performance of the sample.py script, you can consider the following suggestions:
+
+Utilize built-in functions: Instead of using the random.randint() function to generate random values for the ComplexObject instances, you can use the random module's randint() function, which is more efficient and optimized for generating random numbers.
+
+Use list comprehension: Instead of using a for loop to generate multiple ComplexObject instances, you can use list comprehension to create a list of objects in a more concise and efficient manner.
+
+Utilize the built-in max() function: Instead of manually comparing obj1 and obj2 in the perform_complex_operation() function, you can use the built-in max() function to find the object with the highest value. This approach is more readable and efficient.
+
+Utilize the random module's shuffle() function: If you need to randomly select objects from a list, you can use the random module's shuffle() function to shuffle the list in-place, ensuring that each selection is random and unbiased.
+
+Here's an updated version of the sample.py script with these improvements:
+```
+
+```python
+# Assisted by watsonx Code Assistant 
+import random
+
+class ComplexObject:
+    def __init__(self, name, value):
+        self.name = name
+        self.value = value
+
+    def __str__(self):
+        return f"Object: {self.name}, Value: {self.value}"
+
+def generate_complex_object(name, value):
+    return ComplexObject(name, value)
+
+def perform_complex_operation(obj1, obj2):
+    return max(obj1, obj2)
+
+def main():
+    objects = [generate_complex_object(f"Object{i}", random.randint(1, 100)) for i in range(1, 11)]
+    random.shuffle(objects)
+
+    print("Objects:")
+    for obj in objects:
+        print(obj)
+
+    result = perform_complex_operation(*objects)
+    print(f"Result: {result}")
+
+if __name__ == "__main__":
+    main()
+```
+
+```text
+By implementing these suggestions, you can improve the performance of the sample.py script by utilizing built-in functions, list comprehension, and the max() function for efficient object generation and comparison. Additionally, the random module's shuffle() function ensures random selection of objects from a list.
 ```
 
 ### 8. Fix Code
@@ -318,31 +491,78 @@ if __name__ == "__main__":
 
 ### 9. Generate Diagram
 
-- chat in WCA
+install mermaid preview extension in your vscode
+
+![alt text](../images/mermaid_preview.png)
+
+copy and paste the mermaid result to the [diagram file](../sample/cobol/diagram.md) file as follow:
 
 ```text
-generate mermaid diagram @sample.py
+```mermaid
+your diagram
+    diagram detail 1
+    diagram detail 2
 ```
 
-- sample output
+#### 9.1 sequence diagram
+
+```text
+generate UML sequence diagram in mermaid for the logic how user interact with system in @sample.py
+```
+
+sample output
 
 ```mermaid
-// Assisted by watsonx Code Assistant 
-// watsonx Code Assistant did not check whether this code suggestion might be similar to third party code.
+sequenceDiagram
+    participant User
+    participant System
+    User->>System: Run sample.py
+    System->>System: Import random module
+    System->>System: Define ComplexObject class
+    System->>System: Define generate_complex_object() function
+    System->>System: Define perform_complex_operation() function
+    System->>System: Define main() function
+    System->>System: Generate two ComplexObject instances
+    System->>System: Print the objects
+    System->>System: Perform complex operation
+    System->>System: Print the result
+    System->>User: Exit
+```
+
+#### 7.2 class diagram
+
+```text
+generate UML class diagram in mermaid for the logic how user interact with system in @sample.py
+```
+
+sample output
+
+```mermaid
 classDiagram
-Class01 <|-- AveryLongClass : Cool
-Class03 *-- Class04
-Class05 o-- Class06
-Class07 .. Class08
-Class09 --> C2 : Where am I?
-Class09 --* C3
-Class09 --|> Class07
-Class07 : equals()
-Class07 : Object[] elementData
-Class01 : size()
-Class01 : int chimp
-Class01 : int gorilla
-Class08 <--> C2: Cool label
+    class ComplexObject {
+        - name
+        - value
+        + __init__(name, value)
+        + __str__()
+    }
+
+    class System {
+        + generate_complex_object(name, value)
+        + perform_complex_operation(obj1, obj2)
+        + main()
+    }
+
+    User --> System: Run sample.py
+    System --> System: Import random module
+    System --> System: Define ComplexObject class
+    System --> System: Define generate_complex_object() function
+    System --> System: Define perform_complex_operation() function
+    System --> System: Define main() function
+    System --> System: Generate two ComplexObject instances
+    System --> System: Print the objects
+    System --> System: Perform complex operation
+    System --> System: Print the result
+    System --> User: Exit
 ```
 
 ### 10. Interface Generation

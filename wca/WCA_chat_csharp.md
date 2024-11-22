@@ -24,6 +24,8 @@ install IBM watsonx Code Assistant extension in your vscode
 
 [bad example](../sample/csharp/bad.cs)
 
+[python source](../sample/csharp/source.py) for conversion.
+
 ## use cases
 
 ### 1. Code Explanation
