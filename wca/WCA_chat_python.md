@@ -24,6 +24,9 @@ install IBM watsonx Code Assistant extension in your vscode
 
 [bad example](../sample/python/bad.py)
 
+[c# source](../sample/python/source.cs)
+
+
 ## use cases
 
 ### 1. Code Generation
