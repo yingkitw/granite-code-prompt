@@ -34,7 +34,79 @@ get an API KEY for watsonx Code Assistant
 
 ## use cases
 
-### 1. Code Explanation
+### 1. Code Generation
+
+- create a empty file of generated.go
+
+- chat in WCA
+
+```text
+generate a go program of bubblesort
+```
+
+```go
+// Assisted by watsonx Code Assistant 
+package main
+
+import "fmt"
+
+func bubbleSort(arr []int) {
+	n := len(arr)
+	for i := 0; i < n-1; i++ {
+		for j := 0; j < n-i-1; j++ {
+			if arr[j] > arr[j+1] {
+				arr[j], arr[j+1] = arr[j+1], arr[j]
+			}
+		}
+	}
+}
+
+func main() {
+	arr := []int{64, 34, 25, 12, 22, 11, 90}
+	bubbleSort(arr)
+	fmt.Println("Sorted array:", arr)
+}
+```
+
+- copy and paste the outcome to the file you just create.
+
+- try to chat to update the code you just generate until you found it good.
+
+go to the folder
+
+```bash
+cd /sample/go
+```
+
+run the code
+
+```bash
+go build generated.go
+```
+
+check if running well.
+
+```bash
+./generated
+```
+
+```text
+yingkitw@Yings-MacBook-Pro golang % ./generated 
+Sorted array: [11 12 22 25 34 64 90]
+```
+
+### 2. Code Completion
+
+#### 2.1 Inline Code Completion
+
+- edit some code, and experience the code completion and accept it with `tab` key.
+
+#### 2.2 Multiple Line Code Completion
+
+- type `Option + .` key to generate the completion base on context, and accept it with `tab` key.
+
+
+### 3. Code Explanation
 
 - chat in WCA
 
@@ -56,7 +128,7 @@ The Stop method of the Worker struct closes the completion signal channel and wa
 In the main function, a tasks channel and a done channel are created. Five workers are created with unique IDs and assigned the tasks channel and done channel. The tasks channel is populated with 10 tasks, and then closed. The main function waits for all workers to finish by receiving from the done channel. Finally, a message is printed indicating that all tasks have been completed.
 ```
 
-### 2. Generate Documentation
+### 4. Generate Documentation
 
 - chat input in WCA
 
@@ -102,7 +174,99 @@ func (w *Worker) Stop() {
 ```
 
 
-### 3. Code Translate
+### 5. Test Case Generation
+
+- chat in WCA
+
+```text
+/unit-test @sample.go
+```
+
+- sample output
+
+```go
+// Assisted by watsonx Code Assistant 
+package main
+
+import (
+	"testing"
+	"time"
+)
+
+func TestNewWorker(t *testing.T) {
+	tasks := make(chan int, 10)
+	done := make(chan struct{})
+	worker := NewWorker(1, tasks, done)
+	if worker.ID != 1 {
+		t.Errorf("Expected worker ID 1, got %d", worker.ID)
+	}
+	if worker.tasks != tasks {
+		t.Errorf("Expected tasks channel, got %v", worker.tasks)
+	}
+	if worker.done != done {
+		t.Errorf("Expected done channel, got %v", worker.done)
+	}
+}
+
+func TestWorkerStart(t *testing.T) {
+	tasks := make(chan int, 10)
+	done := make(chan struct{})
+	worker := NewWorker(1, tasks, done)
+	go worker.Start()
+	tasks <- 1
+	time.Sleep(100 * time.Millisecond)
+	if len(tasks) != 0 {
+		t.Errorf("Expected tasks channel to be empty, got %v", tasks)
+	}
+	if len(done) != 0 {
+		t.Errorf("Expected done channel to be empty, got %v", done)
+	}
+}
+
+func TestWorkerStop(t *testing.T) {
+	tasks := make(chan int, 10)
+	done := make(chan struct{})
+	worker := NewWorker(1, tasks, done)
+	go worker.Start()
+	tasks <- 1
+	time.Sleep(100 * time.Millisecond)
+	worker.Stop()
+	if len(tasks) != 0 {
+		t.Errorf("Expected tasks channel to be empty, got %v", tasks)
+	}
+	if len(done) != 1 {
+		t.Errorf("Expected done channel to have 1 element, got %v", done)
+	}
+}
+
+```
+
+### 6. Review Code
+
+- chat input in WCA
+
+```text
+review @sample.go
+```
+
+- sample output
+
+```text
+Sure, I can review the sample.go code. Here are some observations:
+
+The code defines a Worker struct with an ID, tasks channel, done channel, and a WaitGroup.
+The NewWorker function creates a new Worker instance and returns it.
+The Start method of the Worker struct starts a goroutine for each task received from the tasks channel.
+The Stop method of the Worker struct closes the done channel and waits for all goroutines to finish using the WaitGroup.
+In the main function, tasks and done channels are created, and 5 workers are created with their respective tasks and done channels.
+Tasks are sent to the workers through the tasks channel, and after all tasks are sent, the tasks channel is closed.
+The main function waits for all workers to finish by receiving from the done channel.
+Finally, the main function prints "All tasks completed" once all tasks are completed.
+Overall, the code seems to be a simple implementation of a worker pool pattern using a channel-based approach. It demonstrates how to create and manage multiple workers to process tasks concurrently.
+```
+
+
+### 7. Code Translate
 
 - chat in WCA
 
@@ -178,100 +342,7 @@ namespace WorkerPoolExample
 }
 ```
 
-
-### 4. Test Case Generation
-
-- chat in WCA
-
-```text
-/unit-test @sample.go
-```
-
-- sample output
-
-```go
-// Assisted by watsonx Code Assistant 
-package main
-
-import (
-	"testing"
-	"time"
-)
-
-func TestNewWorker(t *testing.T) {
-	tasks := make(chan int, 10)
-	done := make(chan struct{})
-	worker := NewWorker(1, tasks, done)
-	if worker.ID != 1 {
-		t.Errorf("Expected worker ID 1, got %d", worker.ID)
-	}
-	if worker.tasks != tasks {
-		t.Errorf("Expected tasks channel, got %v", worker.tasks)
-	}
-	if worker.done != done {
-		t.Errorf("Expected done channel, got %v", worker.done)
-	}
-}
-
-func TestWorkerStart(t *testing.T) {
-	tasks := make(chan int, 10)
-	done := make(chan struct{})
-	worker := NewWorker(1, tasks, done)
-	go worker.Start()
-	tasks <- 1
-	time.Sleep(100 * time.Millisecond)
-	if len(tasks) != 0 {
-		t.Errorf("Expected tasks channel to be empty, got %v", tasks)
-	}
-	if len(done) != 0 {
-		t.Errorf("Expected done channel to be empty, got %v", done)
-	}
-}
-
-func TestWorkerStop(t *testing.T) {
-	tasks := make(chan int, 10)
-	done := make(chan struct{})
-	worker := NewWorker(1, tasks, done)
-	go worker.Start()
-	tasks <- 1
-	time.Sleep(100 * time.Millisecond)
-	worker.Stop()
-	if len(tasks) != 0 {
-		t.Errorf("Expected tasks channel to be empty, got %v", tasks)
-	}
-	if len(done) != 1 {
-		t.Errorf("Expected done channel to have 1 element, got %v", done)
-	}
-}
-
-```
-
-### 5. Review Code
-
-- chat input in WCA
-
-```text
-review @sample.go
-```
-
-- sample output
-
-```text
-Sure, I can review the sample.go code. Here are some observations:
-
-The code defines a Worker struct with an ID, tasks channel, done channel, and a WaitGroup.
-The NewWorker function creates a new Worker instance and returns it.
-The Start method of the Worker struct starts a goroutine for each task received from the tasks channel.
-The Stop method of the Worker struct closes the done channel and waits for all goroutines to finish using the WaitGroup.
-In the main function, tasks and done channels are created, and 5 workers are created with their respective tasks and done channels.
-Tasks are sent to the workers through the tasks channel, and after all tasks are sent, the tasks channel is closed.
-The main function waits for all workers to finish by receiving from the done channel.
-Finally, the main function prints "All tasks completed" once all tasks are completed.
-Overall, the code seems to be a simple implementation of a worker pool pattern using a channel-based approach. It demonstrates how to create and manage multiple workers to process tasks concurrently.
-```
-
-
-### 6. Fix code
+### 8. Fix code
 
 - chat in WCA
 
@@ -347,45 +418,43 @@ func main() {
 }
 ```
 
-### 7. Generate Diagram
+### 9. Generate Diagram
 
-- chat in WCA
+install mermaid preview extension in your vscode
+
+![alt text](../images/mermaid_preview.png)
+
+copy and paste the mermaid result to the [diagram file](../sample/golang/diagram.md) file as follow:
 
 ```text
-generate mermaid diagram @sample.go
+```mermaid
+your diagram
+    diagram detail 1
+    diagram detail 2
+```
+
+#### 9.1 sequence diagram
+
+```text
+generate UML sequence diagram in mermaid for the logic how user interact with system in @sample.go
 ```
 
 - sample output
 
 ```mermaid
-// Assisted by watsonx Code Assistant 
-// watsonx Code Assistant did not check whether this code suggestion might be similar to third party code.
 sequenceDiagram
 autonumber
-title Sample Go Program
 
-Note over Client: Submits 10 tasks to workers
-Client->>+Worker: Submit task 1
-Client->>+Worker: Submit task 2
-Client->>+Worker: Submit task 3
-Client->>+Worker: Submit task 4
-Client->>+Worker: Submit task 5
-Client->>+Worker: Submit task 6
-Client->>+Worker: Submit task 7
-Client->>+Worker: Submit task 8
-Client->>+Worker: Submit task 9
-Client->>+Worker: Submit task 10
-Worker->>Client: Finished task 1
-Worker->>Client: Finished task 2
-Worker->>Client: Finished task 3
-Worker->>Client: Finished task 4
-Worker->>Client: Finished task 5
-Worker->>Client: Finished task 6
-Worker->>Client: Finished task 7
-Worker->>Client: Finished task 8
-Worker->>Client: Finished task 9
-Worker->>Client: Finished task 10
-Note over Client: All tasks completed
+title User Interactions
+
+User->>System: Start
+System->>System: Initialize tasks channel and done channel
+System->>System: Create 5 workers with tasks channel and done channel
+System->>User: Prompt user for tasks
+User->>System: Send tasks to workers through tasks channel
+User->>System: Wait for all tasks to complete
+System->>User: Display results
+User->>System: Stop
 ```
 
 ### 10. Interface Generation
@@ -397,7 +466,39 @@ generate go interface @sample.go
 ```
 
 ```go
+// Assisted by watsonx Code Assistant 
+//sample.go
+package main
 
+import "fmt"
+
+type Worker interface {
+	Start()
+	Stop()
+}
+
+func main() {
+	tasks := make(chan int, 10)
+	done := make(chan struct{})
+
+	for i := 1; i <= 5; i++ {
+		worker := NewWorker(i, tasks, done)
+		go worker.Start()
+	}
+
+	// Send tasks to workers
+	for i := 1; i <= 10; i++ {
+		tasks <- i
+	}
+
+	// Close tasks channel and wait for all workers to finish
+	close(tasks)
+	for i := 1; i <= 5; i++ {
+		<-done
+	}
+
+	fmt.Println("All tasks completed")
+}
 ```
 
 ### 11. Build and Deployment Scipt Generation
@@ -411,15 +512,17 @@ generate build and deployment script for @sample.go
 - sample output
 
 ```bash
-// Assisted by watsonx Code Assistant 
+# Assisted by watsonx Code Assistant 
+# watsonx Code Assistant did not check whether this code suggestion might be similar to third party code.
+ 
 #!/bin/bash
 
-# Build the sample.go program
-go build sample.go
+# Build the program
+go build -o sample sample.go
 
-# Run the sample.go program
-./sample
+# Create a Docker image
+docker build -t sample .
 
-# Clean up the build artifacts
-rm sample
+# Run the Docker container
+docker run -it --rm sample
 ```
