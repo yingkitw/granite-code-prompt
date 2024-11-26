@@ -4,9 +4,17 @@ this repo target to share potential use case and prompt on granite-code models.
 
 ## prerequisite
 
-- get an API KEY for watsonx Code Assistant
+### 1. install IBM watsonx Code Assistant extension in your vscode
 
-- you can leverage the [sample code provided](../sample/java/)
+![alt text](../images/wca_extension.png)
+
+get an API KEY for watsonx Code Assistant
+
+### 2. install java
+
+[Get and install open jdk](https://jdk.java.net/23/)
+
+you can also try other jdk distribution
 
 ## assumption
 
@@ -34,7 +42,7 @@ this repo target to share potential use case and prompt on granite-code models.
 
 ### 1. Code Generation
 
-- create a empty file of `filename`.py
+- create a empty file of BubbleSort.java
 
 - chat in WCA
 
@@ -46,17 +54,33 @@ generate a java program of bubblesort
 
 - try to chat to update the code you just generate until you found it good.
 
-- run the code
+go to the folder
 
 ```bash
-python `filename`.java
+cd /sample/java
 ```
 
-- check if running well.
+run the code
+
+```bash
+javac BubbleSort.java
+```
+
+check if running well.
+
+```bash
+java BubbleSort
+```
 
 ### 2. Code Completion
 
+#### 2.1 Inline Code Completion
+
 - edit some code, and experience the code completion and accept it with `tab` key.
+
+#### 2.2 Multiple Line Code Completion
+
+- type `Option + .` key to generate the completion base on context, and accept it with `tab` key.
 
 
 ### 3. Code Explanation
@@ -64,7 +88,7 @@ python `filename`.java
 - chat in WCA
 
 ```text
-/explain @filename
+/explain @sample.java
 ```
 
 - sample output
@@ -87,12 +111,12 @@ The Arrays.sort() method sorts the array in place. If the array contains an even
 Overall, this code demonstrates how to read input from the user, perform basic array operations, and sort an array in Java.
 ```
 
-### 2. Generate Documentation
+### 4. Generate Documentation
 
 - chat input in WCA
 
 ```text
-/document @filename
+/document @sample.java
 ```
 
 - sample output
@@ -149,12 +173,12 @@ public class sample {
 }
 ```
 
-### 3. Code Translate
+### 5. Code Translate
 
 - chat in WCA
 
 ```text
-/translate to csharp @filename
+/translate to csharp @sample.java
 ```
 
 - sample output
@@ -214,12 +238,12 @@ namespace Sample
 ```
 
 
-### 4. Test Case Generation
+### 6. Test Case Generation
 
 - chat in WCA
 
 ```text
-/unit-test @filename
+/unit-test @sample.java
 ```
 
 - sample output
@@ -269,24 +293,18 @@ class SampleTest {
 }
 ```
 
-### 2. Review Code
+### 7. Review Code
 
 - chat input in WCA
 
 ```text
-Review the code @filename
+suggest how to improve performance for @sample.java
 ```
 
 - sample output
 
 ```text
-Sure, I've reviewed the code sample.java and found the following issues:
-
-The code does not declare the Scanner object as final, which may cause issues if the Scanner object is modified later in the code.
-The code may throw a NoSuchElementException if the user enters an invalid input. You can add code to handle this exception to ensure that the program does not crash.
-The code does not close the Scanner object, which may cause issues if the program terminates abnormally. You can add code to close the Scanner object in a finally block to ensure that it is closed properly.
-The code may not handle the case where the user enters a negative value for n. You can add code to handle this case by checking if n is less than or equal to zero, and if so, printing an error message and exiting the program.
-The code does not initialize the elements of the array a to zero. You can add code to initialize the elements of the array to zero to avoid possible issues with uninitialized values.
+To improve the performance of the sample.java program, you can use a faster sorting algorithm, such as a quicksort or merge sort. You can also use a data structure, such as a binary search tree or a hash table, to store and search for the numbers instead of sorting the array each time. Additionally, you can use parallel processing to divide the work among multiple threads.
 ```
 
 ### 6. Fix Code
@@ -294,7 +312,7 @@ The code does not initialize the elements of the array a to zero. You can add co
 - chat in WCA
 
 ```text
-/fix @filename
+fix @BubbleSort.java
 ```
 
 - sample output
@@ -302,70 +320,92 @@ The code does not initialize the elements of the array a to zero. You can add co
 
 ```java
 // Assisted by watsonx Code Assistant 
-import java.util.*;
-
-public class sample {
+//BubbleSort.java
+ 
+public class BubbleSort {
     public static void main(String[] args) {
-        try (Scanner in = new Scanner(System.in)) {
-            int n = in.nextInt();
-            int[] a = new int[n];
-            for (int a_i = 0; a_i < n; a_i++) {
-                a[a_i] = in.nextInt();
+        int[] arr = {5, 2, 9, 1, 7};
+        int n = arr.length;
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                if (arr[j] > arr[j + 1]) {
+                    int temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                }
             }
-            sample s = new sample();
-            s.calculate(a);
-            s.print(a);
-            s.sort(a);
         }
-    }
 
-    public void calculate(int[] a) {
-        int sum = 0;
-        for (int i = 0; i < a.length; i++) {
-            sum += a[i];
+        System.out.println("Sorted array: ");
+        for (int i = 0; i < n; i++) {
+            System.out.print(arr[i] + " ");
         }
-        System.out.println(sum);
-    }
-
-    public void print(int[] a) {
-        for (int i = 0; i < a.length; i++) {
-            System.out.println(a[i]);
-        }
-    }
-
-    public void sort(int[] a) {
-        Arrays.sort(a);
-        double median;
-        if (a.length % 2 == 0) {
-            median = (a[a.length / 2 - 1] + a[a.length / 2]) / 2.0;
-        } else {
-            median = a[a.length / 2];
-        }
-        System.out.println(median);
     }
 }
 ```
 
+```markdown
+Explanation: This code sorts an array of integers using the bubble sort algorithm. The algorithm works by swapping adjacent elements that are in the wrong order until the array is sorted. The code sorts the array in place, meaning that the sorted array is returned as the output.
+
+Here are the steps of the bubble sort algorithm:
+
+Compare each element with its adjacent element and swap them if they are in the wrong order.
+Repeat this process until the array is sorted.
+Note that this implementation is a simple and inefficient way to sort an array. There are faster algorithms, such as the merge sort algorithm, that can sort an array much faster.
+```
+
 ### 7. Generate Diagram
 
-- chat in WCA
+install mermaid preview extension in your vscode
+
+![alt text](../images/mermaid_preview.png)
+
+copy and paste the mermaid result to the [diagram file](../sample/csharp/diagram.md) file as follow:
 
 ```text
-generate mermaid diagram for the java code provided. @filename
+```mermaid
+your diagram
+    diagram detail 1
+    diagram detail 2
+```
+
+#### 7.1 sequence diagram
+
+```text
+generate UML sequence diagram in mermaid for the logic how user interact with system in @sample.java
 ```
 
 - sample output
 
 ```mermaid
-// Assisted by watsonx Code Assistant 
-// watsonx Code Assistant did not check whether this code suggestion might be similar to third party code.
+sequenceDiagram
+    participant User as User
+    participant System as System
+    User->>System: Enter the size of the array
+    System->>User: Prompt for array elements
+    User->>System: Enter array elements
+    System->>User: Display sum of array elements
+    User->>System: Display sorted array
+    User->>System: Display median of array
+```
+
+#### 7.2 class diagram
+
+```text
+generate UML class diagram in mermaid from @sample.java
+```
+
+sample output
+
+```mermaid
 classDiagram
 class sample{
     -int[] a
     +sample()
-    +calculate(int[]) void
-    +print(int[]) void
-    +sort(int[]) void
+    +calculate(int[] a) void
+    +print(int[] a) void
+    +sort(int[] a) void
 }
 ```
 
@@ -374,15 +414,20 @@ class sample{
 - chat in WCA
 
 ```text
-generate java interface version base on the java code provided. @filename
+generate java interface for @sample.java
 ```
 
 ```java
 // Assisted by watsonx Code Assistant 
-//interface
-public interface Sample {
+//sample.java
+import java.util.*;
+
+public interface sample {
+
     public void calculate(int[] a);
+
     public void print(int[] a);
+
     public void sort(int[] a);
 }
 ```
@@ -392,7 +437,7 @@ public interface Sample {
 - chat in WCA
 
 ```text
-generate build and deployment (openshift and liberty) script for the java code provided. @filename
+generate build and deployment (openshift and liberty) script for  @sample.java
 ```
 
 - sample output
@@ -400,47 +445,21 @@ generate build and deployment (openshift and liberty) script for the java code p
 ```bash
 # Assisted by watsonx Code Assistant 
 # watsonx Code Assistant did not check whether this code suggestion might be similar to third party code.
-//blob
-#!/bin/bash
+# Build the application
+mvn clean package
 
-# Build the Java code
-mvn package
+# Login to OpenShift
+oc login ...
 
-# Create a new OpenShift project
-oc new-project my-project
+# Create a new project (if needed)
+oc new-project ...
 
-# Create a new Liberty application
-oc new-app openliberty/open-liberty:latest -e LICENSE=accept -e JBP_CONFIG_LIBERTY_VERSION=21.0.0.3-kernel-java8-openj9-1.0.0
+# Create a new app from the Docker image
+oc new-app ...
 
-# Copy the Java code into the Liberty application
-oc cp sample.java my-project-1234567890abcde/src/main/java/
+# Expose the app as a route
+oc expose svc/...
 
-# Trigger a new build of the Liberty application
-oc start-build my-project-1234567890abcde --from-dir=.
-
-# Wait for the build to complete
-while [[ "$(oc get builds -o jsonpath='{ .items[*].status.phase }' | grep -c Running)" -gt 0 ]]; do
-    echo "Build is running..."
-    sleep 10
-done
-
-# Deploy the Liberty application
-oc deploy my-project-1234567890abcde --latest
-
-# Wait for the deployment to complete
-while [[ "$(oc get deploymentconfigs -o jsonpath='{ .items[*].status.availableReplicas }' | grep -c 0)" -gt 0 ]]; do
-    echo "Deployment is in progress..."
-    sleep 10
-done
-
-# Expose the Liberty application
-oc expose svc/my-project-1234567890abcde
-
-# Get the URL of the Liberty application
-URL=$(oc get route my-project-1234567890abcde -o jsonpath='{ .spec.host }')
-
-# Test the Liberty application
-curl $URL/sample/calculate
-curl $URL/sample/print
-curl $URL/sample/sort
+# Tail the logs to see the application output
+oc logs -f bc/...
 ```

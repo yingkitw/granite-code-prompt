@@ -119,7 +119,13 @@ def sum(a: int, b: int):
 
 ### 2. Code Completion
 
+#### 2.1 Inline Code Completion
+
 - edit some code, and experience the code completion and accept it with `tab` key.
+
+#### 2.2 Multiple Line Code Completion
+
+- type `Option + .` key to generate the completion base on context, and accept it with `tab` key.
 
 
 ### 3. Code Explanation
