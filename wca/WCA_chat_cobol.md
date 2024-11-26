@@ -10,11 +10,20 @@ install IBM watsonx Code Assistant extension in your vscode
 
 - get an API KEY for watsonx Code Assistant
 
+## assumption
+
+- Code Generation may include variation, which means every generation may not exactly same.
+- Chat take the conversation as context. so the good side is you can give followup question. but it may also affect the output of your prompt. so in case the output is not desireable, please New a chat session. with following button:
+
+![alt text](/images/new_chat_button.png)
+
+
 ## tips
 
 ### tips for WCA
 
 - new a chat session, it help to get clear context and better outcome.
+- delete unused chat sessions also help.
 - simple instruction works fine, hence make it simple
 - the output is quite consistent
 

@@ -23,6 +23,7 @@ install IBM watsonx Code Assistant extension in your vscode
 ### tips for WCA
 
 - new a chat session, it help to get clear context and better outcome.
+- delete unused chat sessions also help.
 - simple instruction works fine, hence make it simple
 - the output is quite consistent
 
