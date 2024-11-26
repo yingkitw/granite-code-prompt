@@ -10,6 +10,14 @@ this repo target to share potential use case and prompt on granite-code models.
 
 get an API KEY for watsonx Code Assistant
 
+### 2. instrall GCC
+
+on Mac
+
+```bash
+brew install gcc
+```
+
 ## assumption
 
 - Code Generation may include variation, which means every generation may not exactly same.
@@ -34,7 +42,87 @@ get an API KEY for watsonx Code Assistant
 
 ## use cases
 
-### 1. Code Explanation
+### 1. Code Generation
+
+goto the sample code folder
+
+```bash
+cd sample/cpp
+```
+
+- create a empty file of generated.c
+
+- chat in WCA
+
+```text
+generate a c program of bubblesort
+```
+
+```c
+ // Assisted by watsonx Code Assistant 
+ 
+
+#include <stdio.h>
+
+void bubbleSort(int arr[], int n) {
+    int i, j;
+    for (i = 0; i < n-1; i++) {
+        for (j = 0; j < n-i-1; j++) {
+            if (arr[j] > arr[j+1]) {
+                int temp = arr[j];
+                arr[j] = arr[j+1];
+                arr[j+1] = temp;
+            }
+        }
+    }
+}
+
+int main() {
+    int arr[] = {64, 34, 25, 12, 22, 11, 90};
+    int n = sizeof(arr)/sizeof(arr[0]);
+    bubbleSort(arr, n);
+    printf("Sorted array: \n");
+    int i;
+    for (i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
+    }
+    return 0;
+}
+```
+
+- copy and paste the outcome to the file you just create.
+
+- try to chat to update the code you just generate until you found it good.
+
+- build and run
+
+```bash
+gcc generated.c -o generated
+chmod 777 generated
+./generated
+```
+
+sample outcome
+
+```text
+Sorted array: 
+11 12 22 25 34 64 90 % 
+```
+
+- check if compilable or running well.
+
+### 2. Code Completion
+
+#### 2.1 Inline Code Completion
+
+- edit some code, and experience the code completion and accept it with `tab` key.
+
+#### 2.2 Multiple Line Code Completion
+
+- type `Option + .` key to generate the completion base on context, and accept it with `tab` key.
+
+
+### 3. Code Explanation
 
 - chat in WCA
 
@@ -48,7 +136,7 @@ get an API KEY for watsonx Code Assistant
 This code is a C program that implements a singly linked list. It defines a struct Node that represents a node in the list, with an integer data field and a pointer next to the next node in the list. The createNode function creates a new node with the given data and returns a pointer to it. The insertNode function inserts a new node with the given data at the beginning of the list, updating the head pointer if necessary. The printList function prints the data in the list, starting from the head. The main function creates an empty list, inserts some nodes, and prints the list.
 ```
 
-### 2. Generate Documentation
+### 4. Generate Documentation
 
 - chat input in WCA
 
@@ -135,7 +223,185 @@ int main() {
 }
 ```
 
-### 3. Code Translate
+
+### 5. Test Case Generation
+
+- chat in WCA
+
+```text
+/unit-test @sample.c
+```
+
+- sample output
+
+```c
+// Assisted by watsonx Code Assistant 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "sample.c"
+
+void test_createNode() {
+    Node* node = createNode(10);
+    if (node == NULL) {
+        printf("Failed to create node\n");
+        exit(1);
+    }
+    if (node->data != 10) {
+        printf("Node data is incorrect\n");
+        exit(1);
+    }
+    if (node->next != NULL) {
+        printf("Next pointer is not NULL\n");
+        exit(1);
+    }
+    free(node);
+}
+
+void test_insertNode() {
+    Node* head = NULL;
+    insertNode(&head, 1);
+    if (head == NULL) {
+        printf("Failed to insert node\n");
+        exit(1);
+    }
+    if (head->data != 1) {
+        printf("Node data is incorrect\n");
+        exit(1);
+    }
+    if (head->next != NULL) {
+        printf("Next pointer is not NULL\n");
+        exit(1);
+    }
+    insertNode(&head, 2);
+    if (head->data != 1) {
+        printf("Node data is incorrect\n");
+        exit(1);
+    }
+    if (head->next->data != 2) {
+        printf("Next node data is incorrect\n");
+        exit(1);
+    }
+    if (head->next->next != NULL) {
+        printf("Next pointer is not NULL\n");
+        exit(1);
+    }
+}
+
+void test_printList() {
+    Node* head = NULL;
+    insertNode(&head, 1);
+    insertNode(&head, 2);
+    insertNode(&head, 3);
+    insertNode(&head, 4);
+    insertNode(&head, 5);
+    printList(head);
+}
+
+int main() {
+    test_createNode();
+    test_insertNode();
+    test_printList();
+    return 0;
+}
+```
+
+copy and paste the testcase.c
+
+run the test case
+
+```bash
+gcc testcase.c -o testcase
+```
+
+copy the error to chat if any
+
+```text
+testcase.c:8:5: error: call to undeclared function 'TEST_ASSERT_EQUAL'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration] 8 | TEST_ASSERT_EQUAL(10, node->data);
+```
+
+revise version of testcase
+
+```c
+ // Assisted by watsonx Code Assistant 
+ 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "sample.c"
+#include "unity.h"
+
+void test_createNode() {
+    Node* node = createNode(10);
+    TEST_ASSERT_NOT_NULL(node);
+    TEST_ASSERT_EQUAL(10, node->data);
+    TEST_ASSERT_NULL(node->next);
+    free(node);
+}
+
+void test_insertNode() {
+    Node* head = NULL;
+    insertNode(&head, 1);
+    TEST_ASSERT_NOT_NULL(head);
+    TEST_ASSERT_EQUAL(1, head->data);
+    TEST_ASSERT_NULL(head->next);
+    insertNode(&head, 2);
+    TEST_ASSERT_EQUAL(1, head->data);
+    TEST_ASSERT_EQUAL(2, head->next->data);
+    TEST_ASSERT_NULL(head->next->next);
+}
+
+void test_printList() {
+    Node* head = NULL;
+    insertNode(&head, 1);
+    insertNode(&head, 2);
+    insertNode(&head, 3);
+    insertNode(&head, 4);
+    insertNode(&head, 5);
+    printList(head);
+}
+
+int main() {
+    UNITY_BEGIN();
+    RUN_TEST(test_createNode);
+    RUN_TEST(test_insertNode);
+    RUN_TEST(test_printList);
+    UNITY_END();
+    return 0;
+}
+```
+
+### 6. Review Code
+
+- chat input in WCA
+
+```text
+/review @sample.c
+```
+
+- sample output
+
+```
+This code is a C program that implements a singly linked list. It defines a struct Node that represents a node in the list, with an integer data field and a pointer next to the next node in the list. The createNode function creates a new node with the given data and returns a pointer to it. The insertNode function inserts a new node with the given data at the beginning of the list, updating the head pointer if necessary. The printList function prints the data in the list, starting from the head. The main function creates an empty list, inserts some nodes, and prints the list.
+
+The code is well-structured and easy to understand. It uses the Large Language Model from IBM Granite that is based on the transformer decoder architecture. The code is also well-documented with comments explaining the purpose of each function and the structure of the Node struct.
+
+Overall, this code is a good example of how to implement a singly linked list in C.
+```
+
+- chat input in WCA
+
+```text
+review the code in completeness, logic, performance and quality. @sample.c
+```
+
+- sample output
+
+```text
+This code is a C program that implements a singly linked list. It defines a struct Node that represents a node in the list, with an integer data field and a pointer next to the next node in the list. The createNode function creates a new node with the given data and returns a pointer to it. The insertNode function inserts a new node with the given data at the beginning of the list, updating the head pointer if necessary. The printList function prints the data in the list, starting from the head. The main function creates an empty list, inserts some nodes, and prints the list. The code is well-structured and easy to understand. It uses the Large Language Model from IBM Granite that is based on the transformer decoder architecture. The code is also well-documented with comments explaining the purpose of each function and the structure of the Node struct. Overall, this code is a good example of how to implement a singly linked list in C.
+```
+
+### 7. Code Translate
 
 - chat in WCA
 
@@ -199,94 +465,7 @@ public class Node
 }
 ```
 
-
-### 4. Test Case Generation
-
-- chat in WCA
-
-```text
-/unit-test @sample.c
-```
-
-- sample output
-
-```c
-# Assisted by watsonx Code Assistant 
-# watsonx Code Assistant did not check whether this code suggestion might be similar to third party code.
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include "test.h"
-
-void test_createNode() {
-    Node* node = createNode(10);
-    TEST_ASSERT_EQUAL(10, node->data);
-    TEST_ASSERT_EQUAL(NULL, node->next);
-    free(node);
-}
-
-void test_insertNode() {
-    Node* head = NULL;
-    insertNode(&head, 1);
-    TEST_ASSERT_EQUAL(1, head->data);
-    TEST_ASSERT_EQUAL(NULL, head->next);
-    insertNode(&head, 2);
-    TEST_ASSERT_EQUAL(1, head->data);
-    TEST_ASSERT_EQUAL(2, head->next->data);
-    TEST_ASSERT_EQUAL(NULL, head->next->next);
-}
-
-void test_printList() {
-    Node* head = NULL;
-    insertNode(&head, 1);
-    insertNode(&head, 2);
-    insertNode(&head, 3);
-    insertNode(&head, 4);
-    insertNode(&head, 5);
-    printList(head);
-    // Output: 1 2 3 4 5
-}
-
-int main() {
-    UNITY_BEGIN();
-    RUN_TEST(test_createNode);
-    RUN_TEST(test_insertNode);
-    RUN_TEST(test_printList);
-    return UNITY_END();
-}
-```
-
-### 5. Review Code
-
-- chat input in WCA
-
-```text
-/review @sample.c
-```
-
-- sample output
-
-```
-This code is a C program that implements a singly linked list. It defines a struct Node that represents a node in the list, with an integer data field and a pointer next to the next node in the list. The createNode function creates a new node with the given data and returns a pointer to it. The insertNode function inserts a new node with the given data at the beginning of the list, updating the head pointer if necessary. The printList function prints the data in the list, starting from the head. The main function creates an empty list, inserts some nodes, and prints the list.
-
-The code is well-structured and easy to understand. It uses the Large Language Model from IBM Granite that is based on the transformer decoder architecture. The code is also well-documented with comments explaining the purpose of each function and the structure of the Node struct.
-
-Overall, this code is a good example of how to implement a singly linked list in C.
-```
-
-- chat input in WCA
-
-```text
-review the code in completeness, logic, performance and quality. @sample.c
-```
-
-- sample output
-
-```text
-This code is a C program that implements a singly linked list. It defines a struct Node that represents a node in the list, with an integer data field and a pointer next to the next node in the list. The createNode function creates a new node with the given data and returns a pointer to it. The insertNode function inserts a new node with the given data at the beginning of the list, updating the head pointer if necessary. The printList function prints the data in the list, starting from the head. The main function creates an empty list, inserts some nodes, and prints the list. The code is well-structured and easy to understand. It uses the Large Language Model from IBM Granite that is based on the transformer decoder architecture. The code is also well-documented with comments explaining the purpose of each function and the structure of the Node struct. Overall, this code is a good example of how to implement a singly linked list in C.
-```
-
-### 6. Fix Code
+### 8. Fix Code
 
 - chat in WCA
 
@@ -345,40 +524,75 @@ int main() {
 }
 ```
 
-### 7. Generate Diagram
+### 9. Generate Diagram
 
-- chat in WCA
+#### 9.1 sequence diagram
 
 ```text
-generate mermaid class diagram for the c code provided. @sample.c
+generate UML sequence diagram in mermaid for the logic how user interact with system in @sample.c
 ```
 
 - sample output
 
 ```mermaid
-
+sequenceDiagram
+    participant User
+    participant System
+    User->>System: Insert data
+    System->>System: Create new node
+    System->>System: Insert node into linked list
+    User->>System: Print list
+    System->>System: Traverse linked list
+    System->>User: Print data
 ```
 
-### 8. Interface Generation
+#### 9.2 class diagram
+
+```text
+generate UML class diagram in mermaid for the logic how user interact with system in @sample.c
+```
+
+sample output
+
+```mermaid
+// Assisted by watsonx Code Assistant 
+// watsonx Code Assistant did not check whether this code suggestion might be similar to third party code.
+classDiagram
+class User {
+    + interact()
+}
+
+class System {
+    + process()
+}
+
+User "uses" System
+```
+
+### 10. Interface Generation
 
 - chat in WCA
 
 ```text
-generate c interface version base on the c code provided. @sample.c
+generate interface for @sample.c
 ```
 
 ```c
 // Assisted by watsonx Code Assistant 
+//sample.c
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 typedef struct Node {
     int data;
     struct Node* next;
 } Node;
+
 Node* createNode(int data);
 void insertNode(Node** head, int data);
 void printList(Node* head);
+
 int main() {
     Node* head = NULL;
     insertNode(&head, 1);
@@ -389,34 +603,9 @@ int main() {
     printList(head);
     return 0;
 }
-Node* createNode(int data) {
-    Node* newNode = (Node*)malloc(sizeof(Node));
-    newNode->data = data;
-    newNode->next = NULL;
-    return newNode;
-}
-void insertNode(Node** head, int data) {
-    Node* newNode = createNode(data);
-    if (*head == NULL) {
-        *head = newNode;
-        return;
-    }
-    Node* temp = *head;
-    while (temp->next != NULL) {
-        temp = temp->next;
-    }
-    temp->next = newNode;
-}
-void printList(Node* head) {
-    while (head != NULL) {
-        printf("%d ", head->data);
-        head = head->next;
-    }
-    printf("\n");
-}
 ```
 
-### 9. Build and Deployment Scipt Generation
+### 11. Build and Deployment Scipt Generation
 
 - chat in WCA
 
@@ -429,6 +618,17 @@ generate build and deployment script for @sample.c
 ```bash
 # Assisted by watsonx Code Assistant 
 # watsonx Code Assistant did not check whether this code suggestion might be similar to third party code.
+#!/bin/bash
+
+# Build the program
 gcc -o sample sample.c
+
+# Run the program
 ./sample
+```
+
+run
+
+```text
+1 2 3 4 5 
 ```
