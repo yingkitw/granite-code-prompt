@@ -572,26 +572,27 @@ sequenceDiagram
 #### 8.2 class diagram
 
 ```text
-generate UML class diagram in mermaid for the logic how user interact with system in @translated.cs
+generate UML class diagram in mermaid from @translated.cs
 ```
 
 sample output
 
 ```mermaid
 classDiagram
-    class ComplexObject {
-        - string Name
-        - int Value
-        + ComplexObject(string name, int value)
-        + ToString() string
-    }
+class ComplexObject {
+    -Name : string
+    -Value : int
+    +ComplexObject(name : string, value : int)
+    +ToString() : string
+}
 
-    class Program {
-        + GenerateComplexObject(string name, int value) ComplexObject
-        + PerformComplexOperation(ComplexObject obj1, ComplexObject obj2) ComplexObject
-        + Main() void
-    }
+class Program {
+    +GenerateComplexObject(name : string, value : int) : ComplexObject
+    +PerformComplexOperation(obj1 : ComplexObject, obj2 : ComplexObject) : ComplexObject
+    +Main()
+}
 
+ComplexObject "1" *-- "1" Program : uses
 ```
 
 ### 9. Interface Generation
