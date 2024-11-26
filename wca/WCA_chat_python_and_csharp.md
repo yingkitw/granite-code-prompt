@@ -4,11 +4,15 @@ this repo target to share potential use case and prompt on granite-code models.
 
 ## prerequisite
 
-install IBM watsonx Code Assistant extension in your vscode
+### 1. install IBM watsonx Code Assistant extension in your vscode
 
 ![alt text](../images/wca_extension.png)
 
-- get an API KEY for watsonx Code Assistant
+get an API KEY for watsonx Code Assistant
+
+### 2. install Python in case you dont have.
+
+[Download and install Python](https://www.python.org/)
 
 ## assumption
 
@@ -44,10 +48,6 @@ open the Terminal, that ready for testing.
 ```bash
 cd sample/python/
 ```
-
-run it on cloud
-
-[Code Sandbox](https://codesandbox.io/)
 
 ## use cases
 
