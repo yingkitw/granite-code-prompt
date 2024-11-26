@@ -10,6 +10,14 @@ install IBM watsonx Code Assistant extension in your vscode
 
 - get an API KEY for watsonx Code Assistant
 
+on Mac:
+- [download and install dotnet runtime](https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-9.0.0-macos-arm64-installer?cid=getdotnetcore)
+- [install dotnet command]
+
+```bash
+brew install dotnet
+```
+
 ## assumption
 
 - Code Generation may include variation, which means every generation may not exactly same.
@@ -36,9 +44,175 @@ install IBM watsonx Code Assistant extension in your vscode
 
 ## use cases
 
-### 1. Code Explanation
+### 1. Code Generation
 
-#### 1.1 Explain the whole program
+- create a empty file of generated.cs
+
+#### 1.1 Simple Generation
+
+create project
+
+```bash
+dotnet new console -n generated
+```
+
+```text
+generate a csharp program that do calculate compound interest
+```
+
+```csharp
+// Assisted by watsonx Code Assistant 
+// watsonx Code Assistant did not check whether this code suggestion might be similar to third party code.
+using System;
+
+namespace CompoundInterestCalculator
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Enter the principal amount: ");
+            double principal = Convert.ToDouble(Console.ReadLine());
+
+            Console.WriteLine("Enter the annual interest rate: ");
+            double interestRate = Convert.ToDouble(Console.ReadLine());
+
+            Console.WriteLine("Enter the number of years: ");
+            int years = Convert.ToInt32(Console.ReadLine());
+
+            double amount = principal * Math.Pow(1 + interestRate / 100, years);
+            Console.WriteLine("The compound interest amount is: " + amount);
+        }
+    }
+}
+
+```
+
+copy and paste and save it to Program.cs in the project created.
+
+goto to the folder
+
+```bash
+cd sample/csharp/generated
+```
+
+build
+
+```bash
+dotnet build
+```
+
+```text
+Restore complete (0.2s)
+  generated succeeded (0.1s) → bin/Debug/net9.0/generated.dll
+
+Build succeeded in 0.7s
+```
+
+run
+
+```bash
+bin/Debug/net9.0/generated
+```
+
+sample output
+
+```text
+Enter the principal amount: 
+12
+Enter the annual interest rate: 
+112
+Enter the number of years: 
+3
+The compound interest amount is: 114.337536
+```
+
+#### 1.2 Add Function
+
+```text
+add a api about calculation sum to @Program.cs
+```
+
+```csharp
+// Assisted by watsonx Code Assistant 
+// watsonx Code Assistant did not check whether this code suggestion might be similar to third party code.
+//Program.cs
+namespace CompoundInterestCalculator
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Enter the principal amount: ");
+            double principal = Convert.ToDouble(Console.ReadLine());
+
+            Console.WriteLine("Enter the annual interest rate: ");
+            double interestRate = Convert.ToDouble(Console.ReadLine());
+
+            Console.WriteLine("Enter the number of years: ");
+            int years = Convert.ToInt32(Console.ReadLine());
+
+            double amount = principal * Math.Pow(1 + interestRate / 100, years);
+            Console.WriteLine("The compound interest amount is: " + amount);
+
+            Console.WriteLine("The sum of 1 and 2 is: " + Sum(1, 2));
+        }
+
+        static int Sum(int a, int b)
+        {
+            return a + b;
+        }
+    }
+}
+```
+
+copy and paste back to Program.cs
+
+and do the test again
+
+```bash
+dotnet build
+```
+
+```text
+Restore complete (0.2s)
+  generated succeeded (0.3s) → bin/Debug/net9.0/generated.dll
+
+Build succeeded in 0.9s
+```
+
+run
+
+```bash
+bin/Debug/net9.0/generated
+```
+
+sample output
+
+```text
+Enter the principal amount: 
+3
+Enter the annual interest rate: 
+3
+Enter the number of years: 
+2
+The compound interest amount is: 3.1826999999999996
+The sum of 1 and 2 is: 3
+```
+
+### 2. Code Completion
+
+#### 2.1 Inline Code Completion
+
+- edit some code, and experience the code completion and accept it with `tab` key.
+
+#### 2.2 Multiple Line Code Completion
+
+- type `Option + .` key to generate the completion base on context, and accept it with `tab` key.
+
+### 3. Code Explanation
+
+#### 3.1 Explain the whole program
 
 ```text
 /explain @sample.cs
@@ -58,7 +232,7 @@ Next, the code finds the employee with the highest salary using the OrderByDesce
 Finally, the code finds the average salary of employees who earn more than $60,000 using the Where method and the lambda expression e => e.Salary > 60000. The ToList method is used to convert the filtered list to a new list. The Average method is then used to calculate the average salary of the high earners, and the result is printed to the console using Console.WriteLine.
 ```
 
-### 1.2 Explain particular detail
+### 3.2 Explain particular detail
 
 ```text
 explain how to do the calculation in @sample.cs
@@ -84,9 +258,9 @@ Finally, the results are printed to the console using Console.WriteLine.
 Overall, the code is a simple and effective way to perform these calculations in C#.
 ```
 
-### 2. Generate Documentation
+### 4. Generate Documentation
 
-#### 2.1 Simple Documentation
+#### 4.1 Simple Documentation
 
 ```text
 /document @sample.cs
@@ -140,7 +314,7 @@ namespace EmployeeManagement
 }
 ```
 
-#### 2.2 Generate Function Spec
+#### 4.2 Generate Function Spec
 
 ```text
 generate function spec to markdown for @sample.cs
@@ -178,9 +352,9 @@ Returns:
 The average salary of employees who earn more than $60,000 in the list.
 ```
 
-### 3. Code Translate
+### 5. Code Translate
 
-#### 3.1 convert C# to Python
+#### 5.1 convert C# to Python
 
 ```text
 /translate to python @sample.cs
@@ -218,7 +392,7 @@ average_high_earner_salary = sum(employee.salary for employee in high_earners) /
 print(f"Average salary of high earners: {average_high_earner_salary}")
 ```
 
-#### 3.2 convert Python to C#
+#### 5.2 convert Python to C#
 
 ```text
 /translate to csharp @source.py
@@ -272,9 +446,9 @@ namespace EmployeeManagement
 
 ```
 
-### 4. Test Case Generation
+### 6. Test Case Generation
 
-#### 4.1 Unit Test
+#### 6.1 Unit Test
 
 ```text
 /unit-test @sample.cs
@@ -344,9 +518,9 @@ namespace EmployeeTests
 }
 ```
 
-### 5. Review Code
+### 7. Review Code
 
-#### 5.1 General Review
+#### 7.1 General Review
 
 ```text
 review @sample.cs
@@ -366,7 +540,7 @@ The code uses the System namespace for the Console class, as well as the System.
 Overall, the code is a simple example of how to use LINQ to query and manipulate data in C#.
 ```
 
-#### 5.2 Specific Review
+#### 7.2 Specific Review
 
 ```text
 review @sample.cs on performance
@@ -430,7 +604,7 @@ public class Program
 }
 ```
 
-### 6. Fix Code
+### 8. Fix Code
 
 - chat in WCA
 
@@ -477,7 +651,7 @@ public class Program
 
 ```
 
-### 7. Generate Diagram
+### 9. Generate Diagram
 
 install mermaid preview extension in your vscode
 
@@ -492,7 +666,7 @@ your diagram
     diagram detail 2
 ```
 
-#### 7.1 sequence diagram
+#### 9.1 sequence diagram
 
 ```text
 generate UML sequence diagram in mermaid for the logic how user interact with system in @sample.cs
@@ -510,7 +684,7 @@ sequenceDiagram
     System-->>User: Display output
 ```
 
-#### 7.2 class diagram
+#### 9.2 class diagram
 
 ```text
 generate UML class diagram in mermaid for the logic how user interact with system in @sample.cs
@@ -532,7 +706,7 @@ classDiagram
     Program : decimal averageHighEarnerSalary
 ```
 
-### 8. Interface Generation
+### 10. Interface Generation
 
 - chat in WCA
 
@@ -574,7 +748,7 @@ namespace SampleNamespace
 
 ```
 
-### 9. Build and Deployment Scipt Generation
+### 11. Build and Deployment Scipt Generation
 
 - chat in WCA
 

@@ -1,0 +1,15 @@
+/Users/yingkitw/Desktop/granite-code-prompt/sample/csharp/generated/bin/Debug/net9.0/generated
+/Users/yingkitw/Desktop/granite-code-prompt/sample/csharp/generated/bin/Debug/net9.0/generated.deps.json
+/Users/yingkitw/Desktop/granite-code-prompt/sample/csharp/generated/bin/Debug/net9.0/generated.runtimeconfig.json
+/Users/yingkitw/Desktop/granite-code-prompt/sample/csharp/generated/bin/Debug/net9.0/generated.dll
+/Users/yingkitw/Desktop/granite-code-prompt/sample/csharp/generated/bin/Debug/net9.0/generated.pdb
+/Users/yingkitw/Desktop/granite-code-prompt/sample/csharp/generated/obj/Debug/net9.0/generated.GeneratedMSBuildEditorConfig.editorconfig
+/Users/yingkitw/Desktop/granite-code-prompt/sample/csharp/generated/obj/Debug/net9.0/generated.AssemblyInfoInputs.cache
+/Users/yingkitw/Desktop/granite-code-prompt/sample/csharp/generated/obj/Debug/net9.0/generated.AssemblyInfo.cs
+/Users/yingkitw/Desktop/granite-code-prompt/sample/csharp/generated/obj/Debug/net9.0/generated.csproj.CoreCompileInputs.cache
+/Users/yingkitw/Desktop/granite-code-prompt/sample/csharp/generated/obj/Debug/net9.0/generated.sourcelink.json
+/Users/yingkitw/Desktop/granite-code-prompt/sample/csharp/generated/obj/Debug/net9.0/generated.dll
+/Users/yingkitw/Desktop/granite-code-prompt/sample/csharp/generated/obj/Debug/net9.0/refint/generated.dll
+/Users/yingkitw/Desktop/granite-code-prompt/sample/csharp/generated/obj/Debug/net9.0/generated.pdb
+/Users/yingkitw/Desktop/granite-code-prompt/sample/csharp/generated/obj/Debug/net9.0/generated.genruntimeconfig.cache
+/Users/yingkitw/Desktop/granite-code-prompt/sample/csharp/generated/obj/Debug/net9.0/ref/generated.dll
