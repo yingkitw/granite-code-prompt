@@ -4,15 +4,19 @@ this repo target to share potential use case and prompt on granite-code models.
 
 ## prerequisite
 
-install IBM watsonx Code Assistant extension in your vscode
+### 1. install IBM watsonx Code Assistant extension in your vscode
 
 ![alt text](../images/wca_extension.png)
 
-- get an API KEY for watsonx Code Assistant
+get an API KEY for watsonx Code Assistant
+
+### 2. Install .NET
 
 on Mac:
-- [download and install dotnet runtime](https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-9.0.0-macos-arm64-installer?cid=getdotnetcore)
-- [install dotnet command]
+
+[download and install dotnet runtime](https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-9.0.0-macos-arm64-installer?cid=getdotnetcore)
+
+install dotnet command
 
 ```bash
 brew install dotnet
