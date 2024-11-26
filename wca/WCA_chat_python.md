@@ -553,37 +553,23 @@ sequenceDiagram
 #### 7.2 class diagram
 
 ```text
-generate UML class diagram in mermaid for the logic how user interact with system in @sample.py
+generate UML class diagram in mermaid for @sample.py
 ```
 
 sample output
 
 ```mermaid
 classDiagram
-    class ComplexObject {
-        - name
-        - value
-        + __init__(name, value)
-        + __str__()
-    }
+class ComplexObject {
+    -name
+    -value
+    +__init__(name, value)
+    +__str__()
+}
 
-    class System {
-        + generate_complex_object(name, value)
-        + perform_complex_operation(obj1, obj2)
-        + main()
-    }
-
-    User --> System: Run sample.py
-    System --> System: Import random module
-    System --> System: Define ComplexObject class
-    System --> System: Define generate_complex_object() function
-    System --> System: Define perform_complex_operation() function
-    System --> System: Define main() function
-    System --> System: Generate two ComplexObject instances
-    System --> System: Print the objects
-    System --> System: Perform complex operation
-    System --> System: Print the result
-    System --> User: Exit
+ComplexObject "1" *-- "1" ComplexObject: generates
+ComplexObject "1" *-- "1" ComplexObject: performs
+ComplexObject "1" *-- "1" ComplexObject: main
 ```
 
 ### 10. Interface Generation
