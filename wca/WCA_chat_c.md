@@ -546,29 +546,6 @@ sequenceDiagram
     System->>User: Print data
 ```
 
-#### 9.2 class diagram
-
-```text
-generate UML class diagram in mermaid for the logic how user interact with system in @sample.c
-```
-
-sample output
-
-```mermaid
-// Assisted by watsonx Code Assistant 
-// watsonx Code Assistant did not check whether this code suggestion might be similar to third party code.
-classDiagram
-class User {
-    + interact()
-}
-
-class System {
-    + process()
-}
-
-User "uses" System
-```
-
 ### 10. Interface Generation
 
 - chat in WCA
