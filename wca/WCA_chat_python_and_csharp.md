@@ -1,4 +1,4 @@
-# WCA Chat Command Cookbook - Python
+# WCA Chat Command Cookbook - Python and C#
 
 this repo target to share potential use case and prompt on granite-code models.
 
@@ -327,6 +327,22 @@ class TestPerformComplexOperation(unittest.TestCase):
 if __name__ == "__main__":
     unittest.main()
 
+```
+
+run the test
+
+```bash
+python testcase.py
+```
+
+sample output
+
+```text
+....
+----------------------------------------------------------------------
+Ran 4 tests in 0.000s
+
+OK
 ```
 
 ### 6. Code Translate
