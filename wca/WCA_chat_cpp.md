@@ -390,7 +390,7 @@ generate UML sequence diagram in mermaid for the logic how user interact with sy
 - sample output
 
 ```mermaid
-equenceDiagram
+sequenceDiagram
     participant User as User
     participant System as System
     User->>System: Enter the size of the array
