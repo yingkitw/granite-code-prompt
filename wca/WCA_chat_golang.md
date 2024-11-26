@@ -23,7 +23,6 @@ this repo target to share potential use case and prompt on granite-code models.
 - new a chat session, it help to get clear context and better outcome.
 - delete unused chat sessions also help.
 - simple instruction works fine, hence make it simple
-- the output is quite consistent
 
 ## sample go
 
