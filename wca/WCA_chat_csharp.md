@@ -475,7 +475,7 @@ install mermaid preview extension in your vscode
 
 ![alt text](../images/mermaid_preview.png)
 
-copy and paste the mermaid result to the [diagram file](../sample/cobol/diagram.md) file as follow:
+copy and paste the mermaid result to the [diagram file](../sample/csharp/diagram.md) file as follow:
 
 ```text
 ```mermaid
