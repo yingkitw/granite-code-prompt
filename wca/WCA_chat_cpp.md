@@ -372,7 +372,7 @@ install mermaid preview extension in your vscode
 
 ![alt text](../images/mermaid_preview.png)
 
-copy and paste the mermaid result to the [diagram file](../sample/java/diagram.md) file as follow:
+copy and paste the mermaid result to the [diagram file](../sample/cpp/diagram.md) file as follow:
 
 ```text
 ```mermaid

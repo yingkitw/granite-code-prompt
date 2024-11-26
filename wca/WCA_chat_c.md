@@ -526,6 +526,19 @@ int main() {
 
 ### 9. Generate Diagram
 
+install mermaid preview extension in your vscode
+
+![alt text](../images/mermaid_preview.png)
+
+copy and paste the mermaid result to the [diagram file](../sample/c/diagram.md) file as follow:
+
+```text
+```mermaid
+your diagram
+    diagram detail 1
+    diagram detail 2
+```
+
 #### 9.1 sequence diagram
 
 ```text
