@@ -4,9 +4,19 @@ this repo target to share potential use case and prompt on granite-code models.
 
 ## prerequisite
 
-- get an API KEY for watsonx Code Assistant
+### 1. install IBM watsonx Code Assistant extension in your vscode
 
-- you can leverage the [sample code provided](../sample/cpp/)
+![alt text](../images/wca_extension.png)
+
+get an API KEY for watsonx Code Assistant
+
+### 2. instrall GCC
+
+on Mac
+
+```bash
+brew install gcc
+```
 
 ## assumption
 
@@ -34,7 +44,13 @@ this repo target to share potential use case and prompt on granite-code models.
 
 ### 1. Code Generation
 
-- create a empty file of test.cpp
+goto the sample code folder
+
+```bash
+cd sample/cpp
+```
+
+- create a empty file of generated.cpp
 
 - chat in WCA
 
@@ -49,15 +65,29 @@ generate a c++ program of bubblesort
 - build and run
 
 ```bash
-g++ test.cpp -o test
-chmod 777 test
+g++-14 generated.cpp -o generated
+chmod 777 generated
+./generated
+```
+
+sample outcome
+```text
+Sorted array: 
+11 12 22 25 34 64 90 % 
 ```
 
 - check if compilable or running well.
 
-### 1. Code Completion
+### 2. Code Completion
+
+#### 2.1 Inline Code Completion
 
 - edit some code, and experience the code completion and accept it with `tab` key.
+
+#### 2.2 Multiple Line Code Completion
+
+- type `Option + .` key to generate the completion base on context, and accept it with `tab` key.
+
 
 ### 3. Code Explanation
 
@@ -71,6 +101,34 @@ chmod 777 test
 
 ```markdown
 This code is a C++ program that sorts a vector of Person objects by their age. The Person struct has two members: name and age. The compareByAge function is a custom comparison function that is used by the std::sort algorithm to sort the vector. The main function creates a vector of Person objects, sorts them using the std::sort algorithm, and then prints the sorted list of names and ages.
+```
+
+#### 3.2 Explain specific login
+
+```text
+explain the call flow of @sample.cpp
+```
+
+- sample output
+
+```markdown
+// Assisted by watsonx Code Assistant 
+// watsonx Code Assistant did not check whether this code suggestion might be similar to third party code.
+Here is a breakdown of the call flow of the sample.cpp program:
+
+1. The program starts by defining a Person struct with a name and age.
+2. It then defines a compareByAge function that compares two Person objects by age.
+3. The main function creates a vector of Person objects and initializes it with some sample data.
+4. The main function then calls the std::sort function to sort the vector by age using the compareByAge function.
+5. Finally, the main function iterates over the sorted vector and prints each person's name and age to the console.
+
+The call flow of the program is as follows:
+
+- main() calls std::sort() to sort the vector of Person objects by age.
+- std::sort() calls compareByAge() to compare two Person objects and determine their order.
+- compareByAge() compares the age of two Person objects and returns true if the first object is younger than the second object.
+- std::sort() uses the result of compareByAge() to sort the vector of Person objects.
+- The main function then iterates over the sorted vector and prints each person's name and age to the console.
 ```
 
 ### 4. Generate Documentation
@@ -310,33 +368,64 @@ int main() {
 
 ### 9. Generate Diagram
 
-- chat in WCA
+install mermaid preview extension in your vscode
+
+![alt text](../images/mermaid_preview.png)
+
+copy and paste the mermaid result to the [diagram file](../sample/java/diagram.md) file as follow:
 
 ```text
-generate mermaid diagram for the c++ code provided. @sample.cpp
+```mermaid
+your diagram
+    diagram detail 1
+    diagram detail 2
+```
+
+#### 9.1 sequence diagram
+
+```text
+generate UML sequence diagram in mermaid for the logic how user interact with system in @sample.cpp
 ```
 
 - sample output
 
 ```mermaid
-# Assisted by watsonx Code Assistant 
-# watsonx Code Assistant did not check whether this code suggestion might be similar to third party code.
-classDiagram
-direction TB
-class Person{
-    +string name
-    +int age
-}
-class main{
-    +vector<Person> people
-    +sort(people.begin(),people.end(),compareByAge)
-    +for(const auto& person:people)
-}
-class compareByAge{
-    +bool operator()(const Person& a,const Person& b)
-}
+equenceDiagram
+    participant User as User
+    participant System as System
+    User->>System: Enter the size of the array
+    System->>User: Prompt for array elements
+    User->>System: Enter array elements
+    System->>User: Display sum of array elements
+    User->>System: Display sorted array
+    User->>System: Display median of array
 ```
 
+#### 7.2 class diagram
+
+```text
+generate UML class diagram in mermaid for the logic how user interact with system in @sample.cpp
+```
+
+sample output
+
+```mermaid
+classDiagram
+class Person{
+    -string name
+    -int age
+    +Person(string name, int age)
+    +string getName()
+    +int getAge()
+}
+class sample{
+    -vector<Person> people
+    +sample()
+    +void calculate(vector<Person> people)
+    +void print(vector<Person> people)
+    +void sort(vector<Person> people)
+}
+```
 
 
 ### 10. Interface Generation
@@ -344,40 +433,39 @@ class compareByAge{
 - chat in WCA
 
 ```text
-generate c++ interface version base on the c++ code provided. @sample.cpp
+generate interface for @sample.cpp
 ```
 
 ```cpp
-// Assisted by watsonx Code Assistant 
+ // Assisted by watsonx Code Assistant 
+ 
+//sample.cpp
 #include <iostream>
 #include <vector>
 #include <algorithm>
+
 struct Person {
     std::string name;
     int age;
 };
-bool compareByAge(const Person& a, const Person& b) {
-    return a.age < b.age;
-}
-extern "C" {
-    void sortPeopleByAge(Person* people, int numPeople) {
-        std::vector<Person> peopleVector(people, people + numPeople);
-        std::sort(peopleVector.begin(), peopleVector.end(), compareByAge);
-        for (const auto& person : peopleVector) {
-            std::cout << person.name << ": " << person.age << std::endl;
-        }
-    }
-}
+
+bool compareByAge(const Person& a, const Person& b);
+
 int main() {
-    Person people[] = {
+    std::vector<Person> people = {
         {"Alice", 30},
         {"Bob", 25},
         {"Charlie", 35},
         {"Diana", 28},
         {"Eve", 40}
     };
-    int numPeople = sizeof(people) / sizeof(people[0]);
-    sortPeopleByAge(people, numPeople);
+
+    std::sort(people.begin(), people.end(), compareByAge);
+
+    for (const auto& person : people) {
+        std::cout << person.name << ": " << person.age << std::endl;
+    }
+
     return 0;
 }
 ```

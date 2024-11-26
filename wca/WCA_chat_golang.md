@@ -4,9 +4,11 @@ this repo target to share potential use case and prompt on granite-code models.
 
 ## prerequisite
 
-- get an API KEY for watsonx Code Assistant
+### 1. install IBM watsonx Code Assistant extension in your vscode
 
-- you can leverage the [sample code provided](../sample/golang/)
+![alt text](../images/wca_extension.png)
+
+get an API KEY for watsonx Code Assistant
 
 ## assumption
 
