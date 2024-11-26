@@ -26,7 +26,9 @@ this repo target to share potential use case and prompt on granite-code models.
 
 ### 5. [WCA chat with c#](wca/WCA_chat_csharp.md)
 
-### 6. [WCA chat with COBOL](wca/WCA_chat_cobol.md)
+### 6. [WCA chat with Python then C#](wca/WCA_chat_python_and_csharp.md)
+
+### 7. [WCA chat with COBOL](wca/WCA_chat_cobol.md)
 
 ## use cases
 
