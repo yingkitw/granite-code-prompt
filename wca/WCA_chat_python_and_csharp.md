@@ -576,10 +576,6 @@ classDiagram
         + Main() void
     }
 
-    ComplexObject "1" *-- ComplexObject "1" : GenerateComplexObject
-    ComplexObject "1" *-- ComplexObject "1" : PerformComplexOperation
-    Program "1" *-- ComplexObject "1" : GenerateComplexObject
-    Program "1" *-- ComplexObject "1" : PerformComplexOperation
 ```
 
 ### 9. Interface Generation
