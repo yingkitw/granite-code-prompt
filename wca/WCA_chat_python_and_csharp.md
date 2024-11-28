@@ -589,29 +589,32 @@ namespace ComplexObjectExample
 - chat in WCA
 
 ```text
-generate build and deployment script @translated.cs
+generate deployment guide in shell script for sample.py
 ```
 
 - sample output
 
 ```bash
-# Assisted by watsonx Code Assistant 
-# watsonx Code Assistant did not check whether this code suggestion might be similar to third party code.
 #!/bin/bash
 
-# Build the project
-dotnet build translated.cs
+# Create a virtual environment
+python3 -m venv venv
 
-# Run the tests
-dotnet test translated.cs.Tests
+# Activate the virtual environment
+source venv/bin/activate
 
-# Create a NuGet package
-dotnet pack translated.cs -c Release
+# Install the required dependencies
+pip install -r requirements.txt
 
-# Publish the application
-dotnet publish translated.cs -c Release -o publish
-
-# Deploy the application to a server
-rsync -avz publish/ username@server:/path/to/destination
-
+# Run the application
+python sample.py
 ```
+
+```text
+1. Copy the above to sample_deployment.sh
+
+2. Change permission for sample_deployment.sh --> chmod 700 sample_deployment.sh
+
+3. To run, go to terminal and execute --> ./sample_deployment.sh
+```
+
