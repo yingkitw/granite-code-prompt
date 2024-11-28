@@ -350,9 +350,43 @@ Ran 4 tests in 0.000s
 OK
 ```
 
-### 6. Code Translate
+### 6. Build and Deployment Scipt Generation
 
-#### 6.1 convert python to c#
+- chat in WCA
+
+```text
+generate deployment guide in shell script for sample.py
+```
+
+- sample output
+
+```bash
+#!/bin/bash
+
+# Create a virtual environment
+python3 -m venv venv
+
+# Activate the virtual environment
+source venv/bin/activate
+
+# Install the required dependencies
+pip install -r requirements.txt
+
+# Run the application
+python sample.py
+```
+
+```text
+1. Copy the above to sample_deployment.sh
+
+2. Change permission for sample_deployment.sh --> chmod 700 sample_deployment.sh
+
+3. To run, go to terminal and execute --> ./sample_deployment.sh
+```
+
+### 7. Code Translate
+
+#### 7.1 convert python to c#
 
 ```text
 /translate to csharp @sample.py
@@ -421,9 +455,9 @@ namespace ComplexObjectExample
 
 copy and paste the content to translated.cs
 
-### 7. Review Code
+### 8. Review Code
 
-#### 7.1 Ask for suggestion on specific area
+#### 8.1 Ask for suggestion on specific area
 
 ```text
 review the translated.cs and suggest ways to improve performance
@@ -452,7 +486,7 @@ To improve performance, there are a few things that could be done:
 Overall, these are just a few suggestions for improving performance. It's important to note that performance can vary depending on the specific use case and hardware, so it's always a good idea to test and benchmark any changes to ensure they have the desired effect.
 ```
 
-### 8. Generate Diagram
+### 9. Generate Diagram
 
 install mermaid preview extension in your vscode
 
@@ -467,7 +501,7 @@ your diagram
     diagram detail 2
 ```
 
-#### 8.1 sequence diagram
+#### 9.1 sequence diagram
 
 ```text
 generate UML sequence diagram in mermaid for the logic how user interact with system in @translated.cs
@@ -509,7 +543,7 @@ sequenceDiagram
     system-->>user: return void
 ```
 
-### 9. Interface Generation
+### 10. Interface Generation
 
 - chat in WCA
 
@@ -583,38 +617,3 @@ namespace ComplexObjectExample
 }
 
 ```
-
-### 10. Build and Deployment Scipt Generation
-
-- chat in WCA
-
-```text
-generate deployment guide in shell script for sample.py
-```
-
-- sample output
-
-```bash
-#!/bin/bash
-
-# Create a virtual environment
-python3 -m venv venv
-
-# Activate the virtual environment
-source venv/bin/activate
-
-# Install the required dependencies
-pip install -r requirements.txt
-
-# Run the application
-python sample.py
-```
-
-```text
-1. Copy the above to sample_deployment.sh
-
-2. Change permission for sample_deployment.sh --> chmod 700 sample_deployment.sh
-
-3. To run, go to terminal and execute --> ./sample_deployment.sh
-```
-
