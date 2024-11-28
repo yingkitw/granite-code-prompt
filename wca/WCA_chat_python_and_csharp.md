@@ -421,9 +421,9 @@ namespace ComplexObjectExample
 
 copy and paste the content to translated.cs
 
-### 6. Review Code
+### 7. Review Code
 
-#### 6.1 Ask for suggestion on specific area
+#### 7.1 Ask for suggestion on specific area
 
 ```text
 review the translated.cs and suggest ways to improve performance
@@ -452,7 +452,7 @@ To improve performance, there are a few things that could be done:
 Overall, these are just a few suggestions for improving performance. It's important to note that performance can vary depending on the specific use case and hardware, so it's always a good idea to test and benchmark any changes to ensure they have the desired effect.
 ```
 
-### 7. Generate Diagram
+### 8. Generate Diagram
 
 install mermaid preview extension in your vscode
 
@@ -467,7 +467,7 @@ your diagram
     diagram detail 2
 ```
 
-#### 7.1 sequence diagram
+#### 8.1 sequence diagram
 
 ```text
 generate UML sequence diagram in mermaid for the logic how user interact with system in @translated.cs
@@ -509,33 +509,7 @@ sequenceDiagram
     system-->>user: return void
 ```
 
-#### 7.2 class diagram
-
-```text
-generate UML class diagram in mermaid from @translated.cs
-```
-
-sample output
-
-```mermaid
-classDiagram
-class ComplexObject {
-    -Name : string
-    -Value : int
-    +ComplexObject(name : string, value : int)
-    +ToString() : string
-}
-
-class Program {
-    +GenerateComplexObject(name : string, value : int) : ComplexObject
-    +PerformComplexOperation(obj1 : ComplexObject, obj2 : ComplexObject) : ComplexObject
-    +Main()
-}
-
-ComplexObject "1" *-- "1" Program : uses
-```
-
-### 8. Interface Generation
+### 9. Interface Generation
 
 - chat in WCA
 
@@ -610,7 +584,7 @@ namespace ComplexObjectExample
 
 ```
 
-### 9. Build and Deployment Scipt Generation
+### 10. Build and Deployment Scipt Generation
 
 - chat in WCA
 
