@@ -97,22 +97,26 @@ Compound interest is 102.5
 #### 1.2 Add Function
 
 ```text
-add a api about calculation sum to @generated.py
+add function to calculate sum of 2 numbers along with a sample call to the function to generated.py
 ```
 
 ```python
 # Assisted by watsonx Code Assistant 
 //generated.py
  
+  # Assisted by watsonx Code Assistant 
+  
+ 
+//generated.py
+ 
 def calculate_compound_interest(principal, rate, time):
     # formula to calculate compound interest
     compound_interest = principal * (pow((1 + rate / 100), time)) - principal
+
     return compound_interest
 
 def calculate_sum(a, b):
-    # formula to calculate sum
-    sum = a + b
-    return sum
+    return a + b
 
 # input values
 principal = 1000
@@ -122,12 +126,13 @@ time = 2
 # calculate compound interest
 compound_interest = calculate_compound_interest(principal, rate, time)
 
-# calculate sum
-sum = calculate_sum(10, 20)
-
 # print the result
 print("Compound interest is", compound_interest)
+
+# sample call to calculate_sum function
+sum = calculate_sum(10, 20)
 print("Sum is", sum)
+
 ```
 
 copy and paste back to generated.py
@@ -416,103 +421,38 @@ namespace ComplexObjectExample
 
 copy and paste the content to translated.cs
 
-### 6. Fix Code
+### 6. Review Code
 
-- chat in WCA
-
-```text
-fix @translated.cs
-```
-
-- sample output
-
-
-```csharp
-// Assisted by watsonx Code Assistant 
-// watsonx Code Assistant did not check whether this code suggestion might be similar to third party code.
-using System;
-
-namespace ComplexObjectExample
-{
-    public class ComplexObject
-    {
-        public string Name { get; set; }
-        public int Value { get; set; }
-
-        public ComplexObject(string name, int value)
-        {
-            Name = name;
-            Value = value;
-        }
-
-        public override string ToString()
-        {
-            return $"Object: {Name}, Value: {Value}";
-        }
-    }
-
-    public class Program
-    {
-        public static ComplexObject GenerateComplexObject(string name, int value)
-        {
-            return new ComplexObject(name, value);
-        }
-
-        public static ComplexObject PerformComplexOperation(ComplexObject obj1, ComplexObject obj2)
-        {
-            if (obj1.Value > obj2.Value)
-            {
-                return obj1;
-            }
-            else
-            {
-                return obj2;
-            }
-        }
-
-        public static void Main()
-        {
-            ComplexObject obj1 = GenerateComplexObject("Object1", new Random().Next(1, 100));
-            ComplexObject obj2 = GenerateComplexObject("Object2", new Random().Next(1, 100));
-
-            Console.WriteLine($"Object1: {obj1}");
-            Console.WriteLine($"Object2: {obj2}");
-
-            ComplexObject result = PerformComplexOperation(obj1, obj2);
-
-            Console.WriteLine($"Result: {result}");
-        }
-    }
-}
-```
-
-### 7. Review Code
-
-#### 7.1 Ask for suggestion on specific area
+#### 6.1 Ask for suggestion on specific area
 
 ```text
-suggest how to improve performance for @translated.cs
+review the translated.cs and suggest ways to improve performance
 ```
 
 - sample output
 
 ```text
-To improve the performance of the translated.cs code, you can consider the following suggestions:
+# Assisted by watsonx Code Assistant 
+The translated.cs code is a C# program that defines a class called ComplexObject and a method called GenerateComplexObject. The GenerateComplexObject method takes two parameters, name and value, and returns a new instance of the ComplexObject class with the specified name and value.
 
-Use efficient data structures: In the code, the ComplexObject class uses a simple string and integer as its properties. However, if you have more complex data, you can consider using more efficient data structures like lists, arrays, or dictionaries to store and manipulate the data.
+The program also defines a method called PerformComplexOperation, which takes two ComplexObject instances as parameters and returns the object with the highest value.
 
-Optimize loops and algorithms: The code contains a loop that generates random numbers and creates ComplexObject instances. You can optimize this loop by using a more efficient algorithm or data structure. For example, you can use a random number generator that generates multiple random numbers at once instead of generating one number at a time.
+In the Main method, two ComplexObject instances are created using the GenerateComplexObject method, and their values are printed to the console. Then, the PerformComplexOperation method is called with these two objects as parameters, and the result is printed to the console.
 
-Minimize object creation: The code creates new ComplexObject instances in the GenerateComplexObject and PerformComplexOperation methods. You can minimize object creation by reusing existing objects or using a pool of objects.
+To improve performance, there are a few things that could be done:
 
-Use parallel processing: If you have a multi-core processor, you can use parallel processing to perform multiple operations simultaneously. For example, you can use the Parallel.For method to execute multiple iterations of the loop in parallel.
+1. Use a StringBuilder instead of string concatenation: String concatenation can be slow, especially when concatenating multiple strings. Using a StringBuilder can significantly improve performance by preallocating a buffer and appending strings to it in a more efficient way.
 
-Optimize memory usage: The code creates new ComplexObject instances and uses them in the Main method. You can optimize memory usage by reusing objects and minimizing memory allocations. For example, you can use a StringBuilder to build a string instead of creating a new string object for each concatenation.
+2. Use a Random instance instead of calling new Random().Next() repeatedly: Creating a new Random instance is expensive, so it's better to create one instance and reuse it for multiple calls to Next().
 
-By implementing these suggestions, you can improve the performance of the translated.cs code.
+3. Use a more efficient algorithm for generating random numbers: The current implementation uses the Next() method of the Random class, which generates random numbers using a linear congruential generator. This algorithm is not the most efficient, and there are other algorithms that can generate random numbers more quickly.
+
+4. Use a profiler to identify performance bottlenecks: Profilers can help identify areas of the code that are causing performance issues. By analyzing the profiling data, it may be possible to optimize specific sections of the code to improve performance.
+
+Overall, these are just a few suggestions for improving performance. It's important to note that performance can vary depending on the specific use case and hardware, so it's always a good idea to test and benchmark any changes to ensure they have the desired effect.
 ```
 
-### 8. Generate Diagram
+### 7. Generate Diagram
 
 install mermaid preview extension in your vscode
 
@@ -527,7 +467,7 @@ your diagram
     diagram detail 2
 ```
 
-#### 8.1 sequence diagram
+#### 7.1 sequence diagram
 
 ```text
 generate UML sequence diagram in mermaid for the logic how user interact with system in @translated.cs
@@ -569,7 +509,7 @@ sequenceDiagram
     system-->>user: return void
 ```
 
-#### 8.2 class diagram
+#### 7.2 class diagram
 
 ```text
 generate UML class diagram in mermaid from @translated.cs
@@ -595,7 +535,7 @@ class Program {
 ComplexObject "1" *-- "1" Program : uses
 ```
 
-### 9. Interface Generation
+### 8. Interface Generation
 
 - chat in WCA
 
@@ -670,7 +610,7 @@ namespace ComplexObjectExample
 
 ```
 
-### 10. Build and Deployment Scipt Generation
+### 9. Build and Deployment Scipt Generation
 
 - chat in WCA
 
