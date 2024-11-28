@@ -1,6 +1,8 @@
+// Assisted by watsonx Code Assistant 
+// watsonx Code Assistant did not check whether this code suggestion might be similar to third party code.
 using System;
 
-namespace ComplexObjectExample
+namespace Sample
 {
     public class ComplexObject
     {
@@ -19,36 +21,32 @@ namespace ComplexObjectExample
         }
     }
 
-    public class Program
+    public static ComplexObject GenerateComplexObject(string name, int value)
     {
-        public static ComplexObject GenerateComplexObject(string name, int value)
+        return new ComplexObject(name, value);
+    }
+
+    public static ComplexObject PerformComplexOperation(ComplexObject obj1, ComplexObject obj2)
+    {
+        if (obj1.Value > obj2.Value)
         {
-            return new ComplexObject(name, value);
+            return obj1;
         }
-
-        public static ComplexObject PerformComplexOperation(ComplexObject obj1, ComplexObject obj2)
+        else
         {
-            if (obj1.Value > obj2.Value)
-            {
-                return obj1;
-            }
-            else
-            {
-                return obj2;
-            }
+            return obj2;
         }
+    }
 
-        public static void Main()
-        {
-            ComplexObject obj1 = GenerateComplexObject("Object1", new Random().Next(1, 100));
-            ComplexObject obj2 = GenerateComplexObject("Object2", new Random().Next(1, 100));
+    public static void Main()
+    {
+        ComplexObject obj1 = GenerateComplexObject("Object1", new Random().Next(1, 100));
+        ComplexObject obj2 = GenerateComplexObject("Object2", new Random().Next(1, 100));
 
-            Console.WriteLine($"Object1: {obj1}");
-            Console.WriteLine($"Object2: {obj2}");
+        Console.WriteLine($"Object1: {obj1}");
+        Console.WriteLine($"Object2: {obj2}");
 
-            ComplexObject result = PerformComplexOperation(obj1, obj2);
-
-            Console.WriteLine($"Result: {result}");
-        }
+        ComplexObject result = PerformComplexOperation(obj1, obj2);
+        Console.WriteLine($"Result: {result}");
     }
 }
