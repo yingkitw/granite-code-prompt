@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/yingkitw/Desktop/granite-code-prompt/sample/csharp/generated/generated.csproj",
+      "projectUniqueName": "/Users/yingkitw/Desktop/granite-code-prompt/sample/python/generated/generated.csproj",
       "projectName": "generated",
-      "projectPath": "/Users/yingkitw/Desktop/granite-code-prompt/sample/csharp/generated/generated.csproj",
+      "projectPath": "/Users/yingkitw/Desktop/granite-code-prompt/sample/python/generated/generated.csproj",
       "packagesPath": "/Users/yingkitw/.nuget/packages/",
-      "outputPath": "/Users/yingkitw/Desktop/granite-code-prompt/sample/csharp/generated/obj/",
+      "outputPath": "/Users/yingkitw/Desktop/granite-code-prompt/sample/python/generated/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/yingkitw/.nuget/NuGet/NuGet.Config"

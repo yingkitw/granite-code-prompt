@@ -37,9 +37,15 @@ install IBM watsonx Code Assistant extension in your vscode
 
 ### 5. [WCA chat with c#](wca/WCA_chat_csharp.md)
 
-### 6. [WCA chat with Python then C#](wca/WCA_chat_python_and_csharp.md)
+### 6. [WCA chat with C# then Java](wca/WCA_chat_csharp_and_java.md)
 
-### 7. [WCA chat with COBOL](wca/WCA_chat_cobol.md)
+### 7. [WCA chat with Python then C#](wca/WCA_chat_python_and_csharp.md)
+
+### 8. [WCA chat with COBOL](wca/WCA_chat_cobol.md)
+
+### 9. [WCA chat with Perl](wca/WCA_chat_perl.md)
+
+### 10. [WCA chat with SQL](wca/WCA_chat_sql.md)
 
 ## use cases
 

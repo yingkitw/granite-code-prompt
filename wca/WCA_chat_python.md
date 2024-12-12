@@ -538,16 +538,16 @@ sequenceDiagram
     participant User
     participant System
     User->>System: Run sample.py
-    System->>System: Import random module
+    System->>System: Import necessary libraries
     System->>System: Define ComplexObject class
-    System->>System: Define generate_complex_object() function
-    System->>System: Define perform_complex_operation() function
-    System->>System: Define main() function
-    System->>System: Generate two ComplexObject instances
-    System->>System: Print the objects
-    System->>System: Perform complex operation
-    System->>System: Print the result
-    System->>User: Exit
+    System->>System: Define generate_complex_object function
+    System->>System: Define perform_complex_operation function
+    System->>System: Define main function
+    System->>System: Create obj1 and obj2 using generate_complex_object
+    System->>System: Print obj1 and obj2
+    System->>System: Call perform_complex_operation with obj1 and obj2
+    System->>System: Print result
+    System->>User: End program
 ```
 
 #### 7.2 class diagram

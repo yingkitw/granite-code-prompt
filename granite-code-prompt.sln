@@ -3,11 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.002.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sample", "sample", "{4DAAAE63-0637-4861-9E75-902B435CEF00}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sample", "sample", "{202F4C32-BC7E-49B7-96DB-48616918268C}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "csharp", "csharp", "{8C06AC19-83EE-4A88-A34E-D02BE8A89BE1}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "python", "python", "{BB29F250-A6E1-435D-8FF1-573541474545}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "generated", "sample\csharp\generated\generated.csproj", "{9587B31A-521D-4743-BCBA-CDD604803898}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "generated", "sample\python\generated\generated.csproj", "{0357D928-A2A4-4B4C-90F2-E71D9061669D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "csharp", "csharp", "{1FAC9136-5562-4E7E-866C-E6D547795E51}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "generated", "sample\csharp\generated\generated.csproj", "{8C415A6E-1AF7-454E-9AC3-7433896B1260}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,19 +19,25 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9587B31A-521D-4743-BCBA-CDD604803898}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9587B31A-521D-4743-BCBA-CDD604803898}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9587B31A-521D-4743-BCBA-CDD604803898}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9587B31A-521D-4743-BCBA-CDD604803898}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0357D928-A2A4-4B4C-90F2-E71D9061669D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0357D928-A2A4-4B4C-90F2-E71D9061669D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0357D928-A2A4-4B4C-90F2-E71D9061669D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0357D928-A2A4-4B4C-90F2-E71D9061669D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C415A6E-1AF7-454E-9AC3-7433896B1260}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C415A6E-1AF7-454E-9AC3-7433896B1260}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C415A6E-1AF7-454E-9AC3-7433896B1260}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C415A6E-1AF7-454E-9AC3-7433896B1260}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{8C06AC19-83EE-4A88-A34E-D02BE8A89BE1} = {4DAAAE63-0637-4861-9E75-902B435CEF00}
-		{9587B31A-521D-4743-BCBA-CDD604803898} = {8C06AC19-83EE-4A88-A34E-D02BE8A89BE1}
+		{BB29F250-A6E1-435D-8FF1-573541474545} = {202F4C32-BC7E-49B7-96DB-48616918268C}
+		{0357D928-A2A4-4B4C-90F2-E71D9061669D} = {BB29F250-A6E1-435D-8FF1-573541474545}
+		{1FAC9136-5562-4E7E-866C-E6D547795E51} = {202F4C32-BC7E-49B7-96DB-48616918268C}
+		{8C415A6E-1AF7-454E-9AC3-7433896B1260} = {1FAC9136-5562-4E7E-866C-E6D547795E51}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {F53256F6-1C97-4882-B7BD-3C3AB2CA26A5}
+		SolutionGuid = {10DFF9BC-6FEA-46BB-A621-2AD2B21EF2B1}
 	EndGlobalSection
 EndGlobal
