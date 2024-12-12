@@ -2,7 +2,7 @@
 
 this repo target to share potential use case and prompt on granite 3 models and WCA.
 
-- get the  [WCA Chat](./WCA_chat.md) use cases and sample command in chat.
+- get the  [WCA Chat](https://github.ibm.com/watsonx-apac/wca-recipes) use cases and sample command in chat.
 
 # Prompting with IBM Granite 3 Model for Coding Use Cases
 
